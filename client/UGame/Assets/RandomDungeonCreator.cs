@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-//jimjiao Update
+//jimjiao
 public class RoomData{
 	public int ID;
 	public List<int[]> TileList;
