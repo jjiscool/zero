@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\IMESH.cs" />
+     <Compile Include="Assets\MovingObject.cs" />
      <Compile Include="Assets\RandomDungeonCreator.cs" />
      <Compile Include="Assets\TilesManager.cs" />
      <Compile Include="Assets\Triangulator.cs" />
