@@ -19,17 +19,36 @@ public class TilesManager : MonoBehaviour {
 	private  GameObject[,] tile_gos;
 
 
+	private int mapHeight;
+	private int mapWidth;
+	private float tileSize;
+
+
 	private RandomDungeonCreator randomMapScript;
 	void Awake(){
 		
 		randomMapScript = GetComponent<RandomDungeonCreator>();
-		tile_gos = new GameObject[randomMapScript.MapHeight, randomMapScript.MapWidth];
-		Debug.Log (randomMapScript.TileSize);
-		placeMap (randomMapScript.MapWidth,randomMapScript.MapHeight,randomMapScript.TileSize);
+		mapHeight = randomMapScript.MapHeight;
+		mapWidth = randomMapScript.MapWidth;
+		tileSize = randomMapScript.TileSize;
+		tile_gos = new GameObject[mapHeight, mapWidth];
+//		Debug.Log (randomMapScript.TileSize);
+		placeMap (mapWidth,mapHeight,tileSize);
 	}
 
+	//行列 转换到 坐标
+	public Vector2 posTransform(int i,int j){
+		float MaxW = (float)mapWidth * tileSize;
+		float MaxH = (float)mapHeight * tileSize;
+		float posx = transform.position.x + j * tileSize - MaxW/2+tileSize/2;
+		float posy = transform.position.y - i * tileSize + MaxH/2-tileSize/2;
 
-	public void placeMap(int mapWidth,int mapHeight,float tileSzie){
+		Vector2 pos = new Vector2 (posx,posy);
+//		Debug.Log (i + "," + j + "," + posx+ ","+posy);
+		return pos;
+	}
+
+	public void placeMap(int mapWidth,int mapHeight,float tileSize){
 		
 		string tileTypeLeft = "";
 		string tileTypeRight = "";
@@ -40,13 +59,9 @@ public class TilesManager : MonoBehaviour {
 			for (int j = 0; j < mapHeight; j++)
 			{
 				//获取砖块类型 i:行 j:列
-				string tileType = randomMapScript.getMapTileType (i, j);;
+				string tileType = randomMapScript.getMapTileType (i, j);
 
-				float MaxW = (float)mapWidth * tileSzie;
-				float MaxH = (float)mapHeight * tileSzie;
-				float posx = transform.position.x + j * tileSzie - MaxW/2+tileSzie/2;
-				float posy = transform.position.y - i * tileSzie + MaxH/2-tileSzie/2;
-				Vector3 newp = new Vector3 (posx, posy, transform.position.z);
+				Vector2 newp = posTransform (i, j);
 
 				//处理边缘
 				if (i == 0 || i == mapWidth-1) {
@@ -55,7 +70,7 @@ public class TilesManager : MonoBehaviour {
 						tile_gos [i, j] = (GameObject)Instantiate (wallTiles[4], newp, Quaternion.identity);
 						tile_gos [i, j].layer = 12;
 						tile_gos [i, j].transform.SetParent(transform);
-						tile_gos [i, j].transform.localScale= new Vector3(tileSzie,tileSzie,1);
+						tile_gos [i, j].transform.localScale= new Vector3(tileSize,tileSize,1);
 						break;
 					case 0:
 						tileTypeDown = randomMapScript.getMapTileType (1, j);
@@ -68,7 +83,7 @@ public class TilesManager : MonoBehaviour {
 						}
 						tile_gos [i, j].layer = 12;
 						tile_gos [i, j].transform.SetParent(transform);
-						tile_gos [i, j].transform.localScale = new Vector3 (tileSzie, tileSzie, 1);
+						tile_gos [i, j].transform.localScale = new Vector3 (tileSize, tileSize, 1);
 						break;
 	
 
@@ -80,7 +95,7 @@ public class TilesManager : MonoBehaviour {
 					tile_gos [i, j] = (GameObject)Instantiate (wallTiles[4], newp, Quaternion.identity);
 					tile_gos [i, j].layer = 12;
 					tile_gos [i, j].transform.SetParent(transform);
-					tile_gos [i, j].transform.localScale= new Vector3(tileSzie,tileSzie,1);
+					tile_gos [i, j].transform.localScale= new Vector3(tileSize,tileSize,1);
 					continue;
 				}else {
 					tileTypeLeft = randomMapScript.getMapTileType (i, j-1);
@@ -137,7 +152,7 @@ public class TilesManager : MonoBehaviour {
 				//	tile_gos [i, j].name = name;
 				//} 
 				tile_gos [i, j].transform.SetParent(transform);
-				tile_gos [i, j].transform.localScale= new Vector3(tileSzie,tileSzie,1);
+				tile_gos [i, j].transform.localScale= new Vector3(tileSize,tileSize,1);
 
 			}
 

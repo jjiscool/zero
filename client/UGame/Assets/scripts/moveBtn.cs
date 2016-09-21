@@ -2,9 +2,10 @@
 using System.Collections;
 
 public class moveBtn : MonoBehaviour {
-	public GameObject player;
+//	public GameObject player;
 	public float speed;
 	public void onClickUp(){
+		
 		//player.transform.position = new Vector3 (player.transform.position.x, player.transform.position.y + speed, 0);
 		GameObject.Find ("player").GetComponent<playerMove> ().moveUp ();
 		
@@ -25,11 +26,11 @@ public class moveBtn : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-	
+		
 	}
 	
 	// Update is called once per frame
 	void Update () {
-	
+		
 	}
 }

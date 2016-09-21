@@ -8,12 +8,24 @@ public class playerMove : MonoBehaviour {
 	public float speed;
 	public float step;
 	// Use this for initialization
+
+	private GameObject map;
+
+	void Awake(){
+		map = GameObject.Find ("map");
+		Vector2 pos = map.GetComponent<TilesManager>().posTransform(15,15);
+		Debug.Log (pos);
+
+	}
+
 	void Start () {
 		isMoving = false;
 		endxy = transform.position;
 //		Debug.Log (transform.position.y);
 	}
 	public void moveUp(){
+//		Debug.Log (randomMapScript);
+//		map.GetComponent<RandomDungeonCreator>().getMapTileType();
 		if (isMoving)
 			return;
 		//beginxy = transform.position;
