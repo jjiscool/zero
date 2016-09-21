@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-//jimjiao use ignore 2
+using Random = UnityEngine.Random; 
+
 public class RoomData{
 	public int ID;
 	public List<int[]> TileList;
@@ -56,9 +57,20 @@ public class RandomDungeonCreator : MonoBehaviour {
 	//调用贴图管理类
 	public TilesManager tilesScript;
 
+	//返回room中的一个随机位置
+	public int[] getRoomRandomRow(){
+		
+		RoomData randomRoomData = rooms[Random.Range (0, rooms.Count)];
+		int max = randomRoomData.TileList.Count;
+		int[] randomRow = randomRoomData.TileList [Random.Range (0, max)];
+
+		return randomRow;
+
+	}
+
 	void Start () {
 		//lasttime = 0.0f;
-
+//		getRoomRandomPos();
 
 		//Debug.Log ("ROOM ID= " + rooms[0].ID+" : "+rooms[0].TileList[0][0]+","+rooms[0].TileList[0][1]);
 

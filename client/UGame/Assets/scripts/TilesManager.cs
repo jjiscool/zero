@@ -44,7 +44,6 @@ public class TilesManager : MonoBehaviour {
 		float posy = transform.position.y - i * tileSize + MaxH/2-tileSize/2;
 
 		Vector2 pos = new Vector2 (posx,posy);
-//		Debug.Log (i + "," + j + "," + posx+ ","+posy);
 		return pos;
 	}
 

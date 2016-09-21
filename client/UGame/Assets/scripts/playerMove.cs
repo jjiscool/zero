@@ -11,10 +11,18 @@ public class playerMove : MonoBehaviour {
 
 	private GameObject map;
 
+	//player初始位置
+	private int[] iniRow;
+	private Vector2 iniPos;
+
+
 	void Awake(){
 		map = GameObject.Find ("map");
-		Vector2 pos = map.GetComponent<TilesManager>().posTransform(15,15);
-		Debug.Log (pos);
+
+		iniRow = map.GetComponent<RandomDungeonCreator>().getRoomRandomRow();
+		iniPos = map.GetComponent<TilesManager>().posTransform(iniRow[0],iniRow[1]);
+		Debug.Log (iniPos);
+		transform.position = iniPos;
 
 	}
 
