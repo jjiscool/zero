@@ -671,12 +671,7 @@ public class ligthmap : MonoBehaviour {
 		buildLocalMap (LightLength,LightLength);
 		FindAllEdegeInLocalMap ();
 		computedistance ();
-
-		//DrawLocalMap();
 		CutLine ();
-		//DrawLineLightFace ();
-		//List<Vector2> lights = getFinalLightShape ();
-		//DrawShap (lights);
 		GameObject.Find ("mask").GetComponent<IMESH> ().DrawLightMesh ();
 
 	}
@@ -688,31 +683,6 @@ public class ligthmap : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		float d = 0.05f;
-		if (Input.GetKeyDown(KeyCode.W))
-		{
-
-			lightsource.transform.position = new Vector3 (lightsource.transform.position.x, lightsource.transform.position.y + d, lightsource.transform.position.z);
-			reDrawLight ();
-		}
-		if (Input.GetKeyDown(KeyCode.A))
-		{
-
-			lightsource.transform.position = new Vector3 (lightsource.transform.position.x-d, lightsource.transform.position.y, lightsource.transform.position.z);
-			reDrawLight ();
-		}
-		if (Input.GetKeyDown(KeyCode.S))
-		{
-
-			lightsource.transform.position = new Vector3 (lightsource.transform.position.x, lightsource.transform.position.y-d, lightsource.transform.position.z);
-			reDrawLight ();
-		}
-		if (Input.GetKeyDown(KeyCode.D))
-		{
-			lightsource.transform.position = new Vector3 (lightsource.transform.position.x+d, lightsource.transform.position.y, lightsource.transform.position.z);
-			reDrawLight ();
-		}
-
-
+		
 	}
 }

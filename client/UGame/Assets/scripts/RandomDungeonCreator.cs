@@ -25,15 +25,6 @@ public class DoorData{
 
 }
 public class RandomDungeonCreator : MonoBehaviour {
-	// Use this for initialization
-	float lasttime;
-	//配置贴图
-	public GameObject wall;
-	public GameObject room;
-	public GameObject maze;
-	public GameObject door;
-	//地牢贴图数组
-	private  GameObject[,] tile_gos;
 	//地图数组
 	private  int[,] map;
 	//单元个数
@@ -52,11 +43,6 @@ public class RandomDungeonCreator : MonoBehaviour {
 	private List<int> mazesID;//走廊ID列表
 	private List<RoomData> rooms;
 	private List<DoorData> doors;
-	//shilihua
-
-	//调用贴图管理类
-	public TilesManager tilesScript;
-
 	//返回room中的一个随机位置
 	public int[] getRoomRandomRow(){
 		
@@ -67,13 +53,14 @@ public class RandomDungeonCreator : MonoBehaviour {
 		return randomRow;
 
 	}
-
-	void Start () {
-		//lasttime = 0.0f;
-//		getRoomRandomPos();
-
-		//Debug.Log ("ROOM ID= " + rooms[0].ID+" : "+rooms[0].TileList[0][0]+","+rooms[0].TileList[0][1]);
-
+	//获取砖块类型
+	public string getMapTileType(int i,int j){
+		if (idtype.ContainsKey(map [i, j]))
+		{
+			//Debug.Log ("["+i+","+j+"] ID = "+map [i, j]+", Type = "+idtype[map [i, j]]);
+			return idtype [map [i, j]];
+		}
+		return "WALL";
 	}
 	//初始化地图
 	void iniMap(){
@@ -85,7 +72,6 @@ public class RandomDungeonCreator : MonoBehaviour {
 		//doorsID = new List<int>();
 		idtype= new Dictionary<int,string>();
 		map  = new int[MapHeight, MapWidth];
-		tile_gos = new GameObject[MapHeight, MapWidth];
 		for (int i = 0; i < MapHeight; i++)
 			for (int j = 0; j < MapWidth; j++)
 			{
@@ -353,87 +339,21 @@ public class RandomDungeonCreator : MonoBehaviour {
 			}
 		}
 	}
-	//获取砖块类型
-	public string getMapTileType(int i,int j){
-		if (idtype.ContainsKey(map [i, j]))
-		{
-			//Debug.Log ("["+i+","+j+"] ID = "+map [i, j]+", Type = "+idtype[map [i, j]]);
-			return idtype [map [i, j]];
-		}
-		return "WALL";
+	//
+	void Start () {
+
 	}
 	//
-
-	//产生贴图
-	void placeMap(){
-		for (int i = 0; i < MapHeight; i++){
-			for (int j = 0; j < MapWidth; j++)
-			{
-
-				float MaxW = (float)MapWidth * TileSize;
-				float MaxH = (float)MapHeight * TileSize;
-				float posx = transform.position.x + j * TileSize - MaxW/2+TileSize/2;
-				float posy = transform.position.y - i * TileSize + MaxH/2-TileSize/2;
-				Vector3 newp = new Vector3 (posx, posy, transform.position.z);
-				switch(getMapTileType(i,j)){
-				default:
-					tile_gos [i, j] = (GameObject)Instantiate (wall, newp, transform.rotation);
-					string name = "wall("+i+","+j+"):"+map [i, j];
-					tile_gos [i, j].name = name;
-					tile_gos [i, j].layer=12;
-					break;
-				case "ROOM":
-					tile_gos [i, j] = (GameObject)Instantiate (room, newp, transform.rotation);
-					string name2 = "room("+i+","+j+"):"+map [i, j];
-					tile_gos [i, j].name = name2;
-					tile_gos [i, j].layer=15;
-					break;
-				case "MAZE":
-					tile_gos [i, j] = (GameObject)Instantiate (maze, newp, transform.rotation);
-					string name3 = "maze("+i+","+j+"):"+map [i, j];
-					tile_gos [i, j].name = name3;
-					tile_gos [i, j].layer=13;
-					break;
-				case "DOOR":
-					tile_gos [i, j] = (GameObject)Instantiate (door, newp, transform.rotation);
-					string name4 = "door("+i+","+j+"):"+map [i, j];
-					tile_gos [i, j].name = name4;
-					tile_gos [i, j].layer=14;
-					break;
-				}
-				//if (map [i, j] ==-1) {
-				//	tile_gos [i, j] = (GameObject)Instantiate (tile, newp, transform.rotation);
-				//	string name = "wall("+i+","+j+"):"+map [i, j];
-				//	tile_gos [i, j].name = name;
-				//}else {
-				//	tile_gos [i,j] =(GameObject) Instantiate (room,newp,transform.rotation);
-				//	string name = "tile("+i+","+j+"):"+map [i, j];
-				//	tile_gos [i, j].name = name;
-				//} 
-				tile_gos [i, j].transform.SetParent(transform);
-				tile_gos [i, j].transform.localScale= new Vector3(TileSize,TileSize,1);
-				//getMapTileType (i, j);
-			}
-
-		}
-	}
 	void Awake(){
 		iniMap ();
 		placeRandomRoom (); 
 		StartMaze ();
 		connectArea ();
 		removeDeadway (MaxReduceLength);
-
-
-//		placeMap ();
+		//placeMap ();
 	}
-
 	// Update is called once per frame
 	void Update () {
-		//removeOneDeadway();
-		//foreach(Transform child in transform){
-		//	Destroy (child.gameObject);
-		//}
-		//placeMap ();
+
 	}
 }

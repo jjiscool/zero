@@ -63,9 +63,6 @@ public class IMESH : MonoBehaviour {
 		mesh.triangles = ids;
 		mesh.RecalculateBounds ();
 		mesh.RecalculateNormals ();
-
-
-
 	}
 	// Update is called once per frame
 	void Update () {
