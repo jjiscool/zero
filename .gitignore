@@ -1,8 +1,8 @@
 # =============== #
 # Unity generated #
 # =============== #
-Temp/
-Library/
+client/UGame/Temp/
+client/UGame/Library/
 
 # ===================================== #
 # Visual Studio / MonoDevelop generated #
