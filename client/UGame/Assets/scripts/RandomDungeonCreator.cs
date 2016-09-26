@@ -2,7 +2,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using Random = UnityEngine.Random; 
-
+public  enum  ITEMTYPE{
+	ITEM_DOOR,
+	ITEM_UPSTAIRS,
+	ITEM_DOWNSTAIRS
+}
 public class RoomData{
 	public int ID;
 	public List<int[]> TileList;
@@ -15,14 +19,27 @@ public class RoomData{
 	}
 	
 }
-public class DoorData{
+
+public class ItemData{
 	public int ID;
 	public int x;
 	public int y;
-	public DoorData(){
-		
-	}
+	public ITEMTYPE type;
+	public bool walkable;
+	public bool unlock;
+	public ItemData(){
 
+	}
+	public bool upstairs(){
+		return false;
+	}
+	public bool door_open(){
+		if (type != ITEMTYPE.ITEM_DOOR) {
+			return false;
+		}
+		unlock = true;
+		return true;
+	}
 }
 public class RandomDungeonCreator : MonoBehaviour {
 	//地图数组
@@ -42,8 +59,17 @@ public class RandomDungeonCreator : MonoBehaviour {
 	//单元列表
 	private List<int> mazesID;//走廊ID列表
 	private List<RoomData> rooms;
-	private List<DoorData> doors;
-
+	public void ReBuildDungeon(){
+		foreach(Transform child in transform){
+			Destroy (child.gameObject);
+		}
+		iniMap ();
+		placeRandomRoom (); 
+		StartMaze ();
+		connectArea ();
+		removeDeadway (MaxReduceLength);
+	
+	}
 	//返回room中的一个随机单元格
 	public int[] getRoomRandomCell(){
 		
@@ -68,7 +94,6 @@ public class RandomDungeonCreator : MonoBehaviour {
 		numOfObj = 0;
 		//roomsID = new List<int>();
 		rooms = new List<RoomData>();
-		doors = new List<DoorData>();
 		mazesID = new List<int>();
 		//doorsID = new List<int>();
 		idtype= new Dictionary<int,string>();
@@ -272,12 +297,14 @@ public class RandomDungeonCreator : MonoBehaviour {
 			int x = connector [pickconntorID] [0];
 			int y = connector [pickconntorID] [1];
 			map [x,y] = numOfObj;
-			idtype.Add(numOfObj,"DOOR");
-			DoorData d = new DoorData ();
-			d.ID = numOfObj;
-			d.x = x;
-			d.y = y;
-			doors.Add (d);
+			idtype.Add(numOfObj,"MAZE");
+
+//			DoorData d = new DoorData ();
+//			d.ID = numOfObj;
+//			d.x = x;
+//			d.y = y;
+//			doors.Add (d);
+
 			numOfObj++;
 			//Debug.Log (" connect object ID "+ pickconntorAreasID+" From["+x+","+y+"]");
 			for (int k = 0; k < connectorIDtoAreas.Count; k++) {
@@ -289,7 +316,7 @@ public class RandomDungeonCreator : MonoBehaviour {
 				}
 			}
 		}
-		Debug.Log ("ObecjtNum = "+numOfObj+" , ROOM NUM = " + rooms.Count+" , MAZE NUM = " +mazesID.Count+", DOOR NNUM = "+doors.Count);
+		Debug.Log ("ObecjtNum = "+numOfObj+" , ROOM NUM = " + rooms.Count+" , MAZE NUM = " +mazesID.Count);
 	}
 	//剔除死路
 	void removeDeadway(int MAX){
@@ -346,11 +373,7 @@ public class RandomDungeonCreator : MonoBehaviour {
 	}
 	//
 	void Awake(){
-		iniMap ();
-		placeRandomRoom (); 
-		StartMaze ();
-		connectArea ();
-		removeDeadway (MaxReduceLength);
+		ReBuildDungeon ();
 		//placeMap ();
 	}
 	// Update is called once per frame
