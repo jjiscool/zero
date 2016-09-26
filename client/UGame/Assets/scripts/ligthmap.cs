@@ -667,6 +667,9 @@ public class ligthmap : MonoBehaviour {
 		foreach(Transform child in transform){
 			Destroy (child.gameObject);
 		}
+		lineLength = GameObject.Find ("map").GetComponent<RandomDungeonCreator> ().TileSize;
+		MapWidth = (int)GameObject.Find ("map").GetComponent<RandomDungeonCreator> ().MapWidth;
+		MapHeight= (int)GameObject.Find ("map").GetComponent<RandomDungeonCreator> ().MapHeight;
 		edges=new List<Edge>();
 		buildLocalMap (LightLength,LightLength);
 		FindAllEdegeInLocalMap ();
