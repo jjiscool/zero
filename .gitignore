@@ -1,10 +1,11 @@
 # =============== #
 # Unity generated #
 # =============== #
-/client/UGame/Temp/*
-/client/UGame/obj/*
-/client/UGame/Build/*
-/client/UGame/Library/*
+client/UGame/Temp/*
+client/UGame/obj/*
+client/UGame/Build/*
+client/UGame/Library/*
+client/UGame/Library/metadata/*
 # ===================================== #
 # Visual Studio / MonoDevelop generated #
 # ===================================== #
