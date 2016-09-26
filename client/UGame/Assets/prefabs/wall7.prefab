@@ -9,7 +9,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 401736}
   - 212: {fileID: 21276136}
-  - 114: {fileID: 11445586}
   m_Layer: 0
   m_Name: wall7
   m_TagString: Untagged
@@ -30,17 +29,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!114 &11445586
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 181370}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a18564e092ff34e3cb86615c68c8df38, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!212 &21276136
 SpriteRenderer:
   m_ObjectHideFlags: 1

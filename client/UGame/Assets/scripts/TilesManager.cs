@@ -13,7 +13,7 @@ public class TilesManager : MonoBehaviour {
 	public GameObject door;
 
 	//贴图prefab的数组
-	public GameObject[] floorTiles;
+	public GameObject[] roomTiles;
 	public GameObject[] wallTiles;
 
 	private  GameObject[,] tile_gos;
@@ -35,6 +35,7 @@ public class TilesManager : MonoBehaviour {
 //		Debug.Log (randomMapScript.TileSize);
 		placeMap (mapWidth,mapHeight,tileSize);
 	}
+		
 
 	//行列 转换到 坐标
 	public Vector2 posTransform(int i,int j){
@@ -99,7 +100,7 @@ public class TilesManager : MonoBehaviour {
 				}else {
 					tileTypeLeft = randomMapScript.getMapTileType (i, j-1);
 					tileTypeRight = randomMapScript.getMapTileType (i, j+1);
-					tileTypeUp = randomMapScript.getMapTileType (i+1, j);
+					tileTypeUp = randomMapScript.getMapTileType (i-1, j);
 					tileTypeDown = randomMapScript.getMapTileType (i+1, j);
 
 				}
@@ -109,21 +110,58 @@ public class TilesManager : MonoBehaviour {
 				switch(tileType){
 				default:
 					if (tileTypeDown != "WALL") {
+						//0x0
+						//x1x
+						//000
 
-						Debug.Log (tileType +":" + i  + "," + j);
 						tile_gos [i, j] = (GameObject)Instantiate (wallTiles [7], newp, Quaternion.identity);
 						tile_gos [i, j].layer = 12;
 						break;
-					} else {
+					} 
+					else {
+						//0x0
+						//x1x
+						//010
+						if (tileTypeUp != "WALL") {
+							//000
+							//x1x
+							//010
+							if (tileTypeRight == "WALL" && tileTypeLeft != "WALL") {
+								//000
+								//011
+								//010
+								tile_gos [i, j] = (GameObject)Instantiate (wallTiles [0], newp, Quaternion.identity);
+								tile_gos [i, j].layer = 12;
+								break;
+							} else if (tileTypeRight != "WALL" && tileTypeLeft == "WALL") {
+								//000
+								//110
+								//010
+								tile_gos [i, j] = (GameObject)Instantiate (wallTiles [3], newp, Quaternion.identity);
+								tile_gos [i, j].layer = 12;
+								break;
+							} else if (tileTypeRight == "WALL" && tileTypeLeft == "WALL") {
+								//000
+								//111
+								//010
+								tile_gos [i, j] = (GameObject)Instantiate (wallTiles [Random.Range (1, 3)], newp, Quaternion.identity);
+								tile_gos [i, j].layer = 12;
+								break;
+							}
+
+							
+						} else {
+							//010
+							//x1x
+							//010
+						}
 						tile_gos [i, j] = (GameObject)Instantiate (wallTiles[4], newp, Quaternion.identity);
-						string name = "wall("+i+","+j+"):";
-						tile_gos [i, j].name = name;
 						tile_gos [i, j].layer=12;
 						break;
 					}
 
 				case "ROOM":
-					tile_gos [i, j] = (GameObject)Instantiate (room, newp, Quaternion.identity);
+					tile_gos [i, j] = (GameObject)Instantiate (roomTiles[Random.Range (0, roomTiles.Length)], newp, Quaternion.identity);
 					string name2 = "room("+i+","+j+"):";
 					tile_gos [i, j].name = name2;
 					tile_gos [i, j].layer=15;

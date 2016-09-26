@@ -43,15 +43,21 @@ public class RandomDungeonCreator : MonoBehaviour {
 	private List<int> mazesID;//走廊ID列表
 	private List<RoomData> rooms;
 	private List<DoorData> doors;
-	//返回room中的一个随机位置
-	public int[] getRoomRandomRow(){
+
+	//shilihua
+
+	//调用贴图管理类
+	public TilesManager tilesScript;
+
+	//返回room中的一个随机单元格
+	public int[] getRoomRandomCell(){
 		
 		RoomData randomRoomData = rooms[Random.Range (0, rooms.Count)];
 		int max = randomRoomData.TileList.Count;
-		int[] randomRow = randomRoomData.TileList [Random.Range (0, max)];
+		int[] randomCell = randomRoomData.TileList [Random.Range (0, max)];
 
-		return randomRow;
-
+		return randomCell;
+		//返回[行，列]
 	}
 	//获取砖块类型
 	public string getMapTileType(int i,int j){
