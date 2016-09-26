@@ -1,22 +1,21 @@
 # =============== #
 # Unity generated #
 # =============== #
-client/UGame/Temp/*
-client/UGame/obj/*
-client/UGame/Build/*
-client/UGame/Library/*
-client/UGame/Library/metadata/*
+Temp/*
+obj/*
+Build/*
+Library/*
+metadata/*
 # ===================================== #
 # Visual Studio / MonoDevelop generated #
 # ===================================== #
-ExportedObj/
-obj/
+ExportedObj/*
 *.svd
 *.userprefs
-/client/UGame/*.csproj
+client/UGame/*.csproj
 *.pidb
 *.suo
-/client/UGame/*.sln
+client/UGame/*.sln
 *.user
 *.unityproj
 *.booproj
