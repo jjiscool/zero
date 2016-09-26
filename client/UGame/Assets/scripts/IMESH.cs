@@ -24,7 +24,7 @@ class MEdge
 
 public class IMESH : MonoBehaviour {
 
-	//网格模型顶点数量
+	//网格模型顶点数
 	private int VERTICES_COUNT ;
 
 	void Start ()
