@@ -44,11 +44,6 @@ public class RandomDungeonCreator : MonoBehaviour {
 	private List<RoomData> rooms;
 	private List<DoorData> doors;
 
-	//shilihua
-
-	//调用贴图管理类
-	public TilesManager tilesScript;
-
 	//返回room中的一个随机单元格
 	public int[] getRoomRandomCell(){
 		
