@@ -24,12 +24,12 @@ public class playerMove : MonoBehaviour {
 
 	void Awake(){
 		map = GameObject.Find ("map");
-
-		iniCell = map.GetComponent<RandomDungeonCreator>().getRoomRandomCell();
-
-		row = iniCell [0];
-		column = iniCell [1];
-
+		OBJTYPEList obj_list  = map.GetComponent<RandomDungeonCreator>().obj_list;
+		row = obj_list.getListByType (OBJTYPE.OBJTYPE_SPAWNPOINT) [0].row;
+		column = obj_list.getListByType (OBJTYPE.OBJTYPE_SPAWNPOINT) [0].column;
+		iniCell = new int[2];
+		iniCell [0] = row;
+		iniCell [1] = column;
 		iniPos = map.GetComponent<TilesManager>().posTransform(row,column);
 		//初始化位置
 		transform.position = iniPos;

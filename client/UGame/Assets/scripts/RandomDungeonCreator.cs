@@ -2,10 +2,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using Random = UnityEngine.Random; 
-public  enum  ITEMTYPE{
-	ITEM_DOOR,
-	ITEM_UPSTAIRS,
-	ITEM_DOWNSTAIRS
+public  enum  OBJTYPE{
+	OBJTYPE_DOOR,
+	OBJTYPE_SPAWNPOINT,
+	OBJTYPE_DOWNSTAIRS,
+	OBJTYPE_CHEST,
+	OBJTYPE_ITEM
 }
 public class RoomData{
 	public int ID;
@@ -19,26 +21,76 @@ public class RoomData{
 	}
 	
 }
-
-public class ItemData{
-	public int ID;
-	public int x;
-	public int y;
-	public ITEMTYPE type;
-	public bool walkable;
-	public bool unlock;
-	public ItemData(){
-
+public class OBJTYPEList{
+	private List<OBJTYPEData> objects;
+	public OBJTYPEList(){
+		objects=new List<OBJTYPEData>();
+	} 
+	public int getLength(){
+		return objects.Count;
 	}
-	public bool upstairs(){
+	public void addObj(OBJTYPEData d){
+		objects.Add (d);	
+	}
+	public bool hasItemInRowColumn(int x,int y){
+		for (int i = 0; i < objects.Count; i++) {
+			if (objects [i].row == x && objects [i].column == y) {
+				return true;
+			}
+		}
 		return false;
 	}
-	public bool door_open(){
-		if (type != ITEMTYPE.ITEM_DOOR) {
-			return false;
+	public OBJTYPEData getItemByID(int id){
+		return objects[id];
+	}
+	public OBJTYPEData getItemByRowColumn(int x,int y){
+		for (int i = 0; i < objects.Count; i++) {
+			if (objects [i].row == x && objects [i].column == y) {
+				return objects [i];
+			}
 		}
-		unlock = true;
-		return true;
+		return null;
+	}
+	public List<OBJTYPEData> getListByType(OBJTYPE  T){
+		List<OBJTYPEData> list=new List<OBJTYPEData>();
+		for (int i = 0; i < objects.Count; i++) {
+			if (objects [i].type == T)
+				list.Add (objects [i]);
+		}
+		return list;
+	}
+}
+public class OBJTYPEData{
+	public int row;
+	public int column;
+	public OBJTYPE type;
+	public bool walkable;
+	public bool lightable;//false has Shadow, true is touming
+	//Door
+	public bool door_isOpen;
+	//SPAWNPOINT
+	public int roomID;
+	public OBJTYPEData(OBJTYPE T,int i,int j){
+		row = i;
+		column = j;
+		type = T;
+		switch(type)
+		{
+		default:
+				break;
+		case OBJTYPE.OBJTYPE_DOOR:
+			walkable = true;
+			lightable = true;
+			door_isOpen = true;
+			break;
+		case OBJTYPE.OBJTYPE_SPAWNPOINT:
+			walkable = true;
+			lightable = true;
+			roomID = -1;
+			break;
+
+		}
+		Debug.Log ("Add "+type+" in ("+row+","+column+")");
 	}
 }
 public class RandomDungeonCreator : MonoBehaviour {
@@ -59,6 +111,7 @@ public class RandomDungeonCreator : MonoBehaviour {
 	//单元列表
 	private List<int> mazesID;//走廊ID列表
 	private List<RoomData> rooms;
+	public OBJTYPEList obj_list;
 	public void ReBuildDungeon(){
 		foreach(Transform child in transform){
 			Destroy (child.gameObject);
@@ -68,18 +121,20 @@ public class RandomDungeonCreator : MonoBehaviour {
 		StartMaze ();
 		connectArea ();
 		removeDeadway (MaxReduceLength);
-	
+		creatOneSpawnPoint ();
+		Debug.Log ("Object Num = "+obj_list.getLength());
 	}
-	//返回room中的一个随机单元格
-	public int[] getRoomRandomCell(){
-		
-		RoomData randomRoomData = rooms[Random.Range (0, rooms.Count)];
+	public void creatOneSpawnPoint(){
+		int chooseroomid = Random.Range (0, rooms.Count);
+		RoomData randomRoomData = rooms[chooseroomid];
 		int max = randomRoomData.TileList.Count;
 		int[] randomCell = randomRoomData.TileList [Random.Range (0, max)];
-
-		return randomCell;
-		//返回[行，列]
+		OBJTYPEData sp = new OBJTYPEData (OBJTYPE.OBJTYPE_SPAWNPOINT,randomCell[0],randomCell[1]);
+		sp.roomID = chooseroomid;
+		obj_list.addObj (sp);
+	
 	}
+
 	//获取砖块类型
 	public string getMapTileType(int i,int j){
 		if (idtype.ContainsKey(map [i, j]))
@@ -97,6 +152,7 @@ public class RandomDungeonCreator : MonoBehaviour {
 		mazesID = new List<int>();
 		//doorsID = new List<int>();
 		idtype= new Dictionary<int,string>();
+		obj_list = new OBJTYPEList ();
 		map  = new int[MapHeight, MapWidth];
 		for (int i = 0; i < MapHeight; i++)
 			for (int j = 0; j < MapWidth; j++)
@@ -298,7 +354,8 @@ public class RandomDungeonCreator : MonoBehaviour {
 			int y = connector [pickconntorID] [1];
 			map [x,y] = numOfObj;
 			idtype.Add(numOfObj,"MAZE");
-
+			OBJTYPEData adoor = new OBJTYPEData (OBJTYPE.OBJTYPE_DOOR,x,y);
+			obj_list.addObj (adoor);
 //			DoorData d = new DoorData ();
 //			d.ID = numOfObj;
 //			d.x = x;
