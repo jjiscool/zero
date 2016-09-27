@@ -24,7 +24,7 @@ public class playerMove : MonoBehaviour {
 
 	void Awake(){
 		map = GameObject.Find ("map");
-		OBJTYPEList obj_list  = map.GetComponent<RandomDungeonCreator>().obj_list;
+		OBJTYPEList obj_list  = map.GetComponent<RandomDungeonCreator>().obj_list;//获取object列表
 		row = obj_list.getListByType (OBJTYPE.OBJTYPE_SPAWNPOINT) [0].row;
 		column = obj_list.getListByType (OBJTYPE.OBJTYPE_SPAWNPOINT) [0].column;
 		iniCell = new int[2];

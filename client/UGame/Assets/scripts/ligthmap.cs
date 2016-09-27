@@ -65,8 +65,8 @@ public class ligthmap : MonoBehaviour {
 				if (GameObject.Find ("map").GetComponent<RandomDungeonCreator> ().getMapTileType (iy, ix) != "WALL") {
 					GameObject map = GameObject.Find ("map");
 					OBJTYPEList obj_list  = map.GetComponent<RandomDungeonCreator>().obj_list;
-					if (obj_list.hasItemInRowColumn (iy, ix)) {
-						OBJTYPEData od = obj_list.getItemByRowColumn (iy, ix);
+					if (obj_list.hasObjInRowColumn (iy, ix)) {
+						OBJTYPEData od = obj_list.getObjByRowColumn (iy, ix);
 						if(od.lightable) localmap [iy - (centery - (heght-1)/2), ix - (centerx - (width-1)/2)]=0;
 					} else {
 						localmap [iy - (centery - (heght-1)/2), ix - (centerx - (width-1)/2)]=0;

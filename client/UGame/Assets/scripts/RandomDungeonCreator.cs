@@ -32,7 +32,8 @@ public class OBJTYPEList{
 	public void addObj(OBJTYPEData d){
 		objects.Add (d);	
 	}
-	public bool hasItemInRowColumn(int x,int y){
+	//判断位置是否有item
+	public bool hasObjInRowColumn(int x,int y){
 		for (int i = 0; i < objects.Count; i++) {
 			if (objects [i].row == x && objects [i].column == y) {
 				return true;
@@ -40,10 +41,12 @@ public class OBJTYPEList{
 		}
 		return false;
 	}
-	public OBJTYPEData getItemByID(int id){
+	//根据id获取item
+	public OBJTYPEData getObjByID(int id){
 		return objects[id];
 	}
-	public OBJTYPEData getItemByRowColumn(int x,int y){
+	//根据行列获取item
+	public OBJTYPEData getObjByRowColumn(int x,int y){
 		for (int i = 0; i < objects.Count; i++) {
 			if (objects [i].row == x && objects [i].column == y) {
 				return objects [i];
@@ -51,6 +54,7 @@ public class OBJTYPEList{
 		}
 		return null;
 	}
+	//根据类型获取itemlist
 	public List<OBJTYPEData> getListByType(OBJTYPE  T){
 		List<OBJTYPEData> list=new List<OBJTYPEData>();
 		for (int i = 0; i < objects.Count; i++) {
@@ -65,7 +69,7 @@ public class OBJTYPEData{
 	public int column;
 	public OBJTYPE type;
 	public bool walkable;
-	public bool lightable;//false has Shadow, true is touming
+	public bool lightable;//false为光照, true为透明
 	//Door
 	public bool door_isOpen;
 	//SPAWNPOINT
