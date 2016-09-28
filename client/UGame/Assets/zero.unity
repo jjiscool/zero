@@ -413,7 +413,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lightsource: {fileID: 788362720}
   lineWidth: 0.025
-  LightLength: 15
+  LightLength: 30
   linePb: {fileID: 143872, guid: 13066eb6c43ef4f8db84089ea72f9ef5, type: 2}
   lightarea: {fileID: 104438, guid: 3a4c21156d0ff43f0a36734689981f05, type: 2}
   nolightarea: {fileID: 126382, guid: 6f3bb5ca9c0204932b69353e2e14f5ff, type: 2}

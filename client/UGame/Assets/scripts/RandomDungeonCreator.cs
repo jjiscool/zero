@@ -2,13 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using Random = UnityEngine.Random; 
-public  enum  OBJTYPE{
-	OBJTYPE_DOOR,
-	OBJTYPE_SPAWNPOINT,
-	OBJTYPE_DOWNSTAIRS,
-	OBJTYPE_CHEST,
-	OBJTYPE_ITEM
-}
 public class RoomData{
 	public int ID;
 	public List<int[]> TileList;
@@ -20,6 +13,65 @@ public class RoomData{
 		TileList = new List<int[]>();
 	}
 	
+}
+public  enum  OBJTYPE{
+	OBJTYPE_DOOR,
+	OBJTYPE_SPAWNPOINT,
+	OBJTYPE_DOWNSTAIRS,
+	OBJTYPE_CHEST,
+	OBJTYPE_ITEM
+}
+public class OBJTYPEData{
+	//地图上的物体
+	public int row;
+	public int column;
+	public OBJTYPE type;
+	public bool walkable;//false不可走上去, true可走上去
+	public bool lightable;//false为不透明, true为透明
+	public OBJTYPEData(){
+	}
+}
+public class ObjectDoor:OBJTYPEData{
+	//门
+	public bool door_isOpen;
+	public ObjectDoor(int i,int j){
+		row = i;
+		column = j;
+		type = OBJTYPE.OBJTYPE_DOOR;
+		walkable = true;
+		lightable = true;
+		door_isOpen = true;
+
+
+	}
+	public bool openDoor(){
+		if (door_isOpen)
+			return false;//门已经打开
+		door_isOpen = true;
+		lightable = true;
+		walkable = true;
+		return true;//门打开成功
+	}
+	public bool closeDoor(){
+		if (!door_isOpen)
+			return false;//门已经关闭
+		door_isOpen = false;
+		lightable = false;
+		walkable = false;
+		return true;//门关闭成功
+	}
+}
+public class ObjectSpawnPoint:OBJTYPEData{
+	//出生点
+	public int roomID;
+	public ObjectSpawnPoint(int i,int j){
+		row = i;
+		column = j;
+		type = OBJTYPE.OBJTYPE_SPAWNPOINT;
+		walkable = true;
+		lightable = true;
+		roomID = -1;
+	}
 }
 public class OBJTYPEList{
 	private List<OBJTYPEData> objects;
@@ -64,39 +116,7 @@ public class OBJTYPEList{
 		return list;
 	}
 }
-public class OBJTYPEData{
-	public int row;
-	public int column;
-	public OBJTYPE type;
-	public bool walkable;
-	public bool lightable;//false为光照, true为透明
-	//Door
-	public bool door_isOpen;
-	//SPAWNPOINT
-	public int roomID;
-	public OBJTYPEData(OBJTYPE T,int i,int j){
-		row = i;
-		column = j;
-		type = T;
-		switch(type)
-		{
-		default:
-				break;
-		case OBJTYPE.OBJTYPE_DOOR:
-			walkable = true;
-			lightable = true;
-			door_isOpen = true;
-			break;
-		case OBJTYPE.OBJTYPE_SPAWNPOINT:
-			walkable = true;
-			lightable = true;
-			roomID = -1;
-			break;
 
-		}
-		Debug.Log ("Add "+type+" in ("+row+","+column+")");
-	}
-}
 public class RandomDungeonCreator : MonoBehaviour {
 	//地图数组
 	private  int[,] map;
@@ -133,7 +153,7 @@ public class RandomDungeonCreator : MonoBehaviour {
 		RoomData randomRoomData = rooms[chooseroomid];
 		int max = randomRoomData.TileList.Count;
 		int[] randomCell = randomRoomData.TileList [Random.Range (0, max)];
-		OBJTYPEData sp = new OBJTYPEData (OBJTYPE.OBJTYPE_SPAWNPOINT,randomCell[0],randomCell[1]);
+		ObjectSpawnPoint sp = new ObjectSpawnPoint (randomCell[0],randomCell[1]);
 		sp.roomID = chooseroomid;
 		obj_list.addObj (sp);
 	
@@ -358,7 +378,7 @@ public class RandomDungeonCreator : MonoBehaviour {
 			int y = connector [pickconntorID] [1];
 			map [x,y] = numOfObj;
 			idtype.Add(numOfObj,"MAZE");
-			OBJTYPEData adoor = new OBJTYPEData (OBJTYPE.OBJTYPE_DOOR,x,y);
+			ObjectDoor adoor = new ObjectDoor (x,y);
 			obj_list.addObj (adoor);
 //			DoorData d = new DoorData ();
 //			d.ID = numOfObj;
