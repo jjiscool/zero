@@ -68,7 +68,7 @@ public class ObjectDownStairs:OBJTYPEData{
 		row = i;
 		column = j;
 		type = OBJTYPE.OBJTYPE_DOWNSTAIRS;
-		walkable = true;
+		walkable = false;
 		lightable = true;
 	}
 }
@@ -500,7 +500,7 @@ public class RandomDungeonCreator : MonoBehaviour {
 			for (int i = y - H / 2-1; i < y + H / 2; i++)
 				for (int j = x - W / 2-1; j < x + W / 2; j++) {
 					map [i, j] = -1;
-						Debug.Log ("Remove Bad Room "+ir +"IN ("+i+","+j+")");
+					Debug.Log ("Remove Bad Room "+ir +"IN ("+i+","+j+")");
 					rooms.RemoveAt (ir);
 				}
 
