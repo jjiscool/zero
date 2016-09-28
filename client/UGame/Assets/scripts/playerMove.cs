@@ -76,9 +76,10 @@ public class playerMove : MonoBehaviour {
 			break;
 			case "WALL":
 				Debug.Log ("cnot go");
-				return;
 			break;
+
 		}
+		return;
 	}
 
 	public void moveUp(){

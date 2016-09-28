@@ -1,19 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using Random = UnityEngine.Random; 
-public class RoomData{
-	public int ID;
-	public List<int[]> TileList;
-	public int Width;
-	public int Height;
-	public int CenterX;
-	public int CenterY;
-	public RoomData(){
-		TileList = new List<int[]>();
-	}
-	
-}
+using Random = UnityEngine.Random;
 public  enum  OBJTYPE{
 	OBJTYPE_DOOR,
 	OBJTYPE_SPAWNPOINT,
@@ -31,8 +19,8 @@ public class OBJTYPEData{
 	public OBJTYPEData(){
 	}
 }
+//门
 public class ObjectDoor:OBJTYPEData{
-	//门
 	public bool door_isOpen;
 	public ObjectDoor(int i,int j){
 		row = i;
@@ -61,8 +49,8 @@ public class ObjectDoor:OBJTYPEData{
 		return true;//门关闭成功
 	}
 }
+//出生点
 public class ObjectSpawnPoint:OBJTYPEData{
-	//出生点
 	public int roomID;
 	public ObjectSpawnPoint(int i,int j){
 		row = i;
@@ -73,16 +61,27 @@ public class ObjectSpawnPoint:OBJTYPEData{
 		roomID = -1;
 	}
 }
+//下层入口
+public class ObjectDownStairs:OBJTYPEData{
+	public int roomID;
+	public ObjectDownStairs(int i,int j){
+		row = i;
+		column = j;
+		type = OBJTYPE.OBJTYPE_DOWNSTAIRS;
+		walkable = true;
+		lightable = true;
+	}
+}
 public class OBJTYPEList{
 	private List<OBJTYPEData> objects;
 	public OBJTYPEList(){
 		objects=new List<OBJTYPEData>();
-	} 
+	}
 	public int getLength(){
 		return objects.Count;
 	}
 	public void addObj(OBJTYPEData d){
-		objects.Add (d);	
+		objects.Add (d);
 	}
 	//判断位置是否有item
 	public bool hasObjInRowColumn(int x,int y){
@@ -117,6 +116,18 @@ public class OBJTYPEList{
 	}
 }
 
+public class RoomData{
+	public int ID;
+	public List<int[]> TileList;
+	public int Width;
+	public int Height;
+	public int CenterX;
+	public int CenterY;
+	public RoomData(){
+		TileList = new List<int[]>();
+	}
+
+}
 public class RandomDungeonCreator : MonoBehaviour {
 	//地图数组
 	private  int[,] map;
@@ -141,14 +152,14 @@ public class RandomDungeonCreator : MonoBehaviour {
 			Destroy (child.gameObject);
 		}
 		iniMap ();
-		placeRandomRoom (); 
+		placeRandomRoom ();
 		StartMaze ();
 		connectArea ();
 		removeDeadway (MaxReduceLength);
-		creatOneSpawnPoint ();
+		creatOneSpawnPointAndDownStairs ();
 		Debug.Log ("Object Num = "+obj_list.getLength());
 	}
-	public void creatOneSpawnPoint(){
+	public void creatOneSpawnPointAndDownStairs(){
 		int chooseroomid = Random.Range (0, rooms.Count);
 		RoomData randomRoomData = rooms[chooseroomid];
 		int max = randomRoomData.TileList.Count;
@@ -156,7 +167,23 @@ public class RandomDungeonCreator : MonoBehaviour {
 		ObjectSpawnPoint sp = new ObjectSpawnPoint (randomCell[0],randomCell[1]);
 		sp.roomID = chooseroomid;
 		obj_list.addObj (sp);
-	
+		int dis = 0;
+		int maxdisroom = chooseroomid;
+		for (int i = 0; i < rooms.Count; i++) {
+			int tdis = (rooms [i].CenterX - rooms [maxdisroom].CenterX) * (rooms [i].CenterX - rooms [maxdisroom].CenterX) + (rooms [i].CenterY - rooms [maxdisroom].CenterY) * (rooms [i].CenterY - rooms [maxdisroom].CenterY);
+			if (tdis > dis) {
+				maxdisroom = i;
+				dis = tdis;
+			}
+		}
+		RoomData randomRoomData2 = rooms[maxdisroom];
+		int max2 = randomRoomData2.TileList.Count;
+		int[] randomCell2 = randomRoomData2.TileList [Random.Range (0, max2)];
+		ObjectDownStairs ds = new ObjectDownStairs (randomCell2[0],randomCell2[1]);
+		ds.roomID = maxdisroom;
+		obj_list.addObj (ds);
+		Debug.Log ("down = "+randomCell2[0]+","+randomCell2[1]);
+
 	}
 
 	//获取砖块类型
@@ -277,8 +304,8 @@ public class RandomDungeonCreator : MonoBehaviour {
 					}
 				}
 				if (numOfMazeable > 1) {
-					int choose = Random.Range (0, NextMaze.Count);	
-					Mazeable.Add (NextMaze[choose]); 
+					int choose = Random.Range (0, NextMaze.Count);
+					Mazeable.Add (NextMaze[choose]);
 					map [NextMaze[choose][0],NextMaze[choose][1]] = numOfObj;
 					//for (int jj = 0; jj < NextMaze.Count; jj++)
 					//	Debug.Log ("Choose : "+NextMaze[jj][0]+","+NextMaze[jj][1]);
@@ -298,10 +325,10 @@ public class RandomDungeonCreator : MonoBehaviour {
 				}
 			}
 			numOfObj++;
-			return;	//}	
+			return;	//}
 	}
 	//判断区域是否可以放置走廊
-	bool isCanPlaceMaze(int fromx,int fromy,int tox,int toy){	
+	bool isCanPlaceMaze(int fromx,int fromy,int tox,int toy){
 		int[,] factor = { { -1, -1 }, { 0, -1 }, { 1, -1 }, { -1, 0 },  { 1, 0 }, { -1, 1 }, { 0, 1 }, { 1, 1 } };
 		for (int a = 0; a < 8; a++) {
 			int tx = factor [a,0]+tox;
@@ -426,7 +453,7 @@ public class RandomDungeonCreator : MonoBehaviour {
 		}
 
 
-	} 
+	}
 	//剔除一格死路
 	void removeOneDeadway(){
 		for (int i = 1; i < MapHeight - 1; i++) {
