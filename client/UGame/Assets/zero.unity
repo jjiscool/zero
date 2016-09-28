@@ -1565,10 +1565,10 @@ MonoBehaviour:
   MapWidth: 32
   MapHeight: 32
   TileSize: 1
-  RoomDesity: 200
+  RoomDesity: 100
   MaxRoomWidth: 5
   MaxRoomHeight: 5
-  MaxReduceLength: 500
+  MaxReduceLength: 100
 --- !u!212 &1885000958
 SpriteRenderer:
   m_ObjectHideFlags: 0

@@ -156,6 +156,7 @@ public class RandomDungeonCreator : MonoBehaviour {
 		StartMaze ();
 		connectArea ();
 		removeDeadway (MaxReduceLength);
+		removeBadRoom ();
 		creatOneSpawnPointAndDownStairs ();
 		Debug.Log ("Object Num = "+obj_list.getLength());
 	}
@@ -249,7 +250,7 @@ public class RandomDungeonCreator : MonoBehaviour {
 				int[] tp = { i, j };
 				r.TileList.Add (tp);
 
-			}
+		}
 		idtype.Add(numOfObj,"ROOM");
 		//roomsID.Add (numOfObj);
 		rooms.Add (r);
@@ -476,6 +477,35 @@ public class RandomDungeonCreator : MonoBehaviour {
 		}
 	}
 	//
+	void removeBadRoom(){
+		for (int ir = 0; ir < rooms.Count; ir++) {
+			int W = rooms [ir].Width;
+			int H = rooms [ir].Height;
+			int x = rooms [ir].CenterX;
+			int y = rooms [ir].CenterY;
+			bool isbad = true;
+			for (int i = y - H / 2 -1; i < y + H / 2; i++) {
+				if(map [i, x-W/2-1-1]!=-1) isbad=false;
+			}
+			for (int i = y - H / 2 -1; i < y + H / 2; i++) {
+				if(map [i, x+W/2]!=-1) isbad=false;
+			}
+			for (int j = x - W / 2 -1; j < x + W / 2; j++) {
+				if(map [y-H/2-1-1, j]!=-1) isbad=false;
+			}
+			for (int j = x - W / 2 -1; j < x + W / 2; j++) {
+				if(map [y+H / 2, j]!=-1) isbad=false;
+			}
+			if(isbad)
+			for (int i = y - H / 2-1; i < y + H / 2; i++)
+				for (int j = x - W / 2-1; j < x + W / 2; j++) {
+					map [i, j] = -1;
+						Debug.Log ("Remove Bad Room "+ir +"IN ("+i+","+j+")");
+					rooms.RemoveAt (ir);
+				}
+
+		}
+	}
 	void Start () {
 
 	}
