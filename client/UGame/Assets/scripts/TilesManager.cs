@@ -47,7 +47,16 @@ public class TilesManager : MonoBehaviour {
 		Vector2 pos = new Vector2 (posx,posy);
 		return pos;
 	}
+	// 坐标 转换到 行列
+	public int[] posTransform2(float posx,float posy){
+		float MaxW = (float)mapWidth * tileSize;
+		float MaxH = (float)mapHeight * tileSize;
+		int j = Mathf.RoundToInt((posx-( - MaxW/2+tileSize/2))/tileSize);
+		int i = -Mathf.RoundToInt((posy-( MaxH/2-tileSize/2))/tileSize);
+		int[] cellpos = { i, j };
+		return cellpos;
 
+	}
 	public void placeMap(int mapWidth,int mapHeight,float tileSize){
 		
 		string tileTypeLeft = "";

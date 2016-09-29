@@ -102,7 +102,19 @@ public class playerMove : MonoBehaviour {
 		AttemptMove ("RIGHT",row, column+1);
 	}
 	// Update is called once per frame
-	void Update () {
+	void Update () { 
+		Vector3	screenPosition = Camera.main.WorldToScreenPoint(transform.position);  
+		Vector3 mousePositionOnScreen = Input.mousePosition;   
+		mousePositionOnScreen.z = screenPosition.z;  
+		Vector3	mousePositionInWorld =  Camera.main.ScreenToWorldPoint(mousePositionOnScreen);  
+		if (Input .GetMouseButtonDown(0)) {  
+			int[] pos=map.GetComponent<TilesManager>().posTransform2(mousePositionInWorld.x,mousePositionInWorld.y);
+			Debug.Log (pos[0]+","+pos[1]);
+				//Instantiate (, mousePositionInWorld , Quaternion.identity);  
+
+		}  
+
+		
 		if (isMoving) {
 			transform.position = new Vector3 (Mathf.MoveTowards (transform.position.x, endxy.x, Time.deltaTime * speed), Mathf.MoveTowards (transform.position.y, endxy.y, Time.deltaTime * speed), 0);
 			GameObject.Find ("light").GetComponent<ligthmap> ().reDrawLight ();
