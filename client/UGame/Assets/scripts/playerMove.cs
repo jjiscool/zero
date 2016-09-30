@@ -56,22 +56,22 @@ public class playerMove : MonoBehaviour {
 				case "UP":
 					endxy = new Vector3 (transform.position.x, transform.position.y + step, 0);
 					row--;
-				Debug.Log (row + "," + column + " UP");
+//				Debug.Log (row + "," + column + " UP");
 					break;
 				case "DOWN":
 					endxy = new Vector3 (transform.position.x, transform.position.y - step, 0);
 					row++;
-				Debug.Log (row + "," + column + " DOWN");
+//				Debug.Log (row + "," + column + " DOWN");
 					break;
 				case "LEFT":
 					endxy = new Vector3 (transform.position.x - step, transform.position.y, 0);
 					column--;
-				Debug.Log (row + "," + column + " LEFT");
+//				Debug.Log (row + "," + column + " LEFT");
 					break;
 				case "RIGHT":
 					endxy = new Vector3 (transform.position.x + step, transform.position.y, 0);
 					column++;
-				Debug.Log (row + "," + column + " RIGHT");
+//				Debug.Log (row + "," + column + " RIGHT");
 					break;
 				}
 				isMoving = true;
@@ -120,7 +120,7 @@ public class playerMove : MonoBehaviour {
 			Debug.Log ("Path long = " + astar.finalpath.Count);
 			pathid = astar.finalpath.Count-1;
 			if (pathid >= 1) {
-				Debug.Log ("path"+pathid+":"+row + "," + column + " to " + astar.finalpath [pathid] [0] + "," + astar.finalpath [pathid] [1]);
+//				Debug.Log ("path"+pathid+":"+row + "," + column + " to " + astar.finalpath [pathid] [0] + "," + astar.finalpath [pathid] [1]);
 				if (astar.finalpath [pathid] [0] < row)
 					moveUp ();
 				if (astar.finalpath [pathid] [0] > row)
@@ -143,7 +143,7 @@ public class playerMove : MonoBehaviour {
 				isMoving = false;
 			else {
 				isMoving = false;
-				Debug.Log ("path"+pathid+":"+row + "," + column + " to " + astar.finalpath [pathid] [0] + "," + astar.finalpath [pathid] [1]);
+//				Debug.Log ("path"+pathid+":"+row + "," + column + " to " + astar.finalpath [pathid] [0] + "," + astar.finalpath [pathid] [1]);
 				if (astar.finalpath [pathid] [0] < row)
 					moveUp ();
 				if (astar.finalpath [pathid] [0] > row)
