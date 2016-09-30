@@ -2,6 +2,266 @@
 using System.Collections;
 using System.Collections.Generic;
 using Random = UnityEngine.Random;
+public class AstarNode{
+	public int G;
+	public int H;
+	public int F;
+	public int[] pos;
+	public int parentID;
+	public AstarNode(int x, int y){
+		pos= new int[2];
+		pos[0]=x;pos[1]=y;
+	}
+	public AstarNode(AstarNode n){
+		pos=new int[2];
+		pos[0]=n.pos[0];pos[1]=n.pos[1];
+		G = n.G;
+		H = n.H;
+		F = n.F;
+		parentID = n.parentID;
+	}
+	public void print(){
+		Debug.Log ("Node("+pos[0]+","+pos[1]+") G="+G+",H="+H+",F="+F+",parent id="+parentID);
+	}
+}
+public class Astar{
+	public List<int> open;
+	public List<int> close;
+	public List<AstarNode> final;
+	public List<int[]> finalpath;
+	public int ToX;
+	public int ToY;
+	public int[,] map;
+	public int MaxX;
+	public int MaxY;
+	public Astar(int x,int y,int tox,int toy,int[,] M,int MX,int MY){//int x,int y,int tox,int toy
+		open = new List<int> ();
+		close = new List<int> ();
+		final = new List<AstarNode> ();
+		finalpath = new List<int[]> ();
+		ToX = tox;
+		ToY = toy;
+		AstarNode bg = new AstarNode (x,y);
+		bg.parentID = -1;
+		bg.G = 0;
+		bg.H = (x - tox)*(x - tox) + (y - toy)*(y - toy);
+		bg.F = bg.G + bg.H;
+		addToFinal(bg);
+		addToOpen(CheckInFinal(x,y));
+		map = M;
+		MaxX = MX;
+		MaxY = MY;
+		//Debug.Log (map[ToX,ToY]);
+		//Run ();
+	}
+	public void Run(){
+		while (open.Count > 0) {
+			int opid=FindMinF();
+			int cx = final[open [opid]].pos [0];
+			int cy = final[open [opid]].pos [1];
+			if (CheckInFinal (cx, cy) == -1) {
+				AstarNode ta = new AstarNode (final[open [opid]]);
+				addToFinal (ta);
+				//Debug.Log ("Add to Final");
+			}
+			int fid = CheckInFinal (cx, cy);
+			removeFromOpen (opid);
+			addToClose (fid);
+			//up
+			if(final[fid].pos[0]>0){
+				int newx = final[fid].pos [0] - 1;
+				int newy = final[fid].pos [1];
+				if (map [newx,newy] != -1&&CheckInFinal (newx, newy) == -1) {
+					AstarNode tup = new AstarNode (newx,newy);
+					tup.parentID = fid;
+					tup.H = CalH (newx,newy);
+					tup.G = CalG (fid)+1;
+					tup.F = tup.H + tup.G;
+					addToFinal (tup);
+					//Debug.Log ("Add to Final");
+				}
+				int fupid = CheckInFinal (newx, newy);
+				if (map [newx,newy] != -1&&CheckInClose(newx, newy)==-1) {
+					int upopid = CheckInOpen (newx, newy);
+					if (upopid == -1) {
+						addToOpen (fupid);
+					} else {
+						if (final[open[upopid]].G > CalG (fid) + 1) {
+							final [open [upopid]].G = CalG (fid) + 1;
+							final [open [upopid]].F = final [open [upopid]].G + final [open [upopid]].H;
+							final [open [upopid]].parentID = fupid; 
+						}
+					}
+						
+				}
+			}
+			//down
+			if(final[fid].pos[0]<MaxX-1){
+				int newx = final[fid].pos [0] + 1;
+				int newy = final[fid].pos [1];
+				if (map [newx,newy] != -1&&CheckInFinal (newx, newy) == -1) {
+					AstarNode tup = new AstarNode (newx,newy);
+					tup.parentID = fid;
+					tup.H = CalH (newx,newy);
+					tup.G = CalG (fid)+1;
+					tup.F = tup.H + tup.G;
+					addToFinal (tup);
+
+				}
+				//Debug.Log ("Add to Final");
+				int fupid = CheckInFinal (newx, newy);
+				if (map [newx,newy] != -1&&CheckInClose(newx, newy)==-1) {
+					int upopid = CheckInOpen (newx, newy);
+					if (upopid == -1) {
+						addToOpen (fupid);
+					} else {
+						if (final[open[upopid]].G > CalG (fid) + 1) {
+							final [open [upopid]].G = CalG (fid) + 1;
+							final [open [upopid]].F = final [open [upopid]].G + final [open [upopid]].H;
+							final [open [upopid]].parentID = fupid; 
+						}
+					}
+
+				}
+			}
+			//left
+			if(final[fid].pos[1]>0){
+				int newx = final[fid].pos [0] ;
+				int newy = final[fid].pos [1]-1;
+				if (map [newx,newy] != -1&&CheckInFinal (newx, newy) == -1) {
+					AstarNode tup = new AstarNode (newx,newy);
+					tup.parentID = fid;
+					tup.H = CalH (newx,newy);
+					tup.G = CalG (fid)+1;
+					tup.F = tup.H + tup.G;
+					addToFinal (tup);
+					//Debug.Log ("Add to Final");
+				}
+				int fupid = CheckInFinal (newx, newy);
+				if (map [newx,newy] != -1&&CheckInClose(newx, newy)==-1) {
+					int upopid = CheckInOpen (newx, newy);
+					if (upopid == -1) {
+						addToOpen (fupid);
+					} else {
+						if (final[open[upopid]].G > CalG (fid) + 1) {
+							final [open [upopid]].G = CalG (fid) + 1;
+							final [open [upopid]].F = final [open [upopid]].G + final [open [upopid]].H;
+							final [open [upopid]].parentID = fupid; 
+						}
+					}
+
+				}
+			}
+			//right
+			if(final[fid].pos[1]<MaxY-1){
+				int newx = final[fid].pos [0] ;
+				int newy = final[fid].pos [1]+1;
+				if (map [newx,newy] != -1&&CheckInFinal (newx, newy) == -1) {
+					AstarNode tup = new AstarNode (newx,newy);
+					tup.parentID = fid;
+					tup.H = CalH (newx,newy);
+					tup.G = CalG (fid)+1;
+					tup.F = tup.H + tup.G;
+					addToFinal (tup);
+					//Debug.Log ("Add to Final");
+				}
+				int fupid = CheckInFinal (newx, newy);
+				if (map [newx,newy] != -1&&CheckInClose(newx, newy)==-1) {
+					int upopid = CheckInOpen (newx, newy);
+					if (upopid == -1) {
+						addToOpen (fupid);
+					} else {
+						if (final[open[upopid]].G > CalG (fid) + 1) {
+							final [open [upopid]].G = CalG (fid) + 1;
+							final [open [upopid]].F = final [open [upopid]].G + final [open [upopid]].H;
+							final [open [upopid]].parentID = fupid; 
+						}
+					}
+
+				}
+			}
+			if (CheckInOpen (ToX, ToY) !=-1) {
+				Debug.Log ("Find!");
+				getFinalPath ();
+				return;
+			}
+		}
+		Debug.Log ("Cant find");
+		//printFinal ();
+	}
+	public void addToOpen(int p){
+		//Debug.Log ("ADD OPEN " + p);
+		open.Add (p);
+	}
+	public void addToClose(int p){
+		//Debug.Log ("ADD CLOSE " + p);
+		close.Add (p);
+	}
+	public void addToFinal(AstarNode p){
+		//Debug.Log ("ADD Fianl " + p.pos[0]+","+p.pos[1]);
+		final.Add (p);
+	}
+	public void removeFromOpen(int i){
+		//Debug.Log("REMOVE OPEN "+i);
+		open.RemoveAt (i);
+	}
+	public int CheckInOpen(int ox,int oy){
+		for (int i = 0; i < open.Count; i++) {
+			if (final[open [i] ].pos[0]== ox &&final[open [i] ].pos[1] == oy) {
+				return i;
+			}
+		}
+		return -1;
+	}
+	public int CheckInClose(int ox,int oy){
+		for (int i = 0; i < close.Count; i++) {
+			if (final[close [i] ].pos[0] == ox && final[close [i] ].pos [1] == oy) {
+				return i;
+			}
+		}
+		return -1;
+	}
+	public int CheckInFinal(int ox,int oy){
+		for (int i = 0; i < final.Count; i++) {
+			if (final [i].pos [0] == ox && final [i].pos [1] == oy) {
+				return i;
+			}
+		}
+		return -1;
+	}
+	public int FindMinF(){
+		int minid = 0;
+		for (int i = 0; i < open.Count; i++) {
+			if (final[open [i] ].F < final[open [i] ].F) {
+				minid = i;
+			}
+		}
+		return minid;
+	}
+	public int CalG(int id){
+		int cid = id;
+		int G = -1;
+		//Debug.Log ("id="+id);
+		while (cid != -1) {
+			G++;
+			//Debug.Log ("cid="+cid);
+			cid = final [cid].parentID;
+			//Debug.Log ("cid="+cid);
+		}
+		return G;
+	}
+	public int CalH(int x,int y){
+		return (x - ToX)*(x - ToX) + (y - ToY)*(y - ToY); 
+	}
+	public void getFinalPath(){
+		int beginid = CheckInFinal (ToX, ToY);
+		while(beginid!=-1){
+			//final [beginid].print ();
+			finalpath.Add(new int[]{final [beginid].pos[0],final [beginid].pos[1]});
+			beginid = final [beginid].parentID;
+		}
+	}
+}
 public  enum  OBJTYPE{
 	OBJTYPE_DOOR,
 	OBJTYPE_SPAWNPOINT,
@@ -496,22 +756,30 @@ public class RandomDungeonCreator : MonoBehaviour {
 			for (int j = x - W / 2 -1; j < x + W / 2; j++) {
 				if(map [y+H / 2, j]!=-1) isbad=false;
 			}
-			if(isbad)
-			for (int i = y - H / 2-1; i < y + H / 2; i++)
-				for (int j = x - W / 2-1; j < x + W / 2; j++) {
-					map [i, j] = -1;
-					Debug.Log ("Remove Bad Room "+ir +"IN ("+i+","+j+")");
-					rooms.RemoveAt (ir);
-				}
+			if (isbad) {
+				rooms.RemoveAt (ir);
+				for (int i = y - H / 2-1; i < y + H / 2; i++)
+					for (int j = x - W / 2-1; j < x + W / 2; j++) {
+						map [i, j] = -1;
+						Debug.Log ("Remove Bad Room "+ir +"IN ("+i+","+j+")");
+
+					}
+			}
+
 
 		}
 	}
+	public int [,] getMap(){
+		return map;
+	}
+
 	void Start () {
 
 	}
 	//
 	void Awake(){
 		ReBuildDungeon ();
+		//a.Run ();
 		//placeMap ();
 	}
 	// Update is called once per frame

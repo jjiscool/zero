@@ -17,11 +17,11 @@ public class playerMove : MonoBehaviour {
 
 	//player动画控制
 	private Animator animator; 
-
+	private int pathid;
 	//存储player的行，列；在移动的时候变化
 	private int row;
 	private int column;
-
+	private Astar astar;
 	void Awake(){
 		map = GameObject.Find ("map");
 		OBJTYPEList obj_list  = map.GetComponent<RandomDungeonCreator>().obj_list;//获取object列表
@@ -34,12 +34,14 @@ public class playerMove : MonoBehaviour {
 		//初始化位置
 		transform.position = iniPos;
 
+
 	}
 
 	void Start () {
 		isMoving = false;
 		endxy = transform.position;
 		animator = GetComponent<Animator>();
+
 	}
 
 	//根据单元格做碰撞检测
@@ -83,21 +85,25 @@ public class playerMove : MonoBehaviour {
 	}
 
 	public void moveUp(){
+		//Debug.Log ("UP");
 		animator.SetTrigger ("PlayerMoveUp");
 		AttemptMove ("UP",row - 1, column);
 	
 	}
 	public void moveDown(){
+		//Debug.Log ("Down");
 		animator.SetTrigger ("PlayerMoveDown");
 		AttemptMove ("DOWN",row+1, column);
 
 	}
 	public void moveLeft(){
+		//Debug.Log ("Left");
 		animator.SetTrigger ("PlayerMoveLeft");
 		AttemptMove ("LEFT",row, column-1);
 
 	}
 	public void moveRight(){
+		//Debug.Log ("Right");
 		animator.SetTrigger ("PlayerMoveRight");
 		AttemptMove ("RIGHT",row, column+1);
 	}
@@ -109,19 +115,45 @@ public class playerMove : MonoBehaviour {
 		Vector3	mousePositionInWorld =  Camera.main.ScreenToWorldPoint(mousePositionOnScreen);  
 		if (Input .GetMouseButtonDown(0)) {  
 			int[] pos=map.GetComponent<TilesManager>().posTransform2(mousePositionInWorld.x,mousePositionInWorld.y);
-			Debug.Log (pos[0]+","+pos[1]);
-				//Instantiate (, mousePositionInWorld , Quaternion.identity);  
-
+			astar= new Astar(row,column,pos[0],pos[1],map.GetComponent<RandomDungeonCreator>().getMap(),32,32);
+			astar.Run ();
+			Debug.Log ("Path long = " + astar.finalpath.Count);
+			pathid = astar.finalpath.Count-1;
+			if (pathid >= 1) {
+				Debug.Log ("path"+pathid+":"+row + "," + column + " to " + astar.finalpath [pathid] [0] + "," + astar.finalpath [pathid] [1]);
+				if (astar.finalpath [pathid] [0] < row)
+					moveUp ();
+				if (astar.finalpath [pathid] [0] > row)
+					moveDown ();
+				if (astar.finalpath [pathid] [1] < column)
+					moveLeft ();
+				if (astar.finalpath [pathid] [1] > column)
+					moveRight ();
+			}
+			//Instantiate (, mousePositionInWorld , Quaternion.identity);  
 		}  
-
-		
 		if (isMoving) {
 			transform.position = new Vector3 (Mathf.MoveTowards (transform.position.x, endxy.x, Time.deltaTime * speed), Mathf.MoveTowards (transform.position.y, endxy.y, Time.deltaTime * speed), 0);
 			GameObject.Find ("light").GetComponent<ligthmap> ().reDrawLight ();
 		}
 		if (transform.position == endxy) {
 			transform.position = endxy;
-			isMoving = false;
+			pathid--;
+			if (pathid < 0)
+				isMoving = false;
+			else {
+				isMoving = false;
+				Debug.Log ("path"+pathid+":"+row + "," + column + " to " + astar.finalpath [pathid] [0] + "," + astar.finalpath [pathid] [1]);
+				if (astar.finalpath [pathid] [0] < row)
+					moveUp ();
+				if (astar.finalpath [pathid] [0] > row)
+					moveDown ();
+				if (astar.finalpath [pathid] [1] < column)
+					moveLeft ();
+				if (astar.finalpath [pathid] [1] > column)
+					moveRight ();
+				//Debug.Log (transform.position.x + "," + transform.position.y + " " + endxy.x + "," + endxy.y);
+			}
 			//Debug.Log("stop");
 		}
 
