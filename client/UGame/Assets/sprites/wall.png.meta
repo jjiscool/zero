@@ -1,25 +1,37 @@
 fileFormatVersion: 2
 guid: 25ec88fae72fd4e97bc3a1e10a3fd545
-timeCreated: 1474815715
+timeCreated: 1475763467
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: wall_0
-    21300002: wall_1
-    21300004: wall_2
-    21300006: wall_3
-    21300008: wall_4
-    21300010: wall_5
-    21300012: wall_6
-    21300014: wall_7
-    21300016: wall_8
-    21300018: wall_9
-    21300020: wall_10
-    21300022: wall_11
-    21300024: wall_12
-    21300026: wall_13
-    21300028: wall_14
-    21300030: wall_15
+    21300000: wall_TL
+    21300002: wall_T_1
+    21300004: wall_T_2
+    21300006: wall_TR
+    21300008: wall_L_1
+    21300010: wall_C_1
+    21300012: wall_C_2
+    21300014: wall_R_1
+    21300016: wall_L_2
+    21300018: wall_C_3
+    21300020: wall_C_4
+    21300022: wall_R_2
+    21300024: wall_BL
+    21300026: wall_B_1
+    21300028: wall_B_2
+    21300030: wall_BR
+    21300032: wall_V_S_1
+    21300034: wall_V_S_2
+    21300036: wall_V_S_3
+    21300038: wall_V_S_4
+    21300040: wall_H_S_1
+    21300042: wall_H_S_2
+    21300044: wall_H_S_3
+    21300046: wall_H_S_4
+    21300048: wall_V_S_T
+    21300050: wall_H_S_B
+    21300052: wall_H_S_L
+    21300054: wall_H_S_R
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -62,11 +74,170 @@ TextureImporter:
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spritePixelsToUnits: 32
   alphaIsTransparency: 1
+  spriteTessellationDetail: -1
   textureType: 8
   buildTargetSettings: []
   spriteSheet:
+    serializedVersion: 2
     sprites:
-    - name: wall_0
+    - serializedVersion: 2
+      name: wall_TL
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 192
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: wall_T_1
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 192
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: wall_T_2
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 192
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: wall_TR
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 192
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: wall_L_1
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 160
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: wall_C_1
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 160
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: wall_C_2
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 160
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: wall_R_1
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 160
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: wall_L_2
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 128
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: wall_C_3
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 128
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: wall_C_4
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 128
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: wall_R_2
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 128
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: wall_BL
       rect:
         serializedVersion: 2
         x: 0
@@ -74,14 +245,12 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: -16, y: 16}
-        - {x: -16, y: -16}
-        - {x: 16, y: -16}
-        - {x: 16, y: 16}
-    - name: wall_1
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: wall_B_1
       rect:
         serializedVersion: 2
         x: 32
@@ -89,14 +258,12 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: -16, y: 16}
-        - {x: -16, y: -16}
-        - {x: 16, y: -16}
-        - {x: 16, y: 16}
-    - name: wall_2
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: wall_B_2
       rect:
         serializedVersion: 2
         x: 64
@@ -104,14 +271,12 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: -16, y: -16}
-        - {x: 16, y: -16}
-        - {x: 16, y: 16}
-        - {x: -16, y: 16}
-    - name: wall_3
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: wall_BR
       rect:
         serializedVersion: 2
         x: 96
@@ -119,14 +284,12 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: -16, y: 16}
-        - {x: -16, y: -16}
-        - {x: 16, y: -16}
-        - {x: 16, y: 16}
-    - name: wall_4
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: wall_V_S_1
       rect:
         serializedVersion: 2
         x: 0
@@ -134,14 +297,12 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: -16, y: 16}
-        - {x: -16, y: -16}
-        - {x: 16, y: -16}
-        - {x: 16, y: 16}
-    - name: wall_5
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: wall_V_S_2
       rect:
         serializedVersion: 2
         x: 32
@@ -149,14 +310,12 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: -16, y: 16}
-        - {x: -16, y: -16}
-        - {x: 16, y: -16}
-        - {x: 16, y: 16}
-    - name: wall_6
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: wall_V_S_3
       rect:
         serializedVersion: 2
         x: 64
@@ -164,14 +323,12 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: -16, y: 16}
-        - {x: -16, y: -16}
-        - {x: 16, y: -16}
-        - {x: 16, y: 16}
-    - name: wall_7
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: wall_V_S_4
       rect:
         serializedVersion: 2
         x: 96
@@ -179,14 +336,12 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: -16, y: 16}
-        - {x: -16, y: -16}
-        - {x: 16, y: -16}
-        - {x: 16, y: 16}
-    - name: wall_8
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: wall_H_S_1
       rect:
         serializedVersion: 2
         x: 0
@@ -194,14 +349,12 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: -16, y: 16}
-        - {x: -16, y: -16}
-        - {x: 16, y: -16}
-        - {x: 16, y: 16}
-    - name: wall_9
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: wall_H_S_2
       rect:
         serializedVersion: 2
         x: 32
@@ -209,14 +362,12 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: -16, y: 16}
-        - {x: -16, y: -16}
-        - {x: 16, y: -16}
-        - {x: 16, y: 16}
-    - name: wall_10
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: wall_H_S_3
       rect:
         serializedVersion: 2
         x: 64
@@ -224,14 +375,12 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: -16, y: 16}
-        - {x: -16, y: -16}
-        - {x: 16, y: -16}
-        - {x: 16, y: 16}
-    - name: wall_11
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: wall_H_S_4
       rect:
         serializedVersion: 2
         x: 96
@@ -239,14 +388,12 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: 16, y: -16}
-        - {x: 16, y: 16}
-        - {x: -16, y: 16}
-        - {x: -16, y: -16}
-    - name: wall_12
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: wall_V_S_T
       rect:
         serializedVersion: 2
         x: 0
@@ -254,14 +401,12 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: -16, y: 16}
-        - {x: -16, y: -16}
-        - {x: 16, y: -16}
-        - {x: 16, y: 16}
-    - name: wall_13
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: wall_H_S_B
       rect:
         serializedVersion: 2
         x: 32
@@ -269,14 +414,12 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: -16, y: 16}
-        - {x: -16, y: -16}
-        - {x: 16, y: -16}
-        - {x: 16, y: 16}
-    - name: wall_14
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: wall_H_S_L
       rect:
         serializedVersion: 2
         x: 64
@@ -284,14 +427,12 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: -16, y: 16}
-        - {x: -16, y: -16}
-        - {x: 16, y: -16}
-        - {x: 16, y: 16}
-    - name: wall_15
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: wall_H_S_R
       rect:
         serializedVersion: 2
         x: 96
@@ -299,13 +440,10 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: -16, y: 16}
-        - {x: -16, y: -16}
-        - {x: 16, y: -16}
-        - {x: 16, y: 16}
+      outline: []
+      tessellationDetail: 0
     outline: []
   spritePackingTag: 
   userData: 

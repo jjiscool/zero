@@ -76,7 +76,15 @@ public class TilesManager : MonoBehaviour {
 				if (i == 0 || i == mapWidth-1) {
 					switch (i) {
 					default:
-						tile_gos [i, j] = (GameObject)Instantiate (wallTiles[4], newp, Quaternion.identity);
+						tileTypeUp = randomMapScript.getMapTileType (mapWidth-2, j);
+						if (tileTypeUp != "WALL") {
+							tile_gos [i, j] = (GameObject)Instantiate (wallTiles [Random.Range (1, 2)], newp, Quaternion.identity);
+
+
+						} else {
+							tile_gos [i, j] = (GameObject)Instantiate (wallTiles [Random.Range (10, 13)], newp, Quaternion.identity);
+						}
+//						tile_gos [i, j] = (GameObject)Instantiate (wallTiles[4], newp, Quaternion.identity);
 						tile_gos [i, j].layer = 12;
 						tile_gos [i, j].transform.SetParent(transform);
 						tile_gos [i, j].transform.localScale= new Vector3(tileSize,tileSize,1);
@@ -84,11 +92,11 @@ public class TilesManager : MonoBehaviour {
 					case 0:
 						tileTypeDown = randomMapScript.getMapTileType (1, j);
 						if (tileTypeDown != "WALL") {
-							tile_gos [i, j] = (GameObject)Instantiate (wallTiles [7], newp, Quaternion.identity);
+							tile_gos [i, j] = (GameObject)Instantiate (wallTiles [Random.Range (20, 21)], newp, Quaternion.identity);
 
 
 						} else {
-							tile_gos [i, j] = (GameObject)Instantiate (wallTiles[4], newp, Quaternion.identity);
+							tile_gos [i, j] = (GameObject)Instantiate (wallTiles [Random.Range (10, 13)], newp, Quaternion.identity);
 						}
 						tile_gos [i, j].layer = 12;
 						tile_gos [i, j].transform.SetParent(transform);
@@ -101,10 +109,34 @@ public class TilesManager : MonoBehaviour {
 
 					continue;
 				} else if(j == 0 || j == mapHeight-1){
-					tile_gos [i, j] = (GameObject)Instantiate (wallTiles[4], newp, Quaternion.identity);
-					tile_gos [i, j].layer = 12;
-					tile_gos [i, j].transform.SetParent(transform);
-					tile_gos [i, j].transform.localScale= new Vector3(tileSize,tileSize,1);
+					switch (j) {
+					case 0:
+						tileTypeRight = randomMapScript.getMapTileType (i, 1);
+						if (tileTypeRight != "WALL") {
+							tile_gos [i, j] = (GameObject)Instantiate (wallTiles [Random.Range (8, 9)], newp, Quaternion.identity);
+						} else {
+							tile_gos [i, j] = (GameObject)Instantiate (wallTiles [Random.Range (10, 13)], newp, Quaternion.identity);
+						}
+						tile_gos [i, j].layer = 12;
+						tile_gos [i, j].transform.SetParent(transform);
+						tile_gos [i, j].transform.localScale= new Vector3(tileSize,tileSize,1);
+						break;
+					default:
+						tileTypeRight = randomMapScript.getMapTileType (i, mapHeight-2);
+						if (tileTypeRight != "WALL") {
+							tile_gos [i, j] = (GameObject)Instantiate (wallTiles [Random.Range (5, 6)], newp, Quaternion.identity);
+						} else {
+							tile_gos [i, j] = (GameObject)Instantiate (wallTiles [Random.Range (10, 13)], newp, Quaternion.identity);
+						}
+						tile_gos [i, j].layer = 12;
+						tile_gos [i, j].transform.SetParent(transform);
+						tile_gos [i, j].transform.localScale= new Vector3(tileSize,tileSize,1);
+						break;
+						
+					}
+
+//					tile_gos [i, j] = (GameObject)Instantiate (wallTiles[4], newp, Quaternion.identity);
+
 					continue;
 				}else {
 					tileTypeLeft = randomMapScript.getMapTileType (i, j-1);
@@ -122,6 +154,63 @@ public class TilesManager : MonoBehaviour {
 						//0x0
 						//x1x
 						//000
+						if (tileTypeUp != "WALL") {
+							//000
+							//x1x
+							//000
+							if (tileTypeRight == "WALL" && tileTypeLeft != "WALL") {
+								//000
+								//011
+								//000
+								tile_gos [i, j] = (GameObject)Instantiate (wallTiles [4], newp, Quaternion.identity);
+								tile_gos [i, j].layer = 12;
+								break;
+							} else if (tileTypeRight != "WALL" && tileTypeLeft == "WALL") {
+								//000
+								//110
+								//000
+								tile_gos [i, j] = (GameObject)Instantiate (wallTiles [7], newp, Quaternion.identity);
+								tile_gos [i, j].layer = 12;
+								break;
+							}
+							//000
+							//111
+							//000
+							tile_gos [i, j] = (GameObject)Instantiate (wallTiles [Random.Range (23, 26)], newp, Quaternion.identity);
+							tile_gos [i, j].layer = 12;
+							break;
+
+						} else {
+							//010
+							//x1x
+							//000
+							if (tileTypeRight == "WALL" && tileTypeLeft != "WALL") {
+								//010
+								//011
+								//000
+								tile_gos [i, j] = (GameObject)Instantiate (wallTiles [18], newp, Quaternion.identity);
+								tile_gos [i, j].layer = 12;
+								break;
+							} else if (tileTypeRight != "WALL" && tileTypeLeft == "WALL") {
+								//010
+								//110
+								//000
+								tile_gos [i, j] = (GameObject)Instantiate (wallTiles [19], newp, Quaternion.identity);
+								tile_gos [i, j].layer = 12;
+								break;
+							} else if (tileTypeRight != "WALL" && tileTypeLeft != "WALL") {
+								//010
+								//010
+								//000
+								tile_gos [i, j] = (GameObject)Instantiate (wallTiles [27], newp, Quaternion.identity);
+								tile_gos [i, j].layer = 12;
+								break;
+							}
+
+							tile_gos [i, j] = (GameObject)Instantiate (wallTiles [Random.Range (20, 21)], newp, Quaternion.identity);
+							tile_gos [i, j].layer = 12;
+							break;
+						}
 
 						tile_gos [i, j] = (GameObject)Instantiate (wallTiles [7], newp, Quaternion.identity);
 						tile_gos [i, j].layer = 12;
@@ -153,17 +242,50 @@ public class TilesManager : MonoBehaviour {
 								//000
 								//111
 								//010
-								tile_gos [i, j] = (GameObject)Instantiate (wallTiles [Random.Range (1, 3)], newp, Quaternion.identity);
+								tile_gos [i, j] = (GameObject)Instantiate (wallTiles [Random.Range (1, 2)], newp, Quaternion.identity);
 								tile_gos [i, j].layer = 12;
 								break;
 							}
+							//000
+							//010
+							//010
+							tile_gos [i, j] = (GameObject)Instantiate (wallTiles [22], newp, Quaternion.identity);
+							tile_gos [i, j].layer = 12;
+							break;
 
 							
 						} else {
 							//010
 							//x1x
 							//010
+							if (tileTypeRight == "WALL" && tileTypeLeft != "WALL") {
+								//010
+								//011
+								//010
+								tile_gos [i, j] = (GameObject)Instantiate (wallTiles [Random.Range (5, 7)], newp, Quaternion.identity);
+								tile_gos [i, j].layer = 12;
+							} else if (tileTypeRight != "WALL" && tileTypeLeft == "WALL") {
+								//010
+								//110
+								//010
+								tile_gos [i, j] = (GameObject)Instantiate (wallTiles [Random.Range (8, 10)], newp, Quaternion.identity);
+								tile_gos [i, j].layer = 12;
+							} else if (tileTypeRight != "WALL" && tileTypeLeft != "WALL") {
+								//010
+								//010
+								//010
+								tile_gos [i, j] = (GameObject)Instantiate (wallTiles [Random.Range (14, 17)], newp, Quaternion.identity);
+								tile_gos [i, j].layer = 12;
+							}
+							else {
+								//010
+								//111
+								//010
+								tile_gos [i, j] = (GameObject)Instantiate (wallTiles [Random.Range (10, 13)], newp, Quaternion.identity);
+								tile_gos [i, j].layer = 12;
+							}
 						}
+
 						tile_gos [i, j] = (GameObject)Instantiate (wallTiles[4], newp, Quaternion.identity);
 						tile_gos [i, j].layer=12;
 						break;
