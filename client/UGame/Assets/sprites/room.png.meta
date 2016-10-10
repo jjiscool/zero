@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 9f15e0ab7b24c4489b29ee73acc687f3
-timeCreated: 1474807494
+timeCreated: 1476086389
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -8,14 +8,14 @@ TextureImporter:
     21300002: wall_1
     21300004: wall_2
     21300006: wall_3
-    21300008: room_0
-    21300010: room_1
-    21300012: room_2
-    21300014: room_3
-    21300016: room_4
-    21300018: room_5
-    21300020: room_6
-    21300022: room_7
+    21300008: room_1
+    21300010: room_2
+    21300012: room_3
+    21300014: room_4
+    21300016: room_sd_1
+    21300018: room_sd_2
+    21300020: room_sd_3
+    21300022: room_sd_4
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -58,11 +58,14 @@ TextureImporter:
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spritePixelsToUnits: 32
   alphaIsTransparency: 1
+  spriteTessellationDetail: -1
   textureType: 8
   buildTargetSettings: []
   spriteSheet:
+    serializedVersion: 2
     sprites:
-    - name: room_0
+    - serializedVersion: 2
+      name: room_1
       rect:
         serializedVersion: 2
         x: 0
@@ -70,14 +73,12 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: -16, y: 16}
-        - {x: -16, y: -16}
-        - {x: 16, y: -16}
-        - {x: 16, y: 16}
-    - name: room_1
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: room_2
       rect:
         serializedVersion: 2
         x: 32
@@ -85,14 +86,12 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: -16, y: 16}
-        - {x: -16, y: -16}
-        - {x: 16, y: -16}
-        - {x: 16, y: 16}
-    - name: room_2
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: room_3
       rect:
         serializedVersion: 2
         x: 64
@@ -100,14 +99,12 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: -16, y: 16}
-        - {x: -16, y: -16}
-        - {x: 16, y: -16}
-        - {x: 16, y: 16}
-    - name: room_3
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: room_4
       rect:
         serializedVersion: 2
         x: 96
@@ -115,14 +112,12 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: -16, y: 16}
-        - {x: -16, y: -16}
-        - {x: 16, y: -16}
-        - {x: 16, y: 16}
-    - name: room_4
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: room_sd_1
       rect:
         serializedVersion: 2
         x: 0
@@ -130,14 +125,12 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: -16, y: 16}
-        - {x: -16, y: -16}
-        - {x: 16, y: -16}
-        - {x: 16, y: 16}
-    - name: room_5
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: room_sd_2
       rect:
         serializedVersion: 2
         x: 32
@@ -145,14 +138,12 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: -16, y: 16}
-        - {x: -16, y: -16}
-        - {x: 16, y: -16}
-        - {x: 16, y: 16}
-    - name: room_6
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: room_sd_3
       rect:
         serializedVersion: 2
         x: 64
@@ -160,14 +151,12 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: -16, y: 16}
-        - {x: -16, y: -16}
-        - {x: 16, y: -16}
-        - {x: 16, y: 16}
-    - name: room_7
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: room_sd_4
       rect:
         serializedVersion: 2
         x: 96
@@ -175,13 +164,10 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: -16, y: 16}
-        - {x: -16, y: -16}
-        - {x: 16, y: -16}
-        - {x: 16, y: 16}
+      outline: []
+      tessellationDetail: -1
     outline: []
   spritePackingTag: 
   userData: 

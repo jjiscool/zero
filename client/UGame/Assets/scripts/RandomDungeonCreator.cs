@@ -402,6 +402,9 @@ public class RandomDungeonCreator : MonoBehaviour {
 	public int RoomDesity;//房间密度
 	public int MaxRoomWidth;//房间最大宽度
 	public int MaxRoomHeight;//房间最大高度
+	public int MinRoomWidth;//房间最小宽度
+	public int MinRoomHeight;//房间最小高度
+
 	public int MaxReduceLength;//死路总剔除长度
 	//单元列表
 	private List<int> mazesID;//走廊ID列表
@@ -476,15 +479,16 @@ public class RandomDungeonCreator : MonoBehaviour {
 	}
 	//随机放置房间
 	void placeRandomRoom(){
+
 		for (int i = 0; i < RoomDesity; i++) {
 			int x = Random.Range(1,MapWidth);
 			int y =Random.Range(1,MapHeight);
-			if (MaxRoomWidth < 3)
-				MaxRoomWidth = 3;
-			if (MaxRoomHeight < 3)
-				MaxRoomHeight = 3;
-			int w = Random.Range(3,MaxRoomWidth+1);
-			int h = Random.Range(3,MaxRoomHeight+1);
+			if (MaxRoomWidth < MinRoomWidth)
+				MaxRoomWidth = MinRoomWidth;
+			if (MaxRoomHeight < MinRoomHeight)
+				MaxRoomHeight = MinRoomHeight;
+			int w = Random.Range(MinRoomWidth,MaxRoomWidth+1);
+			int h = Random.Range(MinRoomHeight,MaxRoomHeight+1);
 			createRoom (x, y, w, h);
 		}
 	}

@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 25ec88fae72fd4e97bc3a1e10a3fd545
-timeCreated: 1475763467
+timeCreated: 1476069064
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -32,6 +32,14 @@ TextureImporter:
     21300050: wall_H_S_B
     21300052: wall_H_S_L
     21300054: wall_H_S_R
+    21300056: wall_S_R_Conner
+    21300058: wall_S_L_Conner
+    21300060: wall_LR_Conner
+    21300062: wall_S_LR_Conner
+    21300064: wall_L_Conner
+    21300066: wall_R_Conner
+    21300068: wall_R_Conner_2
+    21300070: wall_L_Conner_2
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -437,6 +445,110 @@ TextureImporter:
         serializedVersion: 2
         x: 96
         y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: wall_S_R_Conner
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 224
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: wall_S_L_Conner
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 224
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: wall_LR_Conner
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 224
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: wall_S_LR_Conner
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 224
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: wall_L_Conner
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 256
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: wall_R_Conner
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 256
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: wall_R_Conner_2
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 256
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: wall_L_Conner_2
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 256
         width: 32
         height: 32
       alignment: 0

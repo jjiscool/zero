@@ -406,7 +406,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 277640774}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 96c8b37dbc8ed41b289b43d6ff788e53, type: 3}
   m_Name: 
@@ -1060,7 +1060,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 21229774, guid: ddf67a332d27e468fac02e7ef1158a3b, type: 2}
       propertyPath: m_Color.a
-      value: 0.559
+      value: 0.591
       objectReference: {fileID: 0}
     - target: {fileID: 448516, guid: ddf67a332d27e468fac02e7ef1158a3b, type: 2}
       propertyPath: m_LocalScale.x
@@ -1081,6 +1081,10 @@ Prefab:
     - target: {fileID: 126866, guid: ddf67a332d27e468fac02e7ef1158a3b, type: 2}
       propertyPath: m_Layer
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 21229774, guid: ddf67a332d27e468fac02e7ef1158a3b, type: 2}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ddf67a332d27e468fac02e7ef1158a3b, type: 2}
@@ -1270,7 +1274,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1686565513}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cae43f7a9cf9d40189442a28f0ae79e5, type: 3}
   m_Name: 
@@ -1566,8 +1570,10 @@ MonoBehaviour:
   MapHeight: 32
   TileSize: 1
   RoomDesity: 100
-  MaxRoomWidth: 5
-  MaxRoomHeight: 5
+  MaxRoomWidth: 9
+  MaxRoomHeight: 9
+  MinRoomWidth: 4
+  MinRoomHeight: 4
   MaxReduceLength: 100
 --- !u!212 &1885000958
 SpriteRenderer:
@@ -1633,6 +1639,12 @@ MonoBehaviour:
   roomTiles:
   - {fileID: 142400, guid: de03722d6cbcf4edd8340f545942a01c, type: 2}
   - {fileID: 102830, guid: bcf43f020ab3846fa890485103a6b5ac, type: 2}
+  - {fileID: 102830, guid: bcf43f020ab3846fa890485103a6b5ac, type: 2}
+  - {fileID: 102830, guid: bcf43f020ab3846fa890485103a6b5ac, type: 2}
+  - {fileID: 1000014284328744, guid: a393767f87da14827894cbf2b74ce5b7, type: 2}
+  - {fileID: 1000011263296106, guid: 18b3f748adcf6496f9a77f28867d3599, type: 2}
+  - {fileID: 102830, guid: bcf43f020ab3846fa890485103a6b5ac, type: 2}
+  - {fileID: 102830, guid: bcf43f020ab3846fa890485103a6b5ac, type: 2}
   wallTiles:
   - {fileID: 137748, guid: 448f3a667dd1c4e41878b3619d8a32f8, type: 2}
   - {fileID: 130012, guid: f2c8c7af68e3a41b7aec87bfda784457, type: 2}
@@ -1662,6 +1674,19 @@ MonoBehaviour:
   - {fileID: 1000013763581086, guid: 044956ac9ca584d639d9991b6c8c54d2, type: 2}
   - {fileID: 1000013604634794, guid: 2ba73b679a02f42faa65fdc5a51f5f08, type: 2}
   - {fileID: 1000012488171690, guid: 3e6713020f5214f04a83edd7d437c3fb, type: 2}
+  - {fileID: 1000010780291280, guid: 1bfbf33248cf9445a961f6babd27f3e5, type: 2}
+  - {fileID: 1000012616551036, guid: 495db376facdc4d7d90fa831259a7592, type: 2}
+  - {fileID: 1000010578435754, guid: ec72218b825a3470fa5fcf5ff12ed416, type: 2}
+  - {fileID: 1000012728285488, guid: e87f61a7c1ffc4502ae582537219689e, type: 2}
+  - {fileID: 1000010916137200, guid: 4633cc5a30ce542b782566f0bf7e2e99, type: 2}
+  - {fileID: 1000014102902168, guid: e35bab01a58f74010b9316f2c7f0076a, type: 2}
+  - {fileID: 1000012755079670, guid: 8a27f0a0cbd7a451cb8b22a4074bb44c, type: 2}
+  - {fileID: 1000012883477622, guid: 2f585471cc08b4b1a86a6b8205cda3cd, type: 2}
+  mazeTiles:
+  - {fileID: 142400, guid: de03722d6cbcf4edd8340f545942a01c, type: 2}
+  - {fileID: 102830, guid: bcf43f020ab3846fa890485103a6b5ac, type: 2}
+  - {fileID: 1000014284328744, guid: a393767f87da14827894cbf2b74ce5b7, type: 2}
+  - {fileID: 1000011263296106, guid: 18b3f748adcf6496f9a77f28867d3599, type: 2}
 --- !u!1 &2047372671
 GameObject:
   m_ObjectHideFlags: 0
