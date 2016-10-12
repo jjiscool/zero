@@ -455,7 +455,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 434176, guid: d43c4d5b26c3d40c89eb394cc8fdaf76, type: 2}
       propertyPath: m_RootOrder
-      value: 9
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 21284038, guid: d43c4d5b26c3d40c89eb394cc8fdaf76, type: 2}
       propertyPath: m_Sprite
@@ -472,6 +472,10 @@ Prefab:
     - target: {fileID: 113072, guid: d43c4d5b26c3d40c89eb394cc8fdaf76, type: 2}
       propertyPath: m_Name
       value: player
+      objectReference: {fileID: 0}
+    - target: {fileID: 434176, guid: d43c4d5b26c3d40c89eb394cc8fdaf76, type: 2}
+      propertyPath: m_LocalScale.y
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 6164114, guid: d43c4d5b26c3d40c89eb394cc8fdaf76, type: 2}
@@ -1006,7 +1010,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 9
 --- !u!1001 &1135693616
 Prefab:
   m_ObjectHideFlags: 0
@@ -1570,8 +1574,8 @@ MonoBehaviour:
   MapHeight: 32
   TileSize: 1
   RoomDesity: 100
-  MaxRoomWidth: 9
-  MaxRoomHeight: 9
+  MaxRoomWidth: 10
+  MaxRoomHeight: 10
   MinRoomWidth: 4
   MinRoomHeight: 4
   MaxReduceLength: 100

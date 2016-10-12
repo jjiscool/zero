@@ -34,6 +34,12 @@ public class Astar{
 	public int[,] map;
 	public int MaxX;
 	public int MaxY;
+	public Astar(){//int x,int y,int tox,int toy
+		open = new List<int> ();
+		close = new List<int> ();
+		final = new List<AstarNode> ();
+		finalpath = new List<int[]> ();
+	}
 	public Astar(int x,int y,int tox,int toy,int[,] M,int MX,int MY){//int x,int y,int tox,int toy
 		open = new List<int> ();
 		close = new List<int> ();
