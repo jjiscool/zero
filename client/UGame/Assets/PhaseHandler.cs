@@ -5,12 +5,7 @@ public class Phase
 	public Phase(){
 		
 	}
-	virtual void PhaseAction(){
-		
-	}
-	virtual void PhaseUpdate(){
-		
-	}
+
 	
 }
 public class PhaseHandler : MonoBehaviour {
