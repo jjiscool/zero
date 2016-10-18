@@ -2,23 +2,9 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets/scripts/playerMove.cs">
     <Files>
-<<<<<<< Updated upstream
-      <File FileName="Assets/scripts/followCenter.cs" Line="4" Column="1" />
-      <File FileName="Assets/scripts/RandomDungeonCreator.cs" Line="262" Column="4" />
-      <File FileName="Assets/scripts/ligthmap.cs" Line="38" Column="1" />
-      <File FileName="Assets/scripts/IMESH.cs" Line="34" Column="27" />
-      <File FileName="Assets/scripts/MovingObject.cs" Line="62" Column="3" />
-      <File FileName="Assets/scripts/TilesManager.cs" Line="51" Column="28" />
-      <File FileName="Assets/scripts/Wall.cs" Line="6" Column="2" />
-      <File FileName="Assets/scripts/Triangulator.cs" Line="1" Column="1" />
-      <File FileName="Assets/scripts/playerMove.cs" Line="74" Column="7" />
-      <File FileName="Assets/scripts/moveBtn.cs" Line="4" Column="1" />
-=======
-      <File FileName="Assets/scripts/TilesManager.cs" Line="1" Column="1" />
-      <File FileName="Assets/scripts/RandomDungeonCreator.cs" Line="14" Column="30" />
-      <File FileName="Assets/scripts/ligthmap.cs" Line="1" Column="1" />
-      <File FileName="Assets/scripts/IMESH.cs" Line="1" Column="1" />
->>>>>>> Stashed changes
+      <File FileName="Assets/scripts/TilesManager.cs" Line="213" Column="15" />
+      <File FileName="Assets/scripts/RandomDungeonCreator.cs" Line="41" Column="34" />
+      <File FileName="Assets/scripts/playerMove.cs" Line="177" Column="20" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

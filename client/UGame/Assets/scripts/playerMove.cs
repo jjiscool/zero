@@ -17,6 +17,11 @@ public class playerMove : MonoBehaviour {
 
 	//player动画控制
 	private Animator animator; 
+	private Animator weaponAnimator;
+
+	private int roleOrder;
+	private int weaponOrder;
+
 	private int pathid;
 	//存储player的行，列，朝向；在移动的时候变化
 	private int row;
@@ -44,9 +49,24 @@ public class playerMove : MonoBehaviour {
 	void Start () {
 		isMoving = false;
 		endxy = transform.position;
-		animator = GetComponent<Animator>();
+		animator = transform.FindChild("man").GetComponent<Animator>();
+		weaponAnimator = transform.FindChild("weapon").GetComponent<Animator>();
 
 
+//		Debug.Log (roleOrder);
+
+
+
+	}
+
+	private void PlaceRoleBehindWeapon(){
+		roleOrder = transform.FindChild ("man").GetComponent<SpriteRenderer> ().sortingOrder;
+		transform.FindChild ("weapon").GetComponent<SpriteRenderer> ().sortingOrder = roleOrder +1;
+	}
+
+	private void PlaceRoleBeforeWeapon(){
+		roleOrder = transform.FindChild ("man").GetComponent<SpriteRenderer> ().sortingOrder;
+		transform.FindChild ("weapon").GetComponent<SpriteRenderer> ().sortingOrder = roleOrder -1;
 	}
 
 	//根据单元格做碰撞检测
@@ -91,15 +111,19 @@ public class playerMove : MonoBehaviour {
 
 	public void moveUp(){
 		orientation = "UP";
-		Debug.Log ("UP");
+//		Debug.Log ("UP");
+		PlaceRoleBehindWeapon();
 		animator.SetTrigger ("PlayerMoveUp");
+		weaponAnimator.SetTrigger ("WeaponOnMoveUp");
 		AttemptMove (orientation,row - 1, column);
 	
 	}
 	public void moveDown(){
 		orientation = "DOWN";
 		//Debug.Log ("Down");
+		PlaceRoleBeforeWeapon();
 		animator.SetTrigger ("PlayerMoveDown");
+		weaponAnimator.SetTrigger ("WeaponOnMoveDown");
 		AttemptMove (orientation,row+1, column);
 
 	}
@@ -158,9 +182,11 @@ public class playerMove : MonoBehaviour {
 				switch (orientation){
 				case "UP": 
 					animator.SetTrigger ("PlayerIdleUp");
+					weaponAnimator.SetTrigger ("WeaponOnIdleUp");
 					break;
 				case "DOWN": 
 					animator.SetTrigger ("PlayerIdleDown");
+					weaponAnimator.SetTrigger ("WeaponOnIdleDown");
 					break;
 				case "LEFT": 
 					animator.SetTrigger ("PlayerIdleLeft");
