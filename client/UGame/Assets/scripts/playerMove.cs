@@ -11,6 +11,9 @@ public class playerMove : MonoBehaviour {
 
 	private GameObject map;
 
+	private GameObject role;
+	private GameObject weapon;
+
 	//player初始位置
 	private int[] iniCell;
 	private Vector2 iniPos;
@@ -29,9 +32,14 @@ public class playerMove : MonoBehaviour {
 	private string orientation;
 
 
+//	public Sprite weaponTileH;
+//	public Sprite weaponTileV;
+
 	private Astar astar;
 	void Awake(){
 		map = GameObject.Find ("map");
+		role = GameObject.Find ("man");
+		weapon = GameObject.Find ("weapon");
 		OBJTYPEList obj_list  = map.GetComponent<RandomDungeonCreator>().obj_list;//获取object列表
 		row = obj_list.getListByType (OBJTYPE.OBJTYPE_SPAWNPOINT) [0].row;
 		column = obj_list.getListByType (OBJTYPE.OBJTYPE_SPAWNPOINT) [0].column;
@@ -49,8 +57,8 @@ public class playerMove : MonoBehaviour {
 	void Start () {
 		isMoving = false;
 		endxy = transform.position;
-		animator = transform.FindChild("man").GetComponent<Animator>();
-		weaponAnimator = transform.FindChild("weapon").GetComponent<Animator>();
+		animator = role.GetComponent<Animator>();
+		weaponAnimator = weapon.GetComponent<Animator>();
 
 
 //		Debug.Log (roleOrder);
@@ -60,13 +68,13 @@ public class playerMove : MonoBehaviour {
 	}
 
 	private void PlaceRoleBehindWeapon(){
-		roleOrder = transform.FindChild ("man").GetComponent<SpriteRenderer> ().sortingOrder;
-		transform.FindChild ("weapon").GetComponent<SpriteRenderer> ().sortingOrder = roleOrder +1;
+		roleOrder = role.GetComponent<SpriteRenderer> ().sortingOrder;
+		weapon.GetComponent<SpriteRenderer> ().sortingOrder = roleOrder +1;
 	}
 
 	private void PlaceRoleBeforeWeapon(){
-		roleOrder = transform.FindChild ("man").GetComponent<SpriteRenderer> ().sortingOrder;
-		transform.FindChild ("weapon").GetComponent<SpriteRenderer> ().sortingOrder = roleOrder -1;
+		roleOrder = role.GetComponent<SpriteRenderer> ().sortingOrder;
+		weapon.GetComponent<SpriteRenderer> ().sortingOrder = roleOrder -1;
 	}
 
 	//根据单元格做碰撞检测
@@ -129,15 +137,17 @@ public class playerMove : MonoBehaviour {
 	}
 	public void moveLeft(){
 		orientation = "LEFT";
-
+		PlaceRoleBeforeWeapon();
 		animator.SetTrigger ("PlayerMoveLeft");
+		weaponAnimator.SetTrigger ("WeaponOnMoveLeft");
 		AttemptMove (orientation,row, column-1);
 
 	}
 	public void moveRight(){
 		orientation = "RIGHT";
-		Debug.Log ("Right");
+		PlaceRoleBeforeWeapon();
 		animator.SetTrigger ("PlayerMoveRight");
+		weaponAnimator.SetTrigger ("WeaponOnMoveRight");
 		AttemptMove (orientation,row, column+1);
 	}
 	// Update is called once per frame
@@ -190,12 +200,15 @@ public class playerMove : MonoBehaviour {
 					break;
 				case "LEFT": 
 					animator.SetTrigger ("PlayerIdleLeft");
+					weaponAnimator.SetTrigger ("WeaponOnIdleLeft");
 					break;
 				case "RIGHT": 
 					animator.SetTrigger ("PlayerIdleRight");
+					weaponAnimator.SetTrigger ("WeaponOnIdleRight");
 					break;
 				default:
 					animator.SetTrigger ("PlayerIdleDown");
+					weaponAnimator.SetTrigger ("WeaponOnIdleDown");
 					break;
 				}
 
