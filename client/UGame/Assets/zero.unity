@@ -1808,7 +1808,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f8b1aa47f25540468d2c5d583f383b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wall: {fileID: 150450, guid: 59a2b2a44378c43e78f45c70eb92d56e, type: 2}
+  wall: {fileID: 142400, guid: de03722d6cbcf4edd8340f545942a01c, type: 2}
   room: {fileID: 190298, guid: 5dcc1bf82e22c4facb3399f2b2192daf, type: 2}
   maze: {fileID: 102830, guid: bcf43f020ab3846fa890485103a6b5ac, type: 2}
   door: {fileID: 137222, guid: c3568b24c128f48a8a857b2869b66128, type: 2}
