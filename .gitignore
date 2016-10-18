@@ -13,7 +13,7 @@ client/UGame/*.sln
 *.user
 *.unityproj
 *.booproj
-*.meta
+
 .DS_Store
 .DS_Store?
 ._*
