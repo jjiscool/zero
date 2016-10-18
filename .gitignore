@@ -7,7 +7,7 @@ ExportedObj/
 client/UGame/*.csproj
 client/UGame/*.sln
 *.svd
-*.userprefs
+
 *.pidb
 *.suo
 *.user
