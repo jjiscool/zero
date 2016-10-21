@@ -53,3 +53,6 @@ TagManager:
   - name: Weapon
     uniqueID: 4164094109
     locked: 0
+  - name: Light
+    uniqueID: 990582713
+    locked: 0

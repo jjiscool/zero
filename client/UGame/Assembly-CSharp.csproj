@@ -57,6 +57,7 @@
      <Compile Include="Assets\scripts\moveBtn.cs" />
      <Compile Include="Assets\scripts\playerMove.cs" />
      <None Include="Assets\mask.shader" />
+     <None Include="Assets\lightCover.shader" />
  <Reference Include="UnityEngine.UI">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
