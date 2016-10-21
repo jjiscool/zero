@@ -1820,6 +1820,7 @@ GameObject:
   - 212: {fileID: 1885000958}
   - 114: {fileID: 1885000957}
   - 114: {fileID: 1885000960}
+  - 114: {fileID: 1885000961}
   m_Layer: 9
   m_Name: map
   m_TagString: Untagged
@@ -1959,6 +1960,19 @@ MonoBehaviour:
   - {fileID: 102830, guid: bcf43f020ab3846fa890485103a6b5ac, type: 2}
   - {fileID: 1000014284328744, guid: a393767f87da14827894cbf2b74ce5b7, type: 2}
   - {fileID: 1000011263296106, guid: 18b3f748adcf6496f9a77f28867d3599, type: 2}
+--- !u!114 &1885000961
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1885000956}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbf17580ec7654af2bcfda9cf8df42ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 788362720}
+  enemy: []
 --- !u!1 &2047372671
 GameObject:
   m_ObjectHideFlags: 0

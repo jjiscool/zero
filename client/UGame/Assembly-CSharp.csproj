@@ -45,9 +45,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\PhaseHandler.cs" />
+     <Compile Include="Assets\RoundControler.cs" />
      <Compile Include="Assets\scripts\IMESH.cs" />
      <Compile Include="Assets\scripts\MovingObject.cs" />
+     <Compile Include="Assets\scripts\PhaseHandler.cs" />
      <Compile Include="Assets\scripts\RandomDungeonCreator.cs" />
      <Compile Include="Assets\scripts\TilesManager.cs" />
      <Compile Include="Assets\scripts\Triangulator.cs" />

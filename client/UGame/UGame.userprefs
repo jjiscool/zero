@@ -1,10 +1,12 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/scripts/playerMove.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/mask.shader">
     <Files>
+      <File FileName="Assets/PhaseHandler.cs" Line="1" Column="1" />
       <File FileName="Assets/scripts/TilesManager.cs" Line="213" Column="15" />
-      <File FileName="Assets/scripts/RandomDungeonCreator.cs" Line="41" Column="34" />
-      <File FileName="Assets/scripts/playerMove.cs" Line="177" Column="20" />
+      <File FileName="Assets/scripts/RandomDungeonCreator.cs" Line="1" Column="1" />
+      <File FileName="Assets/scripts/playerMove.cs" Line="1" Column="1" />
+      <File FileName="Assets/mask.shader" Line="7" Column="7" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
