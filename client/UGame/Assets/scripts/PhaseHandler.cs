@@ -35,7 +35,8 @@ public class Phase
 	public virtual void handle(Action a){
 		
 	}
-	public virtual void update(){
+	public virtual void update(Transform tr){
+		
 	
 	}
 	public virtual PHASE_TYPE getType(){
@@ -50,7 +51,7 @@ public class WaitingPhase:Phase{
 	public override void handle(Action a){
 		
 	}
-	public override void update(){
+	public override void update(Transform tr){
 		//Debug.Log (Player.name+"is Waiting....");
 
 	}
@@ -66,12 +67,11 @@ public class RoundBeginPhase:Phase{
 		Debug.Log ("RoundBeginPhase");
 	}
 	public override void handle(Action a){
-		
 		PH.state = new ThinkingPhase (PH);
 		//PH.state.handle (new Action (ACTION_TYPE.ACTION_NULL));
 
 	}
-	public override void update(){
+	public override void update(Transform tr){
 		Debug.Log ("RoundBegin....");
 
 	}
@@ -86,7 +86,6 @@ public class ThinkingPhase:Phase{
 		Debug.Log ("ThinkingPhase....");
 	}
 	public override void handle(Action a){
-		
 		Debug.Log (a.type);
 		if (a.type == ACTION_TYPE.ACTION_MOVE) {
 			PH.state = new ActionPhase (PH);
@@ -94,8 +93,10 @@ public class ThinkingPhase:Phase{
 		}
 
 	}
-	public override void update(){
-		//Debug.Log (Player.name+"is Thinking....");
+	public override void update(Transform tr){
+		
+		Debug.Log (tr.name+"is Thinking...."+tr.gameObject.GetComponent<PhaseHandler>().isAI);
+
 	}
 	public override PHASE_TYPE getType(){
 		//Debug.Log (Player.name+"is Waiting....");
@@ -111,7 +112,7 @@ public class ActionPhase:Phase{
 		PH.state = new RoundEndPhase(PH);
 		PH.state.handle (new Action (ACTION_TYPE.ACTION_NULL));
 	}
-	public override void update(){
+	public override void update(Transform tr){
 		//Debug.Log ("Actioning....");
 
 	}
@@ -129,7 +130,7 @@ public class RoundEndPhase:Phase{
 		PH.state = new WaitingPhase(PH);
 		PH.state.handle (new Action (ACTION_TYPE.ACTION_NULL));
 	}
-	public override void update(){
+	public override void update(Transform tr){
 		//Debug.Log ("Ending....");
 
 	}
@@ -140,6 +141,7 @@ public class RoundEndPhase:Phase{
 }
 public class PhaseHandler : MonoBehaviour {
 	public Phase state;
+	public bool isAI;
 	// Use this for initialization
 	void Start () {
 
@@ -152,16 +154,12 @@ public class PhaseHandler : MonoBehaviour {
 		state = new RoundBeginPhase (this);
 		state.handle (new Action (ACTION_TYPE.ACTION_NULL));
 	}
-	public void MoveAction(){
-		state = new  ActionPhase(this);
-		state.handle (new Action (ACTION_TYPE.ACTION_MOVE));
-	}
 	public  PHASE_TYPE getType(){
 		//Debug.Log (Player.name+"is Waiting....");
 		return state.getType();
 	}
 	// Update is called once per frame
 	void Update () {
-		state.update ();
+		state.update (transform);
 	}
 }

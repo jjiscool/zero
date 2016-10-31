@@ -14,6 +14,7 @@ public class RoundControler : MonoBehaviour {
 		if (player.GetComponent<PhaseHandler> ().getType () == PHASE_TYPE.PHASE_WAITING) {
 			player.GetComponent<PhaseHandler> ().PhaseBegin();
 		}
+ 
 	
 	}
 }

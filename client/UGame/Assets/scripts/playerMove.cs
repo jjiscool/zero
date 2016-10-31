@@ -38,8 +38,8 @@ public class playerMove : MonoBehaviour {
 	private Astar astar;
 	void Awake(){
 		map = GameObject.Find ("map");
-		role = GameObject.Find ("man");
-		weapon = GameObject.Find ("weapon");
+		role = transform.Find ("man").gameObject;
+		weapon = transform.Find ("weapon").gameObject;
 		OBJTYPEList obj_list  = map.GetComponent<RandomDungeonCreator>().obj_list;//获取object列表
 		row = obj_list.getListByType (OBJTYPE.OBJTYPE_SPAWNPOINT) [0].row;
 		column = obj_list.getListByType (OBJTYPE.OBJTYPE_SPAWNPOINT) [0].column;
@@ -205,35 +205,36 @@ public class playerMove : MonoBehaviour {
 		}
 		
 	}
+	void moveTo(int x,int y){
+		int[] pos={x,y};
+		astar= new Astar(row,column,pos[0],pos[1],map.GetComponent<RandomDungeonCreator>().getMap(),32,32);
+		astar.Run ();
+		//Debug.Log ("Path long = " + astar.finalpath.Count);
+		pathid = astar.finalpath.Count-1;
+		if (pathid >= 1) {
+			//				Debug.Log ("path"+pathid+":"+row + "," + column + " to " + astar.finalpath [pathid] [0] + "," + astar.finalpath [pathid] [1]);
+			if (astar.finalpath [pathid] [0] < row)
+				moveUp ();
+			if (astar.finalpath [pathid] [0] > row)
+				moveDown ();
+			if (astar.finalpath [pathid] [1] < column)
+				moveLeft ();
+			if (astar.finalpath [pathid] [1] > column)
+				moveRight ();
+		}
+	}
 	// Update is called once per frame
-	void Update () { 
+	void Update () {
 		Vector3	screenPosition = Camera.main.WorldToScreenPoint(transform.position);  
 		Vector3 mousePositionOnScreen = Input.mousePosition;   
 		mousePositionOnScreen.z = screenPosition.z;  
 		Vector3	mousePositionInWorld =  Camera.main.ScreenToWorldPoint(mousePositionOnScreen);  
 		if (Input .GetMouseButtonDown(0)) {
-			GameObject.Find ("player").GetComponent<PhaseHandler>().state.handle (new Action (ACTION_TYPE.ACTION_MOVE));
+			transform.GetComponent<PhaseHandler>().state.handle (new Action (ACTION_TYPE.ACTION_MOVE));
 			int[] pos=map.GetComponent<TilesManager>().posTransform2(mousePositionInWorld.x,mousePositionInWorld.y);
-			astar= new Astar(row,column,pos[0],pos[1],map.GetComponent<RandomDungeonCreator>().getMap(),32,32);
-			astar.Run ();
-//			Debug.Log ("Path long = " + astar.finalpath.Count);
-			pathid = astar.finalpath.Count-1;
-			if (pathid >= 1) {
-//				Debug.Log ("path"+pathid+":"+row + "," + column + " to " + astar.finalpath [pathid] [0] + "," + astar.finalpath [pathid] [1]);
-				if (astar.finalpath [pathid] [0] < row)
-					moveUp ();
-				if (astar.finalpath [pathid] [0] > row)
-					moveDown ();
-				if (astar.finalpath [pathid] [1] < column)
-					moveLeft ();
-				if (astar.finalpath [pathid] [1] > column)
-					moveRight ();
-			}
-			//Instantiate (, mousePositionInWorld , Quaternion.identity); 
-
-			Debug.Log (pos[0]+","+pos[1]);
+			moveTo (pos [0], pos [1]);
 		}  
-		Actioning ();
+		Actioning();
 
 	}
 }
