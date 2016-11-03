@@ -1969,6 +1969,10 @@ Prefab:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 113072, guid: d43c4d5b26c3d40c89eb394cc8fdaf76, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 6164114, guid: d43c4d5b26c3d40c89eb394cc8fdaf76, type: 2}
     - {fileID: 5000688, guid: d43c4d5b26c3d40c89eb394cc8fdaf76, type: 2}

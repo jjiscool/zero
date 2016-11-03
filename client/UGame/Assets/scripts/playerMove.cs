@@ -150,7 +150,7 @@ public class playerMove : MonoBehaviour {
 		weaponAnimator.SetTrigger ("WeaponOnMoveRight");
 		AttemptMove (orientation,row, column+1);
 	}
-	void Actioning(){
+	public void Actioning(){
 		if (isMoving) {
 			transform.position = new Vector3 (Mathf.MoveTowards (transform.position.x, endxy.x, Time.deltaTime * speed), Mathf.MoveTowards (transform.position.y, endxy.y, Time.deltaTime * speed), 0);
 			GameObject.Find ("light").GetComponent<ligthmap> ().reDrawLight ();
@@ -205,7 +205,7 @@ public class playerMove : MonoBehaviour {
 		}
 		
 	}
-	void moveTo(int x,int y){
+	public void moveTo(int x,int y){
 		int[] pos={x,y};
 		astar= new Astar(row,column,pos[0],pos[1],map.GetComponent<RandomDungeonCreator>().getMap(),32,32);
 		astar.Run ();
@@ -225,16 +225,6 @@ public class playerMove : MonoBehaviour {
 	}
 	// Update is called once per frame
 	void Update () {
-		Vector3	screenPosition = Camera.main.WorldToScreenPoint(transform.position);  
-		Vector3 mousePositionOnScreen = Input.mousePosition;   
-		mousePositionOnScreen.z = screenPosition.z;  
-		Vector3	mousePositionInWorld =  Camera.main.ScreenToWorldPoint(mousePositionOnScreen);  
-		if (Input .GetMouseButtonDown(0)) {
-			transform.GetComponent<PhaseHandler>().state.handle (new Action (ACTION_TYPE.ACTION_MOVE));
-			int[] pos=map.GetComponent<TilesManager>().posTransform2(mousePositionInWorld.x,mousePositionInWorld.y);
-			moveTo (pos [0], pos [1]);
-		}  
-		Actioning();
-
+		
 	}
 }
