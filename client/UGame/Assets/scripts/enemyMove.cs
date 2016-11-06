@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class playerMove : MonoBehaviour {
+public class enemyMove : MonoBehaviour {
 	private bool isMoving;
 	//private Vector3 beginxy;
 	private Vector3 endxy;
@@ -32,8 +32,8 @@ public class playerMove : MonoBehaviour {
 	private string orientation;
 
 
-//	public Sprite weaponTileH;
-//	public Sprite weaponTileV;
+	//	public Sprite weaponTileH;
+	//	public Sprite weaponTileV;
 
 	private Astar astar;
 	void Awake(){
@@ -51,7 +51,7 @@ public class playerMove : MonoBehaviour {
 		//初始化位置
 		transform.position = iniPos;
 		astar= new Astar();
-
+	
 	}
 
 	void Start () {
@@ -61,7 +61,7 @@ public class playerMove : MonoBehaviour {
 		weaponAnimator = weapon.GetComponent<Animator>();
 
 
-//		Debug.Log (roleOrder);
+		//		Debug.Log (roleOrder);
 
 
 
@@ -81,36 +81,36 @@ public class playerMove : MonoBehaviour {
 	private void AttemptMove(string dir,int i,int j){
 		string tileType = map.GetComponent<RandomDungeonCreator>().getMapTileType(i,j);
 		switch (tileType) {
-			default:
+		default:
 
-				if (isMoving)
-					return;
-				switch (dir) {
-				case "UP":
-					endxy = new Vector3 (transform.position.x, transform.position.y + step, 0);
-					row--;
-//				Debug.Log (row + "," + column + " UP");
-					break;
-				case "DOWN":
-					endxy = new Vector3 (transform.position.x, transform.position.y - step, 0);
-					row++;
-//				Debug.Log (row + "," + column + " DOWN");
-					break;
-				case "LEFT":
-					endxy = new Vector3 (transform.position.x - step, transform.position.y, 0);
-					column--;
-//				Debug.Log (row + "," + column + " LEFT");
-					break;
-				case "RIGHT":
-					endxy = new Vector3 (transform.position.x + step, transform.position.y, 0);
-					column++;
-//				Debug.Log (row + "," + column + " RIGHT");
-					break;
-				}
-				isMoving = true;
+			if (isMoving)
+				return;
+			switch (dir) {
+			case "UP":
+				endxy = new Vector3 (transform.position.x, transform.position.y + step, 0);
+				row--;
+				//				Debug.Log (row + "," + column + " UP");
+				break;
+			case "DOWN":
+				endxy = new Vector3 (transform.position.x, transform.position.y - step, 0);
+				row++;
+				//				Debug.Log (row + "," + column + " DOWN");
+				break;
+			case "LEFT":
+				endxy = new Vector3 (transform.position.x - step, transform.position.y, 0);
+				column--;
+				//				Debug.Log (row + "," + column + " LEFT");
+				break;
+			case "RIGHT":
+				endxy = new Vector3 (transform.position.x + step, transform.position.y, 0);
+				column++;
+				//				Debug.Log (row + "," + column + " RIGHT");
+				break;
+			}
+			isMoving = true;
 			break;
-			case "WALL":
-				Debug.Log ("cnot go");
+		case "WALL":
+			Debug.Log ("cnot go");
 			break;
 
 		}
@@ -119,12 +119,12 @@ public class playerMove : MonoBehaviour {
 
 	public void moveUp(){
 		orientation = "UP";
-//		Debug.Log ("UP");
+		//		Debug.Log ("UP");
 		PlaceRoleBehindWeapon();
 		animator.SetTrigger ("PlayerMoveUp");
 		weaponAnimator.SetTrigger ("WeaponOnMoveUp");
 		AttemptMove (orientation,row - 1, column);
-	
+
 	}
 	public void moveDown(){
 		orientation = "DOWN";
@@ -151,7 +151,6 @@ public class playerMove : MonoBehaviour {
 		AttemptMove (orientation,row, column+1);
 	}
 	public void Actioning(){
-		
 		if (isMoving) {
 			transform.position = new Vector3 (Mathf.MoveTowards (transform.position.x, endxy.x, Time.deltaTime * speed), Mathf.MoveTowards (transform.position.y, endxy.y, Time.deltaTime * speed), 0);
 			GameObject.Find ("light").GetComponent<ligthmap> ().reDrawLight ();
@@ -204,7 +203,7 @@ public class playerMove : MonoBehaviour {
 			}
 
 		}
-		
+
 	}
 	public void moveTo(int x,int y){
 		int[] pos={x,y};
@@ -224,13 +223,8 @@ public class playerMove : MonoBehaviour {
 				moveRight ();
 		}
 	}
-	public void AI(){
-		int[] c=map.GetComponent<RandomDungeonCreator>().pickAplace();
-		moveTo (c [0], c [1]);
-		transform.gameObject.GetComponent<PhaseHandler>().state.handle (new Action (ACTION_TYPE.ACTION_NULL));
-	}
 	// Update is called once per frame
 	void Update () {
-		
+
 	}
 }

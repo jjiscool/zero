@@ -429,6 +429,16 @@ public class RandomDungeonCreator : MonoBehaviour {
 		creatOneSpawnPointAndDownStairs ();
 		Debug.Log ("Object Num = "+obj_list.getLength());
 	}
+	public void creatEnemy(){
+	
+	}
+	public int[] pickAplace(){
+		int chooseroomid = Random.Range (0, rooms.Count);
+		RoomData randomRoomData = rooms[chooseroomid];
+		int max = randomRoomData.TileList.Count;
+		int[] randomCell = randomRoomData.TileList [Random.Range (0, max)];
+		return randomCell;
+	} 
 	public void creatOneSpawnPointAndDownStairs(){
 		int chooseroomid = Random.Range (0, rooms.Count);
 		RoomData randomRoomData = rooms[chooseroomid];

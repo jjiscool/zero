@@ -164,7 +164,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30db634e58a064cc593bfd1bad1726ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 788362720}
+  player: {fileID: 325362372}
 --- !u!1 &151699627
 GameObject:
   m_ObjectHideFlags: 0
@@ -1955,7 +1955,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 113072, guid: d43c4d5b26c3d40c89eb394cc8fdaf76, type: 2}
       propertyPath: m_Name
-      value: player (1)
+      value: enemy
       objectReference: {fileID: 0}
     - target: {fileID: 434176, guid: d43c4d5b26c3d40c89eb394cc8fdaf76, type: 2}
       propertyPath: m_LocalScale.y
@@ -1971,6 +1971,10 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 113072, guid: d43c4d5b26c3d40c89eb394cc8fdaf76, type: 2}
       propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 21284038, guid: d43c4d5b26c3d40c89eb394cc8fdaf76, type: 2}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
@@ -2216,7 +2220,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 788362720}
   enemy:
-  - {fileID: 0}
+  - {fileID: 2027580660}
+  round: 0
 --- !u!1 &2027580660 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 113072, guid: d43c4d5b26c3d40c89eb394cc8fdaf76, type: 2}

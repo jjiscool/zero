@@ -52,7 +52,7 @@ public class WaitingPhase:Phase{
 		
 	}
 	public override void update(Transform tr){
-		//Debug.Log (Player.name+"is Waiting....");
+		Debug.Log (tr.name+"is Waiting....");
 
 	}
 	public override PHASE_TYPE getType(){
@@ -65,6 +65,7 @@ public class RoundBeginPhase:Phase{
 	public RoundBeginPhase(PhaseHandler ph){
 		PH=ph;
 		Debug.Log ("RoundBeginPhase");
+
 	}
 	public override void handle(Action a){
 		PH.state = new ThinkingPhase (PH);
@@ -72,6 +73,7 @@ public class RoundBeginPhase:Phase{
 
 	}
 	public override void update(Transform tr){
+		
 		Debug.Log ("RoundBegin....");
 
 	}
@@ -86,8 +88,12 @@ public class ThinkingPhase:Phase{
 		Debug.Log ("ThinkingPhase....");
 	}
 	public override void handle(Action a){
-		Debug.Log (a.type);
+		//Debug.Log (a.type);
 		if (a.type == ACTION_TYPE.ACTION_MOVE) {
+			PH.state = new ActionPhase (PH);
+			//PH.state.handle (a);
+		}
+		if (a.type == ACTION_TYPE.ACTION_NULL) {
 			PH.state = new ActionPhase (PH);
 			//PH.state.handle (a);
 		}
@@ -95,6 +101,10 @@ public class ThinkingPhase:Phase{
 	}
 	public override void update(Transform tr){
 		Debug.Log (tr.name+"is Thinking...."+tr.gameObject.GetComponent<PhaseHandler>().isAI);
+		if (tr.gameObject.GetComponent<PhaseHandler> ().isAI) {
+			tr.gameObject.GetComponent<playerMove> ().AI ();
+			return;
+		}
 		Vector3	screenPosition = Camera.main.WorldToScreenPoint(tr.position);  
 		Vector3 mousePositionOnScreen = Input.mousePosition;   
 		mousePositionOnScreen.z = screenPosition.z;  
