@@ -16,6 +16,7 @@ public class RoundControler : MonoBehaviour {
 		player.GetComponent<PhaseHandler> ().PhaseBegin();
 		GameObject.Find ("Cameras").GetComponent<followCenter> ().player = player;
 		GameObject.Find ("light").GetComponent<ligthmap> ().lightsource = player;
+		GameObject.Find ("light").GetComponent<ligthmap> ().reDrawLight ();
 	}
 	// Update is called once per frame
 	void Update () {
@@ -26,6 +27,7 @@ public class RoundControler : MonoBehaviour {
 			enemy[movedEnemy].GetComponent<PhaseHandler> ().PhaseBegin();
 			GameObject.Find ("Cameras").GetComponent<followCenter> ().player = enemy [movedEnemy];
 			GameObject.Find ("light").GetComponent<ligthmap> ().lightsource = enemy [movedEnemy];
+			GameObject.Find ("light").GetComponent<ligthmap> ().reDrawLight ();
 
 		}
 		if (enemy.Length>0&&movedEnemy>=0&&enemy [movedEnemy].GetComponent<PhaseHandler> ().getType () == PHASE_TYPE.PHASE_WAITING) {
@@ -35,15 +37,19 @@ public class RoundControler : MonoBehaviour {
 				player.GetComponent<PhaseHandler> ().PhaseBegin ();
 				GameObject.Find ("Cameras").GetComponent<followCenter> ().player = player;
 				GameObject.Find ("light").GetComponent<ligthmap> ().lightsource = player;
+				GameObject.Find ("light").GetComponent<ligthmap> ().reDrawLight ();
 				movedEnemy = -1;
 			} else {
 				enemy[movedEnemy].GetComponent<PhaseHandler> ().PhaseBegin();
 				GameObject.Find ("Cameras").GetComponent<followCenter> ().player = enemy [movedEnemy];
 				GameObject.Find ("light").GetComponent<ligthmap> ().lightsource = enemy [movedEnemy];
+				GameObject.Find ("light").GetComponent<ligthmap> ().reDrawLight ();
 			} 
 		}
 		if (enemy.Length == 0&&player.GetComponent<PhaseHandler> ().getType () == PHASE_TYPE.PHASE_WAITING) {
 			player.GetComponent<PhaseHandler> ().PhaseBegin();
+			GameObject.Find ("light").GetComponent<ligthmap> ().lightsource = player;
+			GameObject.Find ("light").GetComponent<ligthmap> ().reDrawLight ();
 		}
 	}
 }
