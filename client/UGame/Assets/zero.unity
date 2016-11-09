@@ -2115,7 +2115,7 @@ RectTransform:
   m_Children:
   - {fileID: 2007426772}
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 13
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
@@ -2451,7 +2451,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 113072, guid: d43c4d5b26c3d40c89eb394cc8fdaf76, type: 2}
       propertyPath: m_Name
-      value: player (1)
+      value: enemy
       objectReference: {fileID: 0}
     - target: {fileID: 434176, guid: d43c4d5b26c3d40c89eb394cc8fdaf76, type: 2}
       propertyPath: m_LocalScale.y
@@ -2708,12 +2708,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 788362720}
   enemy:
-<<<<<<< Updated upstream
   - {fileID: 2027580660}
   - {fileID: 1199866956}
   round: 0
-=======
-  - {fileID: 0}
 --- !u!1 &2007426771
 GameObject:
   m_ObjectHideFlags: 0
@@ -2798,7 +2795,6 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.Slider+SliderEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
->>>>>>> Stashed changes
 --- !u!1 &2027580660 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 113072, guid: d43c4d5b26c3d40c89eb394cc8fdaf76, type: 2}
