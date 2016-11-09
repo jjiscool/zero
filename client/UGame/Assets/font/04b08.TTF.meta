@@ -13,7 +13,7 @@ TrueTypeFontImporter:
   - 04b08
   fallbackFontReferences: []
   customCharacters: 
-  fontRenderingMode: 0
+  fontRenderingMode: 1
   ascentCalculationMode: 1
   userData: 
   assetBundleName: 
