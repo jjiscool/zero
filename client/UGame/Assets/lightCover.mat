@@ -30,5 +30,5 @@ Material:
     m_Floats:
     - first:
         name: _Cutoff
-      second: 0
+      second: 0.06
     m_Colors: []
