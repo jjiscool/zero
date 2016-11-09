@@ -11,6 +11,7 @@ public class RoundControler : MonoBehaviour {
 		movedEnemy = -1;
 	
 	}
+
 	// Use this for initialization
 	void Start () {
 		player.GetComponent<PhaseHandler> ().PhaseBegin();

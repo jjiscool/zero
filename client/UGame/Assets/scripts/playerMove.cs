@@ -31,6 +31,7 @@ public class playerMove : MonoBehaviour {
 	private int column;
 	private string orientation;
 
+	public bool isPlayerTeam;
 
 //	public Sprite weaponTileH;
 //	public Sprite weaponTileV;
@@ -151,13 +152,11 @@ public class playerMove : MonoBehaviour {
 		AttemptMove (orientation,row, column+1);
 	}
 	public void Actioning(){
-		
 		if (isMoving) {
 			transform.position = new Vector3 (Mathf.MoveTowards (transform.position.x, endxy.x, Time.deltaTime * speed), Mathf.MoveTowards (transform.position.y, endxy.y, Time.deltaTime * speed), 0);
 			GameObject.Find ("light").GetComponent<ligthmap> ().reDrawLight ();
 		}
 		if (transform.position == endxy) {
-
 			transform.position = endxy;
 			pathid--;
 			if (pathid < 0  && isMoving) {
@@ -206,28 +205,33 @@ public class playerMove : MonoBehaviour {
 		}
 		
 	}
+	bool isInBattle(){
+		GameObject[] emy = map.GetComponent<RoundControler> ().enemy;
+		if (emy.Length > 1)
+			return true;
+		else 
+			return false;
+	}
 	public void moveTo(int x,int y){
 		int[] pos={x,y};
 		astar= new Astar(row,column,pos[0],pos[1],map.GetComponent<RandomDungeonCreator>().getMap(),32,32);
 		astar.Run ();
-		//Debug.Log ("Path long = " + astar.finalpath.Count);
+	    Debug.Log ("Path long = " + astar.finalpath.Count);
 		pathid = astar.finalpath.Count-1;
 		if (pathid >= 1) {
-			//				Debug.Log ("path"+pathid+":"+row + "," + column + " to " + astar.finalpath [pathid] [0] + "," + astar.finalpath [pathid] [1]);
-			if (astar.finalpath [pathid] [0] < row)
-				moveUp ();
-			if (astar.finalpath [pathid] [0] > row)
-				moveDown ();
-			if (astar.finalpath [pathid] [1] < column)
-				moveLeft ();
-			if (astar.finalpath [pathid] [1] > column)
-				moveRight ();
+			if (isInBattle ()) {
+				astar.finalpath.RemoveRange (0, pathid-1);
+				pathid = astar.finalpath.Count-1;
+				Debug.Log ("Path long = " + astar.finalpath.Count);
+			}
+			transform.GetComponent<PhaseHandler>().state.handle (new Action (ACTION_TYPE.ACTION_MOVE));
+			//Debug.Log ("path"+pathid+":"+row + "," + column + " to " + astar.finalpath [pathid] [0] + "," + astar.finalpath [pathid] [1]);
 		}
 	}
 	public void AI(){
 		int[] c=map.GetComponent<RandomDungeonCreator>().pickAplace();
 		moveTo (c [0], c [1]);
-		transform.gameObject.GetComponent<PhaseHandler>().state.handle (new Action (ACTION_TYPE.ACTION_NULL));
+		//transform.gameObject.GetComponent<PhaseHandler>().state.handle (new Action (ACTION_TYPE.ACTION_NULL));
 	}
 	// Update is called once per frame
 	void Update () {

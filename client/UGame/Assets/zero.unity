@@ -942,6 +942,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 2
   step: 1
+  isPlayerTeam: 1
 --- !u!114 &788362722
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1623,6 +1624,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 2
   step: 1
+  isPlayerTeam: 1
 --- !u!114 &1199866959
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1634,7 +1636,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b021d76b5116483c9e808bea8d71779, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isAI: 0
+  isAI: 1
 --- !u!1 &1221561241
 GameObject:
   m_ObjectHideFlags: 0
@@ -2517,7 +2519,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b021d76b5116483c9e808bea8d71779, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isAI: 0
+  isAI: 1
 --- !u!114 &2027580662
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2531,6 +2533,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 2
   step: 1
+  isPlayerTeam: 1
 --- !u!4 &2027580665 stripped
 Transform:
   m_PrefabParentObject: {fileID: 434176, guid: d43c4d5b26c3d40c89eb394cc8fdaf76, type: 2}

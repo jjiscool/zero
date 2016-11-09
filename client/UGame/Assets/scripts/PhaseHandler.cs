@@ -52,7 +52,7 @@ public class WaitingPhase:Phase{
 		
 	}
 	public override void update(Transform tr){
-		Debug.Log (tr.name+"is Waiting....");
+		//Debug.Log (tr.name+"is Waiting....");
 
 	}
 	public override PHASE_TYPE getType(){
@@ -100,7 +100,7 @@ public class ThinkingPhase:Phase{
 
 	}
 	public override void update(Transform tr){
-		Debug.Log (tr.name+"is Thinking...."+tr.gameObject.GetComponent<PhaseHandler>().isAI);
+		//Debug.Log (tr.name+"is Thinking...."+tr.gameObject.GetComponent<PhaseHandler>().isAI);
 		if (tr.gameObject.GetComponent<PhaseHandler> ().isAI) {
 			tr.gameObject.GetComponent<playerMove> ().AI ();
 			return;
@@ -110,7 +110,7 @@ public class ThinkingPhase:Phase{
 		mousePositionOnScreen.z = screenPosition.z;  
 		Vector3	mousePositionInWorld =  Camera.main.ScreenToWorldPoint(mousePositionOnScreen); 
 		if (Input .GetMouseButtonDown(0)&&tr.gameObject.GetComponent<PhaseHandler>().isAI==false) {
-			tr.GetComponent<PhaseHandler>().state.handle (new Action (ACTION_TYPE.ACTION_MOVE));
+			//tr.GetComponent<PhaseHandler>().state.handle (new Action (ACTION_TYPE.ACTION_MOVE));
 			int[] pos=GameObject.Find ("map").GetComponent<TilesManager>().posTransform2(mousePositionInWorld.x,mousePositionInWorld.y);
 			tr.GetComponent<playerMove> ().moveTo (pos [0], pos [1]);
 		}
@@ -130,7 +130,7 @@ public class ActionPhase:Phase{
 		PH.state.handle (new Action (ACTION_TYPE.ACTION_NULL));
 	}
 	public override void update(Transform tr){
-		Debug.Log ("Actioning....");
+		//Debug.Log ("Actioning....");
 		tr.GetComponent<playerMove> ().Actioning();
 
 	}
