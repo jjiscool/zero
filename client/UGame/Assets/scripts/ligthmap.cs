@@ -524,8 +524,13 @@ public class ligthmap : MonoBehaviour {
 		lineLength = GameObject.Find ("map").GetComponent<RandomDungeonCreator> ().TileSize;
 		MapWidth = (int)GameObject.Find ("map").GetComponent<RandomDungeonCreator> ().MapWidth;
 		MapHeight= (int)GameObject.Find ("map").GetComponent<RandomDungeonCreator> ().MapHeight;
-		lightsource.transform.position = new Vector3 (1, 1);
-
+	}
+	public void initLight(){
+		//lineLength = GameObject.Find ("map").GetComponent<RandomDungeonCreator> ().TileSize;
+		//MapWidth = (int)GameObject.Find ("map").GetComponent<RandomDungeonCreator> ().MapWidth;
+		//MapHeight= (int)GameObject.Find ("map").GetComponent<RandomDungeonCreator> ().MapHeight;
+		//lightsource.transform.position = new Vector3 (1, 1);
+		reDrawLight ();
 	}
 	void DrawShap(List<Vector2> v){
 		Debug.Log ("NUM of Vetices "+v.Count);
@@ -571,10 +576,9 @@ public class ligthmap : MonoBehaviour {
 	}
 	// Use this for initialization
 	void Start () {
-		reDrawLight ();
+		
 
 	}
-
 	// Update is called once per frame
 	void Update () {
 		

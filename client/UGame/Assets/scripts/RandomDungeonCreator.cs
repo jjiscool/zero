@@ -339,6 +339,17 @@ public class ObjectDownStairs:OBJTYPEData{
 		lightable = true;
 	}
 }
+public class ObjectEnemy:OBJTYPEData{
+	public int Enemy_type;
+	public ObjectEnemy(int i,int j,int enemytype){
+		lightable = true;
+		walkable = false;
+		row = i;
+		column = j;
+		Enemy_type = enemytype;
+		type = OBJTYPE.OBJTYPE_Enemy;
+	}
+}
 public class OBJTYPEList{
 	private List<OBJTYPEData> objects;
 	public OBJTYPEList(){
@@ -411,8 +422,9 @@ public class RandomDungeonCreator : MonoBehaviour {
 	public int MaxRoomHeight;//房间最大高度
 	public int MinRoomWidth;//房间最小宽度
 	public int MinRoomHeight;//房间最小高度
-
 	public int MaxReduceLength;//死路总剔除长度
+	//Enemy
+	public int EnemyNum;
 	//单元列表
 	private List<int> mazesID;//走廊ID列表
 	private List<RoomData> rooms;
@@ -428,10 +440,15 @@ public class RandomDungeonCreator : MonoBehaviour {
 		removeDeadway (MaxReduceLength);
 		removeBadRoom ();
 		creatOneSpawnPointAndDownStairs ();
+		creatEnemies ();
 		Debug.Log ("Object Num = "+obj_list.getLength());
 	}
-	public void creatEnemy(){
-	
+	public void creatEnemies(){
+		for (int i = 0; i < EnemyNum; i++) {
+			int[] tp = pickAplace ();
+			ObjectEnemy oe = new ObjectEnemy (tp [0], tp [1], 0);
+			obj_list.addObj (oe);
+		}
 	}
 	public int[] pickAplace(){
 		int chooseroomid = Random.Range (0, rooms.Count);

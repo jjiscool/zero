@@ -109,11 +109,12 @@ public class ThinkingPhase:Phase{
 		Vector3 mousePositionOnScreen = Input.mousePosition;   
 		mousePositionOnScreen.z = screenPosition.z;  
 		Vector3	mousePositionInWorld =  Camera.main.ScreenToWorldPoint(mousePositionOnScreen); 
-		if (Input .GetMouseButtonDown(0)&&tr.gameObject.GetComponent<PhaseHandler>().isAI==false) {
+		if (Input .GetMouseButtonDown(0)) {
 			//tr.GetComponent<PhaseHandler>().state.handle (new Action (ACTION_TYPE.ACTION_MOVE));
 			int[] pos=GameObject.Find ("map").GetComponent<TilesManager>().posTransform2(mousePositionInWorld.x,mousePositionInWorld.y);
 			tr.GetComponent<playerMove> ().moveTo (pos[0], pos[1]);
 		}
+		return;
 	}
 	public override PHASE_TYPE getType(){
 		//Debug.Log (Player.name+"is Waiting....");
@@ -159,7 +160,6 @@ public class RoundEndPhase:Phase{
 }
 public class PhaseHandler : MonoBehaviour {
 	public Phase state;
-	public bool isAI;
 	// Use this for initialization
 	void Start () {
 
