@@ -115,7 +115,7 @@ public class RoundControler : MonoBehaviour {
 				} else {
 					renewOrder ();
 					next=FindNextOderIndexByID(round);
-					if (next >=0 ) {
+					if (next >=0&& next < order.Count) {
 						nextround = order [next];
 						round = nextround;
 						getGOInOderIndex (FindOderIndexByID (round)).GetComponent<PhaseHandler> ().PhaseBegin ();
