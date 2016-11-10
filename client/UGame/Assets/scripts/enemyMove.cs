@@ -41,8 +41,8 @@ public class enemyMove : MonoBehaviour {
 		role = transform.Find ("man").gameObject;
 		weapon = transform.Find ("weapon").gameObject;
 		OBJTYPEList obj_list  = map.GetComponent<RandomDungeonCreator>().obj_list;//获取object列表
-		row = obj_list.getListByType (OBJTYPE.OBJTYPE_SPAWNPOINT) [0].row;
-		column = obj_list.getListByType (OBJTYPE.OBJTYPE_SPAWNPOINT) [0].column;
+		row = obj_list.getListByType (OBJTYPE.OBJTYPE_PLAYER) [0].row;
+		column = obj_list.getListByType (OBJTYPE.OBJTYPE_PLAYER) [0].column;
 		orientation = "DOWN";
 		iniCell = new int[2];
 		iniCell [0] = row;

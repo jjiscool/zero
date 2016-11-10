@@ -7,6 +7,7 @@ public class playerMove : MonoBehaviour {
 	private Vector3 endxy;
 	public float speed;
 	public float step;
+	public OBJTYPEData MapOBJ;
 	// Use this for initialization
 
 	private GameObject map;
@@ -27,8 +28,8 @@ public class playerMove : MonoBehaviour {
 
 	private int pathid;
 	//存储player的行，列，朝向；在移动的时候变化
-	private int row;
-	private int column;
+	public int row;
+	public int column;
 	private string orientation;
 
 
@@ -158,10 +159,19 @@ public class playerMove : MonoBehaviour {
 		if (isMoving) {
 			transform.position = new Vector3 (Mathf.MoveTowards (transform.position.x, endxy.x, Time.deltaTime * speed), Mathf.MoveTowards (transform.position.y, endxy.y, Time.deltaTime * speed), 0);
 			GameObject.Find ("light").GetComponent<ligthmap> ().reDrawLight ();
+			int[] v= GameObject.Find ("map").GetComponent<TilesManager> ().posTransform2 (transform.position.x,transform.position.y);
+			MapOBJ.row =v[0];
+			MapOBJ.column = v[1];
 		}
 		if (transform.position == endxy) {
 			transform.position = endxy;
-			pathid--;
+			int[] v= GameObject.Find ("map").GetComponent<TilesManager> ().posTransform2 (transform.position.x,transform.position.y);
+			MapOBJ.row =v[0];
+			MapOBJ.column = v[1];
+			if (map.GetComponent<RoundControler> ().CheckPlayerInSeeSight ()&&!map.GetComponent<RoundControler> ().CheckPlayerInBattle()) {
+				pathid = -1;
+			}
+			else pathid--;
 			if (pathid < 0  && isMoving) {
 				transform.gameObject.GetComponent<PhaseHandler>().state.handle (new Action (ACTION_TYPE.ACTION_NULL));
 				isMoving = false;
@@ -208,14 +218,6 @@ public class playerMove : MonoBehaviour {
 		}
 		
 	}
-	bool isInBattle(){
-		return true;
-		GameObject[] emy = map.GetComponent<RoundControler> ().enemy;
-		if (emy.Length > 1)
-			return true;
-		else 
-			return false;
-	}
 	public void moveTo(int x,int y){
 		Debug.Log ("MOVE");
 		Debug.Log (x);Debug.Log (y);
@@ -226,14 +228,18 @@ public class playerMove : MonoBehaviour {
 	    Debug.Log ("Path long = " + astar.finalpath.Count);
 		pathid = astar.finalpath.Count-1;
 		if (pathid >= 1) {
-			if (isInBattle ()) {
+			if (map.GetComponent<RoundControler> ().CheckPlayerInBattle()) {
 				if (astar.finalpath.Count > transform.gameObject.GetComponent<playerStatus> ().MOV) {
 					astar.finalpath.RemoveRange (0, pathid - transform.gameObject.GetComponent<playerStatus> ().MOV);
 					pathid = astar.finalpath.Count - 1;
 					Debug.Log ("Path long = " + astar.finalpath.Count);
 				}
 			}
-			transform.GetComponent<PhaseHandler>().state.handle (new Action (ACTION_TYPE.ACTION_MOVE));
+			Action Mov = new Action (ACTION_TYPE.ACTION_MOVE);
+			Mov.SUBJECT = transform.gameObject;
+			Mov.MOVEPOS [0] = x;
+			Mov.MOVEPOS [1] = y;
+			transform.GetComponent<PhaseHandler>().state.handle (Mov);
 			//Debug.Log ("path"+pathid+":"+row + "," + column + " to " + astar.finalpath [pathid] [0] + "," + astar.finalpath [pathid] [1]);
 		}
 	}

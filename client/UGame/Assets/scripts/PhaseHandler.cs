@@ -9,9 +9,10 @@ public class Action
 	public ACTION_TYPE type;
 	public GameObject SUBJECT;
 	public GameObject OBJECT;
-	public int[,] MOVEPOS;
+	public int[] MOVEPOS;
 	public Action(ACTION_TYPE T ){
 		type = T;
+		MOVEPOS = new int[2];
 	}
 
 }
@@ -91,10 +92,12 @@ public class ThinkingPhase:Phase{
 		//Debug.Log (a.type);
 		if (a.type == ACTION_TYPE.ACTION_MOVE) {
 			PH.state = new ActionPhase (PH);
+			((ActionPhase)PH.state).act = a;
 			//PH.state.handle (a);
 		}
 		if (a.type == ACTION_TYPE.ACTION_NULL) {
 			PH.state = new ActionPhase (PH);
+			((ActionPhase)PH.state).act = a;
 			//PH.state.handle (a);
 		}
 
@@ -122,6 +125,7 @@ public class ThinkingPhase:Phase{
 	}
 }
 public class ActionPhase:Phase{
+	public Action act;
 	public ActionPhase(PhaseHandler ph){
 		PH=ph;
 		Debug.Log ("ActionPhase");

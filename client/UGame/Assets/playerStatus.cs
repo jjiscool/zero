@@ -6,6 +6,7 @@ public class playerStatus : MonoBehaviour {
 	public int Money;
 	public int SP;
 	public int MOV;
+	public int SPEED;
 	public bool isPlayerTeam;
 	public bool AI;
 	public bool isAI(){

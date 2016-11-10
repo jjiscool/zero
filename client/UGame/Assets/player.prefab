@@ -172,6 +172,7 @@ MonoBehaviour:
   Money: 1
   SP: 10
   MOV: 1
+  SPEED: 10
   isPlayerTeam: 1
   AI: 0
 --- !u!114 &114000012145135888
@@ -198,7 +199,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b021d76b5116483c9e808bea8d71779, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isAI: 0
 --- !u!212 &212000010010992794
 SpriteRenderer:
   m_ObjectHideFlags: 1

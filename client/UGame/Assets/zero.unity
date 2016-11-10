@@ -2684,7 +2684,7 @@ MonoBehaviour:
   MinRoomWidth: 4
   MinRoomHeight: 4
   MaxReduceLength: 100
-  EnemyNum: 2
+  EnemyNum: 3
 --- !u!212 &1885000958
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2810,7 +2810,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   enemy: []
+  order: 
   round: 0
+  playerInBattle: 0
 --- !u!114 &1885000962
 MonoBehaviour:
   m_ObjectHideFlags: 0

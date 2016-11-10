@@ -270,11 +270,11 @@ public class Astar{
 }
 public  enum  OBJTYPE{
 	OBJTYPE_DOOR,
-	OBJTYPE_SPAWNPOINT,
+	OBJTYPE_PLAYER,
 	OBJTYPE_DOWNSTAIRS,
 	OBJTYPE_CHEST,
 	OBJTYPE_ITEM,
-	OBJTYPE_Enemy
+	OBJTYPE_ENEMY
 }
 public class OBJTYPEData{
 	//地图上的物体
@@ -283,6 +283,7 @@ public class OBJTYPEData{
 	public OBJTYPE type;
 	public bool walkable;//false不可走上去, true可走上去
 	public bool lightable;//false为不透明, true为透明
+	public GameObject thisOBJ;
 	public OBJTYPEData(){
 	}
 }
@@ -317,12 +318,12 @@ public class ObjectDoor:OBJTYPEData{
 	}
 }
 //出生点
-public class ObjectSpawnPoint:OBJTYPEData{
+public class ObjectPlayer:OBJTYPEData{
 	public int roomID;
-	public ObjectSpawnPoint(int i,int j){
+	public ObjectPlayer(int i,int j){
 		row = i;
 		column = j;
-		type = OBJTYPE.OBJTYPE_SPAWNPOINT;
+		type = OBJTYPE.OBJTYPE_PLAYER;
 		walkable = true;
 		lightable = true;
 		roomID = -1;
@@ -347,7 +348,7 @@ public class ObjectEnemy:OBJTYPEData{
 		row = i;
 		column = j;
 		Enemy_type = enemytype;
-		type = OBJTYPE.OBJTYPE_Enemy;
+		type = OBJTYPE.OBJTYPE_ENEMY;
 	}
 }
 public class OBJTYPEList{
@@ -462,7 +463,7 @@ public class RandomDungeonCreator : MonoBehaviour {
 		RoomData randomRoomData = rooms[chooseroomid];
 		int max = randomRoomData.TileList.Count;
 		int[] randomCell = randomRoomData.TileList [Random.Range (0, max)];
-		ObjectSpawnPoint sp = new ObjectSpawnPoint (randomCell[0],randomCell[1]);
+		ObjectPlayer sp = new ObjectPlayer (randomCell[0],randomCell[1]);
 		sp.roomID = chooseroomid;
 		obj_list.addObj (sp);
 		int dis = 0;
