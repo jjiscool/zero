@@ -566,6 +566,9 @@ public class ligthmap : MonoBehaviour {
 		GameObject.Find ("mask").GetComponent<IMESH> ().DrawLightMesh ();
 
 	}
+	public bool inSight(int x,int y){
+		return false;
+	}
 	// Use this for initialization
 	void Start () {
 		reDrawLight ();

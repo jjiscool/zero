@@ -31,40 +31,43 @@ public class playerMove : MonoBehaviour {
 	private int column;
 	private string orientation;
 
-	public bool isPlayerTeam;
+
 
 //	public Sprite weaponTileH;
 //	public Sprite weaponTileV;
-
 	private Astar astar;
 	void Awake(){
 		map = GameObject.Find ("map");
 		role = transform.Find ("man").gameObject;
 		weapon = transform.Find ("weapon").gameObject;
-		OBJTYPEList obj_list  = map.GetComponent<RandomDungeonCreator>().obj_list;//获取object列表
-		row = obj_list.getListByType (OBJTYPE.OBJTYPE_SPAWNPOINT) [0].row;
-		column = obj_list.getListByType (OBJTYPE.OBJTYPE_SPAWNPOINT) [0].column;
+		//OBJTYPEList obj_list  = map.GetComponent<RandomDungeonCreator>().obj_list;//获取object列表
+		///row = obj_list.getListByType (OBJTYPE.OBJTYPE_SPAWNPOINT) [0].row;
+		//column = obj_list.getListByType (OBJTYPE.OBJTYPE_SPAWNPOINT) [0].column;
+		//int[] p=map.GetComponent<TilesManager>().posTransform2(transform.position.x,transform.position.y);
+		//row = p [0];
+		//column =p[1];	
+
+	}
+	public void set(int irow ,int icolumn){
 		orientation = "DOWN";
 		iniCell = new int[2];
-		iniCell [0] = row;
-		iniCell [1] = column;
+		iniCell [0] = irow;
+		iniCell [1] = icolumn;
+		row = irow;
+		column = icolumn;
 		iniPos = map.GetComponent<TilesManager>().posTransform(row,column);
+		Debug.Log (row);
+		Debug.Log (column);
 		//初始化位置
 		transform.position = iniPos;
 		astar= new Astar();
-
-	}
-
-	void Start () {
 		isMoving = false;
 		endxy = transform.position;
 		animator = role.GetComponent<Animator>();
 		weaponAnimator = weapon.GetComponent<Animator>();
-
-
-//		Debug.Log (roleOrder);
-
-
+	}
+	void Start () {
+		
 
 	}
 
@@ -206,6 +209,7 @@ public class playerMove : MonoBehaviour {
 		
 	}
 	bool isInBattle(){
+		return true;
 		GameObject[] emy = map.GetComponent<RoundControler> ().enemy;
 		if (emy.Length > 1)
 			return true;
@@ -213,6 +217,9 @@ public class playerMove : MonoBehaviour {
 			return false;
 	}
 	public void moveTo(int x,int y){
+		Debug.Log ("MOVE");
+		Debug.Log (x);Debug.Log (y);
+		Debug.Log (row);Debug.Log (column);
 		int[] pos={x,y};
 		astar= new Astar(row,column,pos[0],pos[1],map.GetComponent<RandomDungeonCreator>().getMap(),32,32);
 		astar.Run ();
@@ -220,9 +227,11 @@ public class playerMove : MonoBehaviour {
 		pathid = astar.finalpath.Count-1;
 		if (pathid >= 1) {
 			if (isInBattle ()) {
-				astar.finalpath.RemoveRange (0, pathid-1);
-				pathid = astar.finalpath.Count-1;
-				Debug.Log ("Path long = " + astar.finalpath.Count);
+				if (astar.finalpath.Count > transform.gameObject.GetComponent<playerStatus> ().MOV) {
+					astar.finalpath.RemoveRange (0, pathid - transform.gameObject.GetComponent<playerStatus> ().MOV);
+					pathid = astar.finalpath.Count - 1;
+					Debug.Log ("Path long = " + astar.finalpath.Count);
+				}
 			}
 			transform.GetComponent<PhaseHandler>().state.handle (new Action (ACTION_TYPE.ACTION_MOVE));
 			//Debug.Log ("path"+pathid+":"+row + "," + column + " to " + astar.finalpath [pathid] [0] + "," + astar.finalpath [pathid] [1]);
@@ -235,6 +244,9 @@ public class playerMove : MonoBehaviour {
 	}
 	// Update is called once per frame
 	void Update () {
+		
+	}
+	public void canSeeEnemy(){
 		
 	}
 }

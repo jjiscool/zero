@@ -45,6 +45,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\MapObjectGenerator.cs" />
+     <Compile Include="Assets\playerStatus.cs" />
      <Compile Include="Assets\scripts\IMESH.cs" />
      <Compile Include="Assets\scripts\MovingObject.cs" />
      <Compile Include="Assets\scripts\PhaseHandler.cs" />
