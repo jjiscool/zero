@@ -2684,7 +2684,7 @@ MonoBehaviour:
   MinRoomWidth: 4
   MinRoomHeight: 4
   MaxReduceLength: 100
-  EnemyNum: 3
+  EnemyNum: 10
 --- !u!212 &1885000958
 SpriteRenderer:
   m_ObjectHideFlags: 0
