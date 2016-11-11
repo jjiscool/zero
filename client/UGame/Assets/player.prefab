@@ -173,8 +173,11 @@ MonoBehaviour:
   SP: 10
   MOV: 1
   SPEED: 10
-  isPlayerTeam: 1
+  MinSight: 2
+  MaxSight: 4
+  isPlayerTeam: 0
   AI: 0
+  isDanger: 0
 --- !u!114 &114000012145135888
 MonoBehaviour:
   m_ObjectHideFlags: 1

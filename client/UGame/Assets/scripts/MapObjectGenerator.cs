@@ -35,6 +35,8 @@ public class MapObjectGenerator : MonoBehaviour {
 			a.GetComponent<playerMove> ().set (ems[i].row,ems[i].column);
 			map.GetComponent<RoundControler> ().enemy [i] = a;
 			a.GetComponent<playerStatus> ().AI = true;
+			a.GetComponent<playerStatus> ().SPEED = Random.Range (0, 20);
+			a.GetComponent<playerStatus> ().isDanger = true;
 			((ObjectEnemy)ems [i]).thisOBJ = a;
 			a.GetComponent<playerMove> ().MapOBJ = (ObjectEnemy)ems [i];
 

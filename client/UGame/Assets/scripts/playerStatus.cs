@@ -7,8 +7,11 @@ public class playerStatus : MonoBehaviour {
 	public int SP;
 	public int MOV;
 	public int SPEED;
+	public int MinSight;
+	public int MaxSight;
 	public bool isPlayerTeam;
 	public bool AI;
+	public bool isDanger;
 	public bool isAI(){
 		return AI;	
 	}

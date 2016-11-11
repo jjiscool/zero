@@ -9,7 +9,7 @@ public class RoundControler : MonoBehaviour {
 	private int movedEnemy;
 	public bool playerInBattle;
 	void Awake(){
-		round = 0;
+		round = -1;
 		movedEnemy = -1;
 		playerInBattle = false;
 		order = new List<int> ();
@@ -19,7 +19,7 @@ public class RoundControler : MonoBehaviour {
 	public bool CheckPlayerInSeeSight(){
 		for (int i = 0; i < enemy.Length; i++) {
 			int dis = Mathf.Abs (enemy[i].GetComponent<playerMove>().row-player.GetComponent<playerMove>().row)+Mathf.Abs (enemy[i].GetComponent<playerMove>().column-player.GetComponent<playerMove>().column);
-			if (dis <= 3)
+			if (dis <= enemy[i].GetComponent<playerStatus>().MinSight&&enemy[i].GetComponent<playerStatus>().isDanger)
 				return true;
 		}
 		return false;
@@ -28,15 +28,30 @@ public class RoundControler : MonoBehaviour {
 		return playerInBattle;
 	}
 	void renewOrder(){
-		//order = new List<int> ();
-		//order.Add (-1);
 		for (int i = 0; i < enemy.Length; i++) {
 			int dis = Mathf.Abs (enemy[i].GetComponent<playerMove>().row-player.GetComponent<playerMove>().row)+Mathf.Abs (enemy[i].GetComponent<playerMove>().column-player.GetComponent<playerMove>().column);
 			if (!isInOder (i)) {
-				if(dis <= 3) order.Add (i);
+				if (dis <= enemy [i].GetComponent<playerStatus> ().MinSight && enemy [i].GetComponent<playerStatus> ().isDanger) {
+					int ii;
+					int ispeed = enemy [i].GetComponent<playerStatus> ().SPEED;
+					for (ii = 0; ii < order.Count; ii++) {
+						if (order [ii] == -1) {
+							if (ispeed >= player.GetComponent<playerStatus> ().SPEED)
+								break;
+						} else {
+							if (ispeed >= enemy [i].GetComponent<playerStatus> ().SPEED)
+								break;
+						
+						}
+					}
+					order.Insert (ii, i);	
+					//order.Add (i);
+				} 
 			} 
 			else {
-				if (dis > 5) order.RemoveAt (FindOderIndexByID(i));	
+				if (dis > enemy [i].GetComponent<playerStatus> ().MaxSight || !enemy [i].GetComponent<playerStatus> ().isDanger) {
+					order.RemoveAt (FindOderIndexByID(i));
+				} 	
 			}
 		}
 		if (order.Count > 1)
@@ -99,7 +114,9 @@ public class RoundControler : MonoBehaviour {
 				else
 				{
 					round = order[0];
+					Debug.Log ("Round for " + round);
 					getGOInOderIndex(FindOderIndexByID(round)).GetComponent<PhaseHandler> ().PhaseBegin ();
+					reset (getGOInOderIndex(FindOderIndexByID(round)));
 				}
 			}
 		} else {
@@ -110,17 +127,21 @@ public class RoundControler : MonoBehaviour {
 				int nextround = order [next];
 				if (round != -1) {
 					round = nextround;
-					getGOInOderIndex (FindOderIndexByID (round)).GetComponent<PhaseHandler> ().PhaseBegin ();
+					Debug.Log ("Round for " + round);
 					renewOrder ();
+					getGOInOderIndex (FindOderIndexByID (round)).GetComponent<PhaseHandler> ().PhaseBegin ();
+					reset (getGOInOderIndex(FindOderIndexByID(round)));
+
 				} else {
 					renewOrder ();
 					next=FindNextOderIndexByID(round);
-					if (next >=0&& next < order.Count) {
+					if(next>=order.Count)
+						next = 0;
 						nextround = order [next];
 						round = nextround;
+						Debug.Log ("Round for " + round);
 						getGOInOderIndex (FindOderIndexByID (round)).GetComponent<PhaseHandler> ().PhaseBegin ();
-					} 
-				
+						reset (getGOInOderIndex(FindOderIndexByID(round)));			
 				}
 
 

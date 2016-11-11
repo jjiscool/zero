@@ -170,6 +170,8 @@ public class playerMove : MonoBehaviour {
 			MapOBJ.column = v[1];
 			if (map.GetComponent<RoundControler> ().CheckPlayerInSeeSight ()&&!map.GetComponent<RoundControler> ().CheckPlayerInBattle()) {
 				pathid = -1;
+				map.GetComponent<RoundControler> ().round = map.GetComponent<RoundControler> ().order [0];
+
 			}
 			else pathid--;
 			if (pathid < 0  && isMoving) {
@@ -246,6 +248,7 @@ public class playerMove : MonoBehaviour {
 	public void AI(){
 		int[] c=map.GetComponent<RandomDungeonCreator>().pickAplace();
 		moveTo (c [0], c [1]);
+		//transform.gameObject.GetComponent<PhaseHandler>().state.handle (new Action (ACTION_TYPE.ACTION_NULL));
 		//transform.gameObject.GetComponent<PhaseHandler>().state.handle (new Action (ACTION_TYPE.ACTION_NULL));
 	}
 	// Update is called once per frame
