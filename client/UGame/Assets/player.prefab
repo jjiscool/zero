@@ -175,6 +175,8 @@ MonoBehaviour:
   SPEED: 10
   MinSight: 2
   MaxSight: 4
+  ATK: 1
+  ATKRange: 1
   isPlayerTeam: 0
   AI: 0
   isDanger: 0

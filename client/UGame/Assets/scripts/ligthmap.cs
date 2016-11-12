@@ -66,8 +66,10 @@ public class ligthmap : MonoBehaviour {
 					GameObject map = GameObject.Find ("map");
 					OBJTYPEList obj_list  = map.GetComponent<RandomDungeonCreator>().obj_list;
 					if (obj_list.hasObjInRowColumn (iy, ix)) {
-						OBJTYPEData od = obj_list.getObjByRowColumn (iy, ix);
-						if(od.lightable) localmap [iy - (centery - (heght-1)/2), ix - (centerx - (width-1)/2)]=0;
+						localmap [iy - (centery - (heght-1)/2), ix - (centerx - (width-1)/2)]=0;
+						List<OBJTYPEData> odl = obj_list.getObjByRowColumn (iy, ix);
+						for(int ii=0;ii<odl.Count;ii++)
+						 if(!odl[ii].lightable) localmap [iy - (centery - (heght-1)/2), ix - (centerx - (width-1)/2)]=-1;
 					} else {
 						localmap [iy - (centery - (heght-1)/2), ix - (centerx - (width-1)/2)]=0;
 					}

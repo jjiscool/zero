@@ -160,7 +160,7 @@ public class enemyMove : MonoBehaviour {
 			transform.position = endxy;
 			pathid--;
 			if (pathid < 0  && isMoving) {
-				transform.gameObject.GetComponent<PhaseHandler>().state.handle (new Action (ACTION_TYPE.ACTION_NULL));
+				transform.gameObject.GetComponent<PhaseHandler>().state.handle (new Action (ACTION_TYPE.ACTION_NULL,transform.gameObject));
 				isMoving = false;
 				//				Debug.Log (orientation);
 				//				根据朝向设置 player的动画

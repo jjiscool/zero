@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+using System.Collections.Generic;
 public class playerMove : MonoBehaviour {
 	private bool isMoving;
 	//private Vector3 beginxy;
@@ -57,8 +57,6 @@ public class playerMove : MonoBehaviour {
 		row = irow;
 		column = icolumn;
 		iniPos = map.GetComponent<TilesManager>().posTransform(row,column);
-		Debug.Log (row);
-		Debug.Log (column);
 		//初始化位置
 		transform.position = iniPos;
 		astar= new Astar();
@@ -155,31 +153,35 @@ public class playerMove : MonoBehaviour {
 		weaponAnimator.SetTrigger ("WeaponOnMoveRight");
 		AttemptMove (orientation,row, column+1);
 	}
-	public void Actioning(){
+	public void Move_Actioning(){
+		//如果是移动动画播放状态，进行位移一格
 		if (isMoving) {
 			transform.position = new Vector3 (Mathf.MoveTowards (transform.position.x, endxy.x, Time.deltaTime * speed), Mathf.MoveTowards (transform.position.y, endxy.y, Time.deltaTime * speed), 0);
 			GameObject.Find ("light").GetComponent<ligthmap> ().reDrawLight ();
+			//更新地图数据
 			int[] v= GameObject.Find ("map").GetComponent<TilesManager> ().posTransform2 (transform.position.x,transform.position.y);
 			MapOBJ.row =v[0];
 			MapOBJ.column = v[1];
 		}
+		//当到达移动一格后
 		if (transform.position == endxy) {
 			transform.position = endxy;
 			int[] v= GameObject.Find ("map").GetComponent<TilesManager> ().posTransform2 (transform.position.x,transform.position.y);
 			MapOBJ.row =v[0];
 			MapOBJ.column = v[1];
+			//如果玩家进入任何敌人视野进入战斗模式，中断移动
 			if (map.GetComponent<RoundControler> ().CheckPlayerInSeeSight ()&&!map.GetComponent<RoundControler> ().CheckPlayerInBattle()) {
 				pathid = -1;
 				map.GetComponent<RoundControler> ().round = map.GetComponent<RoundControler> ().order [0];
 
 			}
 			else pathid--;
-			if (pathid < 0  && isMoving) {
-				transform.gameObject.GetComponent<PhaseHandler>().state.handle (new Action (ACTION_TYPE.ACTION_NULL));
+			//如果所有移动都结束，结束回合
+			if (pathid < 0 && isMoving) {
+				transform.gameObject.GetComponent<PhaseHandler> ().state.handle (new Action (ACTION_TYPE.ACTION_NULL, transform.gameObject));
 				isMoving = false;
-				//				Debug.Log (orientation);
-				//				根据朝向设置 player的动画
-				switch (orientation){
+				//根据朝向设置 player的动画
+				switch (orientation) {
 				case "UP": 
 					animator.SetTrigger ("PlayerIdleUp");
 					weaponAnimator.SetTrigger ("WeaponOnIdleUp");
@@ -202,10 +204,9 @@ public class playerMove : MonoBehaviour {
 					break;
 				}
 
-			}
-			else if(pathid>=0){
+			} else if (pathid >= 0) {  //如果下一步存在，则进行移动
+				
 				isMoving = false;
-				//				Debug.Log ("path"+pathid+":"+row + "," + column + " to " + astar.finalpath [pathid] [0] + "," + astar.finalpath [pathid] [1]);
 				if (astar.finalpath [pathid] [0] < row)
 					moveUp ();
 				if (astar.finalpath [pathid] [0] > row)
@@ -214,46 +215,121 @@ public class playerMove : MonoBehaviour {
 					moveLeft ();
 				if (astar.finalpath [pathid] [1] > column)
 					moveRight ();
-				//Debug.Log (transform.position.x + "," + transform.position.y + " " + endxy.x + "," + endxy.y);
+
+			} else {
+				pathid = -1;
+			
 			}
 
 		}
 		
 	}
+	//移动到某处
 	public void moveTo(int x,int y){
-		Debug.Log ("MOVE");
-		Debug.Log (x);Debug.Log (y);
-		Debug.Log (row);Debug.Log (column);
 		int[] pos={x,y};
 		astar= new Astar(row,column,pos[0],pos[1],map.GetComponent<RandomDungeonCreator>().getMap(),32,32);
+		astar.isWalkableFunc = map.GetComponent<RandomDungeonCreator> ().MapWalkable;
 		astar.Run ();
-	    Debug.Log ("Path long = " + astar.finalpath.Count);
 		pathid = astar.finalpath.Count-1;
 		if (pathid >= 1) {
-			if (map.GetComponent<RoundControler> ().CheckPlayerInBattle()) {
+			if (map.GetComponent<RoundControler> ().CheckPlayerInBattle ()) {
 				if (astar.finalpath.Count > transform.gameObject.GetComponent<playerStatus> ().MOV) {
 					astar.finalpath.RemoveRange (0, pathid - transform.gameObject.GetComponent<playerStatus> ().MOV);
 					pathid = astar.finalpath.Count - 1;
-					Debug.Log ("Path long = " + astar.finalpath.Count);
+					//Debug.Log ("Path long = " + astar.finalpath.Count);
 				}
 			}
-			Action Mov = new Action (ACTION_TYPE.ACTION_MOVE);
-			Mov.SUBJECT = transform.gameObject;
+			//Move行为触发：决策阶段-》行动动画阶段
+			Action Mov = new Action (ACTION_TYPE.ACTION_MOVE, transform.gameObject);
 			Mov.MOVEPOS [0] = x;
 			Mov.MOVEPOS [1] = y;
-			transform.GetComponent<PhaseHandler>().state.handle (Mov);
-			//Debug.Log ("path"+pathid+":"+row + "," + column + " to " + astar.finalpath [pathid] [0] + "," + astar.finalpath [pathid] [1]);
-		}
+			transform.GetComponent<PhaseHandler> ().state.handle (Mov);
+		} 
+	}
+	public void NOACTION(){
+		Action no = new Action (ACTION_TYPE.ACTION_NULL,transform.gameObject);
+		transform.GetComponent<PhaseHandler>().state.handle (no);
+	}
+	public void NOACTION_Actioning(){
+		Action caction = transform.GetComponent<PhaseHandler> ().state.act;
+		transform.GetComponent<PhaseHandler>().state.handle (caction);
+	}
+	public void Attack(GameObject obj){
+		Action Atk = new Action (ACTION_TYPE.ACTION_ATTACK,transform.gameObject);
+		Atk.OBJECT = obj;
+		transform.GetComponent<PhaseHandler>().state.handle (Atk);
+	}
+	public void Attack_Actioning(){
+		Action caction = transform.GetComponent<PhaseHandler> ().state.act;
+		transform.GetComponent<PhaseHandler>().state.handle (caction);
 	}
 	public void AI(){
-		int[] c=map.GetComponent<RandomDungeonCreator>().pickAplace();
-		moveTo (c [0], c [1]);
-		//transform.gameObject.GetComponent<PhaseHandler>().state.handle (new Action (ACTION_TYPE.ACTION_NULL));
-		//transform.gameObject.GetComponent<PhaseHandler>().state.handle (new Action (ACTION_TYPE.ACTION_NULL));
+		GameObject p = GameObject.Find ("map").GetComponent<RoundControler> ().getGOInOderID (-1);
+		int er = p.GetComponent<playerMove> ().row;
+		int ec = p.GetComponent<playerMove> ().column;
+		int dis = Mathf.Abs (transform.GetComponent<playerMove> ().row - er) + Mathf.Abs (transform.GetComponent<playerMove> ().column - ec);
+		if (dis <= transform.GetComponent<playerStatus> ().ATKRange) {
+			//在攻击范围优先攻击
+			Debug.Log (transform.name + " decide to ATK!");
+			Attack (p);
+		} else {
+			//能攻击到玩家的最近的空格移动
+			//Debug.Log ("Find Closest Place");
+			int minr = er+transform.GetComponent<playerStatus> ().ATKRange;
+			int minc = ec+transform.GetComponent<playerStatus> ().ATKRange;
+			int MIN = -1;
+			for (int t1 = -transform.GetComponent<playerStatus> ().ATKRange; t1 <= transform.GetComponent<playerStatus> ().ATKRange; t1++)
+				for (int t2 = -transform.GetComponent<playerStatus> ().ATKRange; t2 <= transform.GetComponent<playerStatus> ().ATKRange; t2++) {
+					if (Mathf.Abs (t1) + Mathf.Abs (t2) > transform.GetComponent<playerStatus> ().ATKRange || Mathf.Abs (t1) + Mathf.Abs (t2) == 0)
+						continue;
+					if (map.GetComponent<RandomDungeonCreator> ().MapWalkable (er + t1, ec + t2)) {
+						//Debug.Log ("Walkabe " + (er + t1) + "," + (ec + t2));
+						astar= new Astar(row,column,er + t1,ec + t2,map.GetComponent<RandomDungeonCreator>().getMap(),32,32);
+						astar.isWalkableFunc = map.GetComponent<RandomDungeonCreator> ().MapWalkable;
+						astar.Run ();
+						pathid = astar.finalpath.Count-1;
+						if (pathid <= 0)
+							continue;
+						int mdis = Mathf.Abs (transform.GetComponent<playerMove> ().row - er - t1) + Mathf.Abs (transform.GetComponent<playerMove> ().column - ec - t2);
+						if (MIN == -1) {
+							MIN = mdis;
+							minr = er + t1;
+							minc = ec + t2;
+						} else {
+							if (MIN > mdis) {
+								MIN = mdis;
+								minr = er + t1;
+								minc = ec + t2;
+							}
+
+						}
+					} else {
+						//Debug.Log ("UnWalkabe " + (er + t1) + "," + (ec + t2));
+					}
+				}
+			if (MIN != -1) {
+				Debug.Log (transform.name + " decide to MOVE to (" + minr + "," + minc + ")");
+				//Debug.Log(factor[minf,0]+":"+factor[minf,1]);
+				transform.GetComponent<playerMove> ().moveTo (minr, minc);
+			} else {
+				Debug.Log (transform.name + " decide to DO NOTHING!");
+				transform.GetComponent<playerMove> ().NOACTION ();
+			}
+		}
+	}
+	public void Dead(){
+		GameObject.Find ("map").GetComponent<RoundControler>().RemoveOderByInstanceID (transform.gameObject);
+		GameObject.Find ("map").GetComponent<RoundControler>().RemoveEnemyByInstanceID(transform.gameObject);
+		GameObject.Find ("map").GetComponent<RandomDungeonCreator> ().obj_list.RemoveObjByID (MapOBJ.id);
+		Destroy (transform.gameObject);
 	}
 	// Update is called once per frame
 	void Update () {
-		
+		if (transform.GetComponent<playerStatus> ().HP == 0) {
+			//transform.SetActive = false;
+
+		}
+
 	}
 	public void canSeeEnemy(){
 		

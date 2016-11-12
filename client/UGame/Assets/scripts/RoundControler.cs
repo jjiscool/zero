@@ -3,21 +3,19 @@ using System.Collections;
 using System.Collections.Generic;
 public class RoundControler : MonoBehaviour {
 	public GameObject player;
-	public GameObject[] enemy;
+	public List<GameObject> enemy;
 	public List<int> order;
 	public int round;
-	private int movedEnemy;
 	public bool playerInBattle;
 	void Awake(){
 		round = -1;
-		movedEnemy = -1;
 		playerInBattle = false;
 		order = new List<int> ();
 		order.Add (-1);
 	
 	}
 	public bool CheckPlayerInSeeSight(){
-		for (int i = 0; i < enemy.Length; i++) {
+		for (int i = 0; i < enemy.Count; i++) {
 			int dis = Mathf.Abs (enemy[i].GetComponent<playerMove>().row-player.GetComponent<playerMove>().row)+Mathf.Abs (enemy[i].GetComponent<playerMove>().column-player.GetComponent<playerMove>().column);
 			if (dis <= enemy[i].GetComponent<playerStatus>().MinSight&&enemy[i].GetComponent<playerStatus>().isDanger)
 				return true;
@@ -28,10 +26,10 @@ public class RoundControler : MonoBehaviour {
 		return playerInBattle;
 	}
 	void renewOrder(){
-		for (int i = 0; i < enemy.Length; i++) {
+		for (int i = 0; i < enemy.Count; i++) {
 			int dis = Mathf.Abs (enemy[i].GetComponent<playerMove>().row-player.GetComponent<playerMove>().row)+Mathf.Abs (enemy[i].GetComponent<playerMove>().column-player.GetComponent<playerMove>().column);
 			if (!isInOder (i)) {
-				if (dis <= enemy [i].GetComponent<playerStatus> ().MinSight && enemy [i].GetComponent<playerStatus> ().isDanger) {
+				if ( enemy [i].GetComponent<playerStatus> ().HP>0&&dis <= enemy [i].GetComponent<playerStatus> ().MinSight && enemy [i].GetComponent<playerStatus> ().isDanger) {
 					int ii;
 					int ispeed = enemy [i].GetComponent<playerStatus> ().SPEED;
 					for (ii = 0; ii < order.Count; ii++) {
@@ -72,7 +70,14 @@ public class RoundControler : MonoBehaviour {
 		player.GetComponent<PhaseHandler> ().PhaseBegin();
 		reset (player);
 	}
-	GameObject getGOInOderIndex(int idx){
+	public GameObject getGOInOderIndex(int idx){
+		if (order [idx] == -1)
+			return player;
+		else
+			return enemy [order [idx]];
+	}
+	public GameObject getGOInOderID(int id){
+		int idx = FindOderIndexByID (id);
 		if (order [idx] == -1)
 			return player;
 		else
@@ -85,6 +90,26 @@ public class RoundControler : MonoBehaviour {
 			
 		}
 		return -2;
+	}
+	public void RemoveOderByInstanceID(GameObject rgo){
+		int rid = -1;
+		for (int i = 0; i < order.Count; i++) {
+			if (getGOInOderIndex (i).GetInstanceID() == rgo.GetInstanceID()) {
+				rid = i;
+			}
+		}
+		if (rid >= 0)
+			order.RemoveAt (rid);
+	}
+	public void RemoveEnemyByInstanceID(GameObject rgo){
+		int rid = -1;
+		for (int i = 0; i < enemy.Count; i++) {
+			if (enemy[i].GetInstanceID() == rgo.GetInstanceID()) {
+				rid = i;
+			}
+		}
+		if (rid >= 0)
+			enemy.RemoveAt(rid);
 	}
 	int FindNextOderIndexByID(int id){
 		for (int i = 0; i < order.Count; i++) {
@@ -108,13 +133,14 @@ public class RoundControler : MonoBehaviour {
 			if (player.GetComponent<PhaseHandler> ().getType () == PHASE_TYPE.PHASE_WAITING) {
 				renewOrder ();
 				if (!playerInBattle) {
+					Debug.Log ("Round for " + player.name);
 					player.GetComponent<PhaseHandler> ().PhaseBegin ();
 					reset (player);
 				}
 				else
 				{
 					round = order[0];
-					Debug.Log ("Round for " + round);
+					Debug.Log ("Round for " + getGOInOderIndex (FindOderIndexByID (round)).name);
 					getGOInOderIndex(FindOderIndexByID(round)).GetComponent<PhaseHandler> ().PhaseBegin ();
 					reset (getGOInOderIndex(FindOderIndexByID(round)));
 				}
@@ -127,7 +153,7 @@ public class RoundControler : MonoBehaviour {
 				int nextround = order [next];
 				if (round != -1) {
 					round = nextround;
-					Debug.Log ("Round for " + round);
+					Debug.Log ("Round for " + getGOInOderIndex (FindOderIndexByID (round)).name);
 					renewOrder ();
 					getGOInOderIndex (FindOderIndexByID (round)).GetComponent<PhaseHandler> ().PhaseBegin ();
 					reset (getGOInOderIndex(FindOderIndexByID(round)));
@@ -139,42 +165,38 @@ public class RoundControler : MonoBehaviour {
 						next = 0;
 						nextround = order [next];
 						round = nextround;
-						Debug.Log ("Round for " + round);
+						Debug.Log ("Round for " + getGOInOderIndex (FindOderIndexByID (round)).name);
 						getGOInOderIndex (FindOderIndexByID (round)).GetComponent<PhaseHandler> ().PhaseBegin ();
 						reset (getGOInOderIndex(FindOderIndexByID(round)));			
 				}
-
-
-					
-				
 			}
 		
 		
 		}
 		return;
 		//Debug.Log (player.GetComponent<PhaseHandler> ().getType ());
-		if (enemy.Length>0&&movedEnemy==-1&&player.GetComponent<PhaseHandler> ().getType () == PHASE_TYPE.PHASE_WAITING) {
-			//player.GetComponent<PhaseHandler> ().PhaseBegin();
-			movedEnemy=0;
-			enemy[movedEnemy].GetComponent<PhaseHandler> ().PhaseBegin();renewOrder ();
-			reset (enemy[movedEnemy]);
-
-		}
-		if (enemy.Length>0&&movedEnemy>=0&&enemy [movedEnemy].GetComponent<PhaseHandler> ().getType () == PHASE_TYPE.PHASE_WAITING) {
-			movedEnemy++;
-			//Debug.Log (movedEnemy);
-			if (movedEnemy >= enemy.Length) {
-				player.GetComponent<PhaseHandler> ().PhaseBegin ();renewOrder ();
-				reset (player);
-				movedEnemy = -1;
-			} else {
-				enemy[movedEnemy].GetComponent<PhaseHandler> ().PhaseBegin();renewOrder ();
-				reset (enemy[movedEnemy]);
-			} 
-		}
-		if (enemy.Length == 0&&player.GetComponent<PhaseHandler> ().getType () == PHASE_TYPE.PHASE_WAITING) {
-			player.GetComponent<PhaseHandler> ().PhaseBegin();renewOrder ();
-			reset (player);
-		}
+//		if (enemy.Length>0&&movedEnemy==-1&&player.GetComponent<PhaseHandler> ().getType () == PHASE_TYPE.PHASE_WAITING) {
+//			//player.GetComponent<PhaseHandler> ().PhaseBegin();
+//			movedEnemy=0;
+//			enemy[movedEnemy].GetComponent<PhaseHandler> ().PhaseBegin();renewOrder ();
+//			reset (enemy[movedEnemy]);
+//
+//		}
+//		if (enemy.Length>0&&movedEnemy>=0&&enemy [movedEnemy].GetComponent<PhaseHandler> ().getType () == PHASE_TYPE.PHASE_WAITING) {
+//			movedEnemy++;
+//			//Debug.Log (movedEnemy);
+//			if (movedEnemy >= enemy.Length) {
+//				player.GetComponent<PhaseHandler> ().PhaseBegin ();renewOrder ();
+//				reset (player);
+//				movedEnemy = -1;
+//			} else {
+//				enemy[movedEnemy].GetComponent<PhaseHandler> ().PhaseBegin();renewOrder ();
+//				reset (enemy[movedEnemy]);
+//			} 
+//		}
+//		if (enemy.Length == 0&&player.GetComponent<PhaseHandler> ().getType () == PHASE_TYPE.PHASE_WAITING) {
+//			player.GetComponent<PhaseHandler> ().PhaseBegin();renewOrder ();
+//			reset (player);
+//		}
 	}
 }

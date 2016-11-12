@@ -34,11 +34,20 @@ public class Astar{
 	public int[,] map;
 	public int MaxX;
 	public int MaxY;
+	public delegate bool isWalkable(int r,int c);  
+	public isWalkable isWalkableFunc;  
 	public Astar(){//int x,int y,int tox,int toy
 		open = new List<int> ();
 		close = new List<int> ();
 		final = new List<AstarNode> ();
 		finalpath = new List<int[]> ();
+		isWalkableFunc = isWalkabeFuncDefault;
+	}
+	public bool isWalkabeFuncDefault(int r ,int c){
+		if (map [r, c] == -1)
+			return false;
+		else 
+			return true;
 	}
 	public Astar(int x,int y,int tox,int toy,int[,] M,int MX,int MY){//int x,int y,int tox,int toy
 		open = new List<int> ();
@@ -77,7 +86,7 @@ public class Astar{
 			if(final[fid].pos[0]>0){
 				int newx = final[fid].pos [0] - 1;
 				int newy = final[fid].pos [1];
-				if (map [newx,newy] != -1&&CheckInFinal (newx, newy) == -1) {
+				if (isWalkableFunc(newx,newy)&&CheckInFinal (newx, newy) == -1) {
 					AstarNode tup = new AstarNode (newx,newy);
 					tup.parentID = fid;
 					tup.H = CalH (newx,newy);
@@ -87,7 +96,7 @@ public class Astar{
 					//Debug.Log ("Add to Final");
 				}
 				int fupid = CheckInFinal (newx, newy);
-				if (map [newx,newy] != -1&&CheckInClose(newx, newy)==-1) {
+				if (isWalkableFunc(newx,newy)&&CheckInClose(newx, newy)==-1) {
 					int upopid = CheckInOpen (newx, newy);
 					if (upopid == -1) {
 						addToOpen (fupid);
@@ -105,7 +114,7 @@ public class Astar{
 			if(final[fid].pos[0]<MaxX-1){
 				int newx = final[fid].pos [0] + 1;
 				int newy = final[fid].pos [1];
-				if (map [newx,newy] != -1&&CheckInFinal (newx, newy) == -1) {
+				if (isWalkableFunc(newx,newy)&&CheckInFinal (newx, newy) == -1) {
 					AstarNode tup = new AstarNode (newx,newy);
 					tup.parentID = fid;
 					tup.H = CalH (newx,newy);
@@ -116,7 +125,7 @@ public class Astar{
 				}
 				//Debug.Log ("Add to Final");
 				int fupid = CheckInFinal (newx, newy);
-				if (map [newx,newy] != -1&&CheckInClose(newx, newy)==-1) {
+				if (isWalkableFunc(newx,newy)&&CheckInClose(newx, newy)==-1) {
 					int upopid = CheckInOpen (newx, newy);
 					if (upopid == -1) {
 						addToOpen (fupid);
@@ -134,7 +143,7 @@ public class Astar{
 			if(final[fid].pos[1]>0){
 				int newx = final[fid].pos [0] ;
 				int newy = final[fid].pos [1]-1;
-				if (map [newx,newy] != -1&&CheckInFinal (newx, newy) == -1) {
+				if (isWalkableFunc(newx,newy)&&CheckInFinal (newx, newy) == -1) {
 					AstarNode tup = new AstarNode (newx,newy);
 					tup.parentID = fid;
 					tup.H = CalH (newx,newy);
@@ -144,7 +153,7 @@ public class Astar{
 					//Debug.Log ("Add to Final");
 				}
 				int fupid = CheckInFinal (newx, newy);
-				if (map [newx,newy] != -1&&CheckInClose(newx, newy)==-1) {
+				if (isWalkableFunc(newx,newy)&&CheckInClose(newx, newy)==-1) {
 					int upopid = CheckInOpen (newx, newy);
 					if (upopid == -1) {
 						addToOpen (fupid);
@@ -162,7 +171,7 @@ public class Astar{
 			if(final[fid].pos[1]<MaxY-1){
 				int newx = final[fid].pos [0] ;
 				int newy = final[fid].pos [1]+1;
-				if (map [newx,newy] != -1&&CheckInFinal (newx, newy) == -1) {
+				if (isWalkableFunc(newx,newy)&&CheckInFinal (newx, newy) == -1) {
 					AstarNode tup = new AstarNode (newx,newy);
 					tup.parentID = fid;
 					tup.H = CalH (newx,newy);
@@ -172,7 +181,7 @@ public class Astar{
 					//Debug.Log ("Add to Final");
 				}
 				int fupid = CheckInFinal (newx, newy);
-				if (map [newx,newy] != -1&&CheckInClose(newx, newy)==-1) {
+				if (isWalkableFunc(newx,newy)&&CheckInClose(newx, newy)==-1) {
 					int upopid = CheckInOpen (newx, newy);
 					if (upopid == -1) {
 						addToOpen (fupid);
@@ -187,7 +196,7 @@ public class Astar{
 				}
 			}
 			if (CheckInOpen (ToX, ToY) !=-1) {
-				Debug.Log ("Find!");
+				//Debug.Log ("Find!");
 				getFinalPath ();
 				return;
 			}
@@ -278,6 +287,7 @@ public  enum  OBJTYPE{
 }
 public class OBJTYPEData{
 	//地图上的物体
+	public int id;
 	public int row;
 	public int column;
 	public OBJTYPE type;
@@ -317,14 +327,14 @@ public class ObjectDoor:OBJTYPEData{
 		return true;//门关闭成功
 	}
 }
-//出生点
+//玩家
 public class ObjectPlayer:OBJTYPEData{
 	public int roomID;
 	public ObjectPlayer(int i,int j){
 		row = i;
 		column = j;
 		type = OBJTYPE.OBJTYPE_PLAYER;
-		walkable = true;
+		walkable = false;
 		lightable = true;
 		roomID = -1;
 	}
@@ -340,6 +350,7 @@ public class ObjectDownStairs:OBJTYPEData{
 		lightable = true;
 	}
 }
+//敌人
 public class ObjectEnemy:OBJTYPEData{
 	public int Enemy_type;
 	public ObjectEnemy(int i,int j,int enemytype){
@@ -353,14 +364,19 @@ public class ObjectEnemy:OBJTYPEData{
 }
 public class OBJTYPEList{
 	private List<OBJTYPEData> objects;
+	private int objnum;
 	public OBJTYPEList(){
+		objnum=0;
 		objects=new List<OBJTYPEData>();
 	}
 	public int getLength(){
 		return objects.Count;
 	}
 	public void addObj(OBJTYPEData d){
+		objnum++;
+		d.id = objnum;
 		objects.Add (d);
+
 	}
 	//判断位置是否有item
 	public bool hasObjInRowColumn(int x,int y){
@@ -372,17 +388,18 @@ public class OBJTYPEList{
 		return false;
 	}
 	//根据id获取item
-	public OBJTYPEData getObjByID(int id){
-		return objects[id];
+	public OBJTYPEData getObjByIdx(int idx){
+		return objects[idx];
 	}
 	//根据行列获取item
-	public OBJTYPEData getObjByRowColumn(int x,int y){
+	public List<OBJTYPEData> getObjByRowColumn(int x,int y){
+		List<OBJTYPEData> t = new List<OBJTYPEData>();
 		for (int i = 0; i < objects.Count; i++) {
 			if (objects [i].row == x && objects [i].column == y) {
-				return objects [i];
+				t.Add(objects [i]);
 			}
 		}
-		return null;
+		return t;
 	}
 	//根据类型获取itemlist
 	public List<OBJTYPEData> getListByType(OBJTYPE  T){
@@ -392,6 +409,15 @@ public class OBJTYPEList{
 				list.Add (objects [i]);
 		}
 		return list;
+	}
+	public void RemoveObjByID(int id){
+		int ridx = -1;
+		for (int i = 0; i < objects.Count; i++) {
+			if (objects [i].id == id) {
+				ridx = i;
+			}
+		}
+		if(ridx>=0) objects.RemoveAt(ridx);
 	}
 }
 
@@ -430,6 +456,20 @@ public class RandomDungeonCreator : MonoBehaviour {
 	private List<int> mazesID;//走廊ID列表
 	private List<RoomData> rooms;
 	public OBJTYPEList obj_list;
+	public bool MapWalkable(int i,int j){
+		if (map [i, j] != -1) {
+			if (obj_list.hasObjInRowColumn (i, j)) {
+				List<OBJTYPEData> o = obj_list.getObjByRowColumn (i, j);
+				for (int ii = 0; ii < o.Count; ii++) {
+					if (o [ii].walkable == false)
+						return false;
+				}
+				return true;
+			}
+			else return true;
+		}
+		return false;
+	}
 	public void ReBuildDungeon(){
 		foreach(Transform child in transform){
 			Destroy (child.gameObject);

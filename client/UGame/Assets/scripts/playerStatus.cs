@@ -9,6 +9,8 @@ public class playerStatus : MonoBehaviour {
 	public int SPEED;
 	public int MinSight;
 	public int MaxSight;
+	public int ATK;
+	public int ATKRange;
 	public bool isPlayerTeam;
 	public bool AI;
 	public bool isDanger;
