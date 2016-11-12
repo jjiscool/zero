@@ -21,7 +21,8 @@ public class MapObjectGenerator : MonoBehaviour {
 		a.GetComponent<playerMove> ().set (row,column);
 		map.GetComponent<RoundControler> ().player = a;
 		a.GetComponent<playerStatus> ().AI = false;
-		a.GetComponent<playerStatus> ().HP = 100;
+		a.GetComponent<playerStatus> ().HP = Random.Range (1, 100);;
+		a.GetComponent<playerStatus> ().ATK = Random.Range (0, 20);;
 		a.GetComponent<playerStatus> ().SPEED = Random.Range (0, 20);
 		a.GetComponent<playerStatus> ().isDanger = false;
 		a.GetComponent<playerStatus> ().isPlayerTeam = true;
@@ -40,6 +41,8 @@ public class MapObjectGenerator : MonoBehaviour {
 			a.GetComponent<playerMove> ().set (ems[i].row,ems[i].column);
 			map.GetComponent<RoundControler> ().enemy.Add(a);
 			a.GetComponent<playerStatus> ().AI = true;
+			a.GetComponent<playerStatus> ().HP = Random.Range (1, 100);;
+			a.GetComponent<playerStatus> ().ATK = Random.Range (0, 20);;
 			a.GetComponent<playerStatus> ().SPEED = Random.Range (0, 20);
 			a.GetComponent<playerStatus> ().isDanger = true;
 			a.GetComponent<playerStatus> ().isPlayerTeam = false;
