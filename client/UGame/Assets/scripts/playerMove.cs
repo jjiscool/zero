@@ -153,6 +153,29 @@ public class playerMove : MonoBehaviour {
 		weaponAnimator.SetTrigger ("WeaponOnMoveRight");
 		AttemptMove (orientation,row, column+1);
 	}
+	//决策移动的回合切换
+	public void moveTo(int x,int y){
+		int[] pos={x,y};
+		astar= new Astar(row,column,pos[0],pos[1],map.GetComponent<RandomDungeonCreator>().getMap(),32,32);
+		astar.isWalkableFunc = map.GetComponent<RandomDungeonCreator> ().MapWalkable;
+		astar.Run ();
+		pathid = astar.finalpath.Count-1;
+		if (pathid >= 1) {
+			if (map.GetComponent<RoundControler> ().CheckPlayerInBattle ()) {
+				if (astar.finalpath.Count > transform.gameObject.GetComponent<playerStatus> ().MOV) {
+					astar.finalpath.RemoveRange (0, pathid - transform.gameObject.GetComponent<playerStatus> ().MOV);
+					pathid = astar.finalpath.Count - 1;
+					//Debug.Log ("Path long = " + astar.finalpath.Count);
+				}
+			}
+			//Move行为触发：决策阶段-》行动动画阶段
+			Action Mov = new Action (ACTION_TYPE.ACTION_MOVE, transform.gameObject);
+			Mov.MOVEPOS [0] = x;
+			Mov.MOVEPOS [1] = y;
+			transform.GetComponent<PhaseHandler> ().state.handle (Mov);
+		} 
+	}
+	//决策移动的动画阶段
 	public void Move_Actioning(){
 		//如果是移动动画播放状态，进行位移一格
 		if (isMoving) {
@@ -224,45 +247,28 @@ public class playerMove : MonoBehaviour {
 		}
 		
 	}
-	//移动到某处
-	public void moveTo(int x,int y){
-		int[] pos={x,y};
-		astar= new Astar(row,column,pos[0],pos[1],map.GetComponent<RandomDungeonCreator>().getMap(),32,32);
-		astar.isWalkableFunc = map.GetComponent<RandomDungeonCreator> ().MapWalkable;
-		astar.Run ();
-		pathid = astar.finalpath.Count-1;
-		if (pathid >= 1) {
-			if (map.GetComponent<RoundControler> ().CheckPlayerInBattle ()) {
-				if (astar.finalpath.Count > transform.gameObject.GetComponent<playerStatus> ().MOV) {
-					astar.finalpath.RemoveRange (0, pathid - transform.gameObject.GetComponent<playerStatus> ().MOV);
-					pathid = astar.finalpath.Count - 1;
-					//Debug.Log ("Path long = " + astar.finalpath.Count);
-				}
-			}
-			//Move行为触发：决策阶段-》行动动画阶段
-			Action Mov = new Action (ACTION_TYPE.ACTION_MOVE, transform.gameObject);
-			Mov.MOVEPOS [0] = x;
-			Mov.MOVEPOS [1] = y;
-			transform.GetComponent<PhaseHandler> ().state.handle (Mov);
-		} 
-	}
+	//决策无行动的回合切换
 	public void NOACTION(){
 		Action no = new Action (ACTION_TYPE.ACTION_NULL,transform.gameObject);
 		transform.GetComponent<PhaseHandler>().state.handle (no);
 	}
+	//无行动的动画阶段
 	public void NOACTION_Actioning(){
 		Action caction = transform.GetComponent<PhaseHandler> ().state.act;
 		transform.GetComponent<PhaseHandler>().state.handle (caction);
 	}
+	//决策攻击的回合切换
 	public void Attack(GameObject obj){
 		Action Atk = new Action (ACTION_TYPE.ACTION_ATTACK,transform.gameObject);
 		Atk.OBJECT = obj;
 		transform.GetComponent<PhaseHandler>().state.handle (Atk);
 	}
+	//决策攻击的动画阶段
 	public void Attack_Actioning(){
 		Action caction = transform.GetComponent<PhaseHandler> ().state.act;
 		transform.GetComponent<PhaseHandler>().state.handle (caction);
 	}
+	//AI决策
 	public void AI(){
 		GameObject p = GameObject.Find ("map").GetComponent<RoundControler> ().getGOInOderID (-1);
 		int er = p.GetComponent<playerMove> ().row;
@@ -317,6 +323,7 @@ public class playerMove : MonoBehaviour {
 			}
 		}
 	}
+	//死亡处理
 	public void Dead(){
 		if (GameObject.Find ("map").GetComponent<RoundControler> ().getGOInOderID (-1).GetInstanceID () == transform.gameObject.GetInstanceID ()) {
 			Debug.Log ("Game Over!");
@@ -330,10 +337,7 @@ public class playerMove : MonoBehaviour {
 	}
 	// Update is called once per frame
 	void Update () {
-		if (transform.GetComponent<playerStatus> ().HP == 0) {
-			//transform.SetActive = false;
 
-		}
 
 	}
 	public void canSeeEnemy(){
