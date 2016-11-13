@@ -318,10 +318,15 @@ public class playerMove : MonoBehaviour {
 		}
 	}
 	public void Dead(){
-		GameObject.Find ("map").GetComponent<RoundControler>().RemoveOderByInstanceID (transform.gameObject);
-		GameObject.Find ("map").GetComponent<RoundControler>().RemoveEnemyByInstanceID(transform.gameObject);
-		GameObject.Find ("map").GetComponent<RandomDungeonCreator> ().obj_list.RemoveObjByID (MapOBJ.id);
-		Destroy (transform.gameObject);
+		if (GameObject.Find ("map").GetComponent<RoundControler> ().getGOInOderID (-1).GetInstanceID () == transform.gameObject.GetInstanceID ()) {
+			Debug.Log ("Game Over!");
+		} else {
+			GameObject.Find ("map").GetComponent<RoundControler>().RemoveOderByInstanceID (transform.gameObject);
+			GameObject.Find ("map").GetComponent<RoundControler>().RemoveEnemyByInstanceID(transform.gameObject);
+			GameObject.Find ("map").GetComponent<RandomDungeonCreator> ().obj_list.RemoveObjByID (MapOBJ.id);
+			Destroy (transform.gameObject);
+		}
+	
 	}
 	// Update is called once per frame
 	void Update () {
