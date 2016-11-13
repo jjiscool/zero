@@ -133,6 +133,8 @@ public class ThinkingPhase:Phase{
 			if (GameObject.Find ("map").GetComponent<RandomDungeonCreator> ().obj_list.hasObjInRowColumn (pos [0], pos [1])) {
 				
 				List<OBJTYPEData> objl = GameObject.Find ("map").GetComponent<RandomDungeonCreator> ().obj_list.getObjByRowColumn (pos [0], pos [1]);
+				int hasE = -1;
+				int hasM = -1;
 				for (int ii = 0; ii < objl.Count; ii++) {
 					//是否是敌人
 					if (objl[ii].type == OBJTYPE.OBJTYPE_ENEMY) {
@@ -140,21 +142,28 @@ public class ThinkingPhase:Phase{
 						int ec = objl[ii].thisOBJ.GetComponent<playerMove> ().column;
 						int dis = Mathf.Abs (tr.GetComponent<playerMove> ().row - er) + Mathf.Abs (tr.GetComponent<playerMove> ().column - ec);
 						if (dis <= tr.GetComponent<playerStatus> ().ATKRange) {
-							Debug.Log ("Player ATK!");
-							tr.GetComponent<playerMove> ().Attack (objl [ii].thisOBJ);
-							return;
+							hasE = ii;
 						} else {
-						
+							Debug.Log ("Out OF Range");
 						}
 					} else if (objl[ii].walkable) {
-						//Debug.Log ("click DOOR");
-						tr.GetComponent<playerMove> ().moveTo (pos [0], pos [1]);
-						return;
+						hasM = ii;
 					} else {
-						
+						Debug.Log ("No Obj is intercactive");
 					}
 				} 
-
+				Debug.Log ("Player ATK!");
+				if (hasE >= 0) {
+					tr.GetComponent<playerMove> ().Attack (objl [hasE].thisOBJ);
+					return;
+				
+				} else if (hasM >= 0) {
+					//Debug.Log ("click DOOR");
+					tr.GetComponent<playerMove> ().moveTo (pos [0], pos [1]);
+					return;
+				} else {
+					Debug.Log ("No Action");
+				}
 			}
 			//空地则执行移动（moveto内进行阶段切换）
 			else tr.GetComponent<playerMove> ().moveTo (pos[0], pos[1]);
