@@ -3,8 +3,10 @@ using System.Collections;
 
 public class playerStatus : MonoBehaviour {
 	public int HP;
+	public int HPMAX;
 	public int Money;
-	public int SP;
+	public int AP;
+	public int APMAX;
 	public int MOV;
 	public int SPEED;
 	public int MinSight;
