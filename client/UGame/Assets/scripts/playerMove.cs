@@ -30,6 +30,8 @@ public class playerMove : MonoBehaviour {
 	//存储player的行，列，朝向；在移动的时候变化
 	public int row;
 	public int column;
+
+	public int MAXSTEP;
 	private string orientation;
 
 

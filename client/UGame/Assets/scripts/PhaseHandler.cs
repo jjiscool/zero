@@ -173,14 +173,30 @@ public class ThinkingPhase:Phase{
 				
 				} else if (hasM >= 0) {
 					//Debug.Log ("click DOOR");
-					tr.GetComponent<playerMove> ().moveTo (pos [0], pos [1]);
+					Astar astar= new Astar(tr.GetComponent<playerMove>().row,tr.GetComponent<playerMove>().column,pos[0],pos[1],GameObject.Find ("map").GetComponent<RandomDungeonCreator>().getMap(),32,32);
+					astar.isWalkableFunc = GameObject.Find ("map").GetComponent<RandomDungeonCreator> ().MapWalkable;
+					astar.Run ();
+					int pathid = astar.finalpath.Count-1;
+					if (pathid >=tr.GetComponent<playerMove>().MAXSTEP) {
+						Debug.Log ("TOO LONG!");
+					}
+					else tr.GetComponent<playerMove> ().moveTo (pos [0], pos [1]);
 					return;
 				} else {
 					Debug.Log ("No Action");
 				}
 			}
 			//空地则执行移动（moveto内进行阶段切换）
-			else tr.GetComponent<playerMove> ().moveTo (pos[0], pos[1]);
+			else {Astar astar= new Astar(tr.GetComponent<playerMove>().row,tr.GetComponent<playerMove>().column,pos[0],pos[1],GameObject.Find ("map").GetComponent<RandomDungeonCreator>().getMap(),32,32);
+				astar.isWalkableFunc = GameObject.Find ("map").GetComponent<RandomDungeonCreator> ().MapWalkable;
+				astar.Run ();
+				int pathid = astar.finalpath.Count-1;
+				if (pathid >=tr.GetComponent<playerMove>().MAXSTEP) {
+					Debug.Log ("TOO LONG!");
+				}
+				else tr.GetComponent<playerMove> ().moveTo (pos[0], pos[1]);
+				return;
+			}
 		}
 		return;
 	}

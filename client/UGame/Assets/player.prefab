@@ -169,8 +169,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HP: 10
+  HPMAX: 0
   Money: 1
-  SP: 10
+  AP: 0
+  APMAX: 0
   MOV: 1
   SPEED: 10
   MinSight: 2
@@ -195,6 +197,7 @@ MonoBehaviour:
   step: 1
   row: 0
   column: 0
+  MAXSTEP: 20
 --- !u!114 &114000014109563294
 MonoBehaviour:
   m_ObjectHideFlags: 1
