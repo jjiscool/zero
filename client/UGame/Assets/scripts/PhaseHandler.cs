@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 public  enum  ACTION_TYPE{
 	ACTION_MOVE,
 	ACTION_ATTACK,
@@ -126,7 +128,19 @@ public class ThinkingPhase:Phase{
 		Vector3 mousePositionOnScreen = Input.mousePosition;   
 		mousePositionOnScreen.z = screenPosition.z;  
 		Vector3	mousePositionInWorld =  Camera.main.ScreenToWorldPoint(mousePositionOnScreen); 
-		if (Input .GetMouseButtonDown(0)) {
+		if (Input.GetMouseButtonDown(0)) {
+
+			//禁止点击 穿透 UI
+			if (EventSystem.current.IsPointerOverGameObject ()) {
+				//Debug.Log ("UI click");
+				return;
+			} 
+			#if IPHONE || ANDROID
+			if (EventSystem.current.IsPointerOverGameObject (Input.GetTouch(0).fingerId)) {
+				//移动端
+				return;
+			}
+			#endif
 			//输入为点击地图某处
 			int[] pos=GameObject.Find ("map").GetComponent<TilesManager>().posTransform2(mousePositionInWorld.x,mousePositionInWorld.y);
 			//点击的位置是否有地图对象
