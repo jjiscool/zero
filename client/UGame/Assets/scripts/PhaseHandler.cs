@@ -244,7 +244,7 @@ public class RoundEndPhase:Phase{
 		if (act.type == ACTION_TYPE.ACTION_ATTACK) {
 			act.OBJECT.GetComponent<playerStatus> ().HP -= act.SUBJECT.GetComponent<playerStatus> ().ATK;
 			if (act.OBJECT.GetComponent<playerStatus> ().HP <= 0) {
-				act.OBJECT.GetComponent<playerMove> ().Dead ();
+				act.OBJECT.GetComponent<playerMove> ().Dead();
 			}
 			//
 			if (act.SUBJECT.GetComponent<playerStatus> ().HP == 0) {

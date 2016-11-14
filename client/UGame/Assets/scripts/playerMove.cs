@@ -197,7 +197,7 @@ public class playerMove : MonoBehaviour {
 			//如果玩家进入任何敌人视野进入战斗模式，中断移动
 			if (map.GetComponent<RoundControler> ().CheckPlayerInSeeSight ()&&!map.GetComponent<RoundControler> ().CheckPlayerInBattle()) {
 				pathid = -1;
-				map.GetComponent<RoundControler> ().round = map.GetComponent<RoundControler> ().order [0];
+				//map.GetComponent<RoundControler> ().round = map.GetComponent<RoundControler> ().order [0];
 
 			}
 			else pathid--;
@@ -272,7 +272,7 @@ public class playerMove : MonoBehaviour {
 	}
 	//AI决策
 	public void AI(){
-		GameObject p = GameObject.Find ("map").GetComponent<RoundControler> ().getGOInOderID (-1);
+		GameObject p = GameObject.Find ("map").GetComponent<RoundControler> ().returnPlayer ();
 		int er = p.GetComponent<playerMove> ().row;
 		int ec = p.GetComponent<playerMove> ().column;
 		int dis = Mathf.Abs (transform.GetComponent<playerMove> ().row - er) + Mathf.Abs (transform.GetComponent<playerMove> ().column - ec);
@@ -327,11 +327,11 @@ public class playerMove : MonoBehaviour {
 	}
 	//死亡处理
 	public void Dead(){
-		if (GameObject.Find ("map").GetComponent<RoundControler> ().getGOInOderID (-1).GetInstanceID () == transform.gameObject.GetInstanceID ()) {
+		if (GameObject.Find ("map").GetComponent<RoundControler> ().returnPlayer().GetInstanceID () == transform.gameObject.GetInstanceID ()) {
 			Debug.Log ("Game Over!");
 		} else {
-			GameObject.Find ("map").GetComponent<RoundControler>().RemoveOderByInstanceID (transform.gameObject);
-			GameObject.Find ("map").GetComponent<RoundControler>().RemoveEnemyByInstanceID(transform.gameObject);
+			Debug.Log (transform.name+" Dead!");
+			GameObject.Find ("map").GetComponent<RoundControler>().RemoveGOFromRoundControler (transform.gameObject);
 			GameObject.Find ("map").GetComponent<RandomDungeonCreator> ().obj_list.RemoveObjByID (MapOBJ.id);
 			Destroy (transform.gameObject);
 		}
