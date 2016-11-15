@@ -55,7 +55,7 @@ public class UIStatus : MonoBehaviour {
 		APMAX = pStatus.APMAX;
 
 		hpProportion = (float)HP / HPMAX;
-		Debug.Log (hpProportion);
+		//Debug.Log (hpProportion);
 
 		//设值
 		hpBarText.text = HP + "/" + HPMAX;

@@ -156,7 +156,7 @@ public class RoundControler : MonoBehaviour {
 					WaitingList.RemoveAt (0);
 					ActionedList.Add (nowGO);
 					nowGO.GetComponent<PhaseHandler> ().PhaseBegin ();
-					reset (nowGO);
+					//reset (nowGO);
 				}
 			}
 		} else {
@@ -168,7 +168,7 @@ public class RoundControler : MonoBehaviour {
 						WaitingList.RemoveAt (0);
 						ActionedList.Add (nowGO);
 						nowGO.GetComponent<PhaseHandler> ().PhaseBegin ();
-						reset (nowGO);
+						//reset (nowGO);
 					}
 				} else {
 					renewWaitingList();
@@ -176,7 +176,7 @@ public class RoundControler : MonoBehaviour {
 					WaitingList.RemoveAt (0);
 					ActionedList.Add (nowGO);
 					nowGO.GetComponent<PhaseHandler> ().PhaseBegin ();
-					reset (nowGO);
+					//reset (nowGO);
 				}
 			}
 		}

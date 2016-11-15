@@ -1999,7 +1999,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 3.2
+  orthographic size: 4
   m_Depth: 2
   m_CullingMask:
     serializedVersion: 2
@@ -2687,8 +2687,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d93665652b6ba4de4ba25619b9a75d4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MapWidth: 33
-  MapHeight: 33
+  MapWidth: 32
+  MapHeight: 32
   TileSize: 1
   RoomDesity: 100
   MaxRoomWidth: 10
