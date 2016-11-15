@@ -2840,6 +2840,8 @@ MonoBehaviour:
     type: 2}
   enemyPrefab:
   - {fileID: 1000010979427918, guid: ed8af03184d2b4a9d8646090a62bc181, type: 2}
+  downStairPrefab: {fileID: 1000013825434464, guid: 166a40119fce74730a03355129b6f5bb,
+    type: 2}
 --- !u!1 &1938176956
 GameObject:
   m_ObjectHideFlags: 0

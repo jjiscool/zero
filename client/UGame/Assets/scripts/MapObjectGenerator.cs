@@ -4,6 +4,7 @@ using System.Collections.Generic;
 public class MapObjectGenerator : MonoBehaviour {
 	public GameObject playerPrefab;
 	public GameObject[] enemyPrefab;
+	public GameObject downStairPrefab;
 	private GameObject map;
 	void Awake(){
 		NewDungeon ();
@@ -17,7 +18,16 @@ public class MapObjectGenerator : MonoBehaviour {
 		placeEnemy ();
 		map.GetComponent<RoundControler> ().initRound ();
 		map.GetComponent<RoundControler> ().reset (player);
+		placeDownStair ();
 		
+	}
+	void placeDownStair(){
+		int r = map.GetComponent<RandomDungeonCreator> ().obj_list.getListByType (OBJTYPE.OBJTYPE_DOWNSTAIRS) [0].row;
+		int c=map.GetComponent<RandomDungeonCreator> ().obj_list.getListByType (OBJTYPE.OBJTYPE_DOWNSTAIRS) [0].column;
+		Vector2 nxy = map.GetComponent<TilesManager> ().posTransform (r, c);
+		GameObject d=(GameObject)Instantiate (downStairPrefab,nxy,transform.rotation);
+		d.name="Exit";
+
 	}
 	GameObject PlacePlayer(){
 		Destroy (map.GetComponent<RoundControler> ().player.gameObject);

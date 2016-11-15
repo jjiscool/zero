@@ -158,7 +158,7 @@ public class playerMove : MonoBehaviour {
 	//决策移动的回合切换
 	public void moveTo(int x,int y){
 		int[] pos={x,y};
-		astar= new Astar(row,column,pos[0],pos[1],map.GetComponent<RandomDungeonCreator>().getMap(),32,32);
+		astar= new Astar(row,column,pos[0],pos[1],map.GetComponent<RandomDungeonCreator>().getMap(),map.GetComponent<RandomDungeonCreator>().MapWidth,map.GetComponent<RandomDungeonCreator>().MapHeight);
 		astar.isWalkableFunc = map.GetComponent<RandomDungeonCreator> ().MapWalkable;
 		astar.Run ();
 		pathid = astar.finalpath.Count-1;
@@ -292,7 +292,7 @@ public class playerMove : MonoBehaviour {
 						continue;
 					if (map.GetComponent<RandomDungeonCreator> ().MapWalkable (er + t1, ec + t2)) {
 						//Debug.Log ("Walkabe " + (er + t1) + "," + (ec + t2));
-						astar= new Astar(row,column,er + t1,ec + t2,map.GetComponent<RandomDungeonCreator>().getMap(),32,32);
+						astar= new Astar(row,column,er + t1,ec + t2,map.GetComponent<RandomDungeonCreator>().getMap(),map.GetComponent<RandomDungeonCreator>().MapWidth,map.GetComponent<RandomDungeonCreator>().MapHeight);
 						astar.isWalkableFunc = map.GetComponent<RandomDungeonCreator> ().MapWalkable;
 						astar.Run ();
 						pathid = astar.finalpath.Count-1;

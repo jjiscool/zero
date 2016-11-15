@@ -346,7 +346,7 @@ public class ObjectDownStairs:OBJTYPEData{
 		row = i;
 		column = j;
 		type = OBJTYPE.OBJTYPE_DOWNSTAIRS;
-		walkable = false;
+		walkable = true;
 		lightable = true;
 	}
 }
