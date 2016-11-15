@@ -53,6 +53,7 @@
      <Compile Include="Assets\scripts\RoundControler.cs" />
      <Compile Include="Assets\scripts\TilesManager.cs" />
      <Compile Include="Assets\scripts\Triangulator.cs" />
+     <Compile Include="Assets\scripts\UIStatus.cs" />
      <Compile Include="Assets\scripts\Wall.cs" />
      <Compile Include="Assets\scripts\enemyMove.cs" />
      <Compile Include="Assets\scripts\followCenter.cs" />

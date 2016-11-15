@@ -706,7 +706,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 4
   m_Depth: 1
   m_CullingMask:
     serializedVersion: 2
@@ -2092,6 +2092,7 @@ GameObject:
   - 223: {fileID: 1615683897}
   - 114: {fileID: 1615683896}
   - 114: {fileID: 1615683895}
+  - 114: {fileID: 1615683899}
   m_Layer: 5
   m_Name: UI
   m_TagString: Untagged
@@ -2179,6 +2180,17 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1615683899
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1615683894}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6e6868139491453381be73b45ee1801, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1664433608
 GameObject:
   m_ObjectHideFlags: 0
@@ -2810,8 +2822,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   enemy: []
-  order: 
-  round: 0
+  WaitingList: []
+  ActionedList: []
   playerInBattle: 0
 --- !u!114 &1885000962
 MonoBehaviour:
@@ -3338,7 +3350,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 4
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
