@@ -857,7 +857,7 @@ public class RandomDungeonCreator : MonoBehaviour {
 	}
 	//
 	void Awake(){
-		ReBuildDungeon ();
+		//ReBuildDungeon ();
 		//a.Run ();
 		//placeMap ();
 	}

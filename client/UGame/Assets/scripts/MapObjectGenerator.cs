@@ -6,12 +6,21 @@ public class MapObjectGenerator : MonoBehaviour {
 	public GameObject[] enemyPrefab;
 	private GameObject map;
 	void Awake(){
-		map = GameObject.Find ("map");
-		PlacePlayer ();
-		placeEnemy ();
+		NewDungeon ();
 
 	}
-	void PlacePlayer(){
+	public void NewDungeon(){
+		map = GameObject.Find ("map");
+		map.GetComponent<RandomDungeonCreator> ().ReBuildDungeon ();
+		map.GetComponent<TilesManager> ().initMapTexture ();
+		GameObject player=PlacePlayer ();
+		placeEnemy ();
+		map.GetComponent<RoundControler> ().initRound ();
+		map.GetComponent<RoundControler> ().reset (player);
+		
+	}
+	GameObject PlacePlayer(){
+		Destroy (map.GetComponent<RoundControler> ().player.gameObject);
 		OBJTYPEList obj_list  = map.GetComponent<RandomDungeonCreator>().obj_list;//获取object列表
 		int row = obj_list.getListByType (OBJTYPE.OBJTYPE_PLAYER) [0].row;
 		int column = obj_list.getListByType (OBJTYPE.OBJTYPE_PLAYER) [0].column;
@@ -33,10 +42,16 @@ public class MapObjectGenerator : MonoBehaviour {
 		GameObject.Find ("lightCover").GetComponent<followCenter>().player=a;
 		obj_list.getListByType (OBJTYPE.OBJTYPE_PLAYER) [0].thisOBJ = a;
 		a.GetComponent<playerMove> ().MapOBJ = obj_list.getListByType (OBJTYPE.OBJTYPE_PLAYER) [0];
+		return a;
 	}
 	void placeEnemy(){
 		OBJTYPEList obj_list  = map.GetComponent<RandomDungeonCreator>().obj_list;//获取object列表
 		List<OBJTYPEData> ems = obj_list.getListByType(OBJTYPE.OBJTYPE_ENEMY);
+		if (map.GetComponent<RoundControler> ().enemy.Count > 0) {
+			for (int i = 0; i < map.GetComponent<RoundControler> ().enemy.Count; i++) {
+				Destroy (map.GetComponent<RoundControler> ().enemy [i].gameObject);
+			}
+		}
 		map.GetComponent<RoundControler> ().enemy=new List<GameObject>();
 		for (int i = 0; i < ems.Count; i++) {
 			GameObject a=(GameObject)Instantiate (enemyPrefab[((ObjectEnemy)ems[i]).Enemy_type],transform.position,transform.rotation);

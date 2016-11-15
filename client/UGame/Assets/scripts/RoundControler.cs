@@ -8,9 +8,13 @@ public class RoundControler : MonoBehaviour {
 	public List<GameObject> ActionedList;
 	public bool playerInBattle;
 	void Awake(){
+		
+	}
+	public void initRound(){
 		playerInBattle = false;
 		WaitingList = new List<GameObject> ();
 		ActionedList = new List<GameObject> ();
+		
 	}
 	//判断敌人列表里是否有有敌人看到了玩家
 	public bool CheckPlayerInSeeSight(){
@@ -136,7 +140,7 @@ public class RoundControler : MonoBehaviour {
 		return player;
 	}
 //	//回合切换时重设摄像头、光线、遮罩等
-	void reset(GameObject p){
+	public void reset(GameObject p){
 		GameObject.Find ("Cameras").GetComponent<followCenter> ().player = p;
 		GameObject.Find ("light").GetComponent<ligthmap> ().lightsource = p;
 		GameObject.Find ("light").GetComponent<ligthmap> ().reDrawLight();

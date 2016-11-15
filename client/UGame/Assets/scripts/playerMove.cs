@@ -329,6 +329,7 @@ public class playerMove : MonoBehaviour {
 	public void Dead(){
 		if (GameObject.Find ("map").GetComponent<RoundControler> ().returnPlayer().GetInstanceID () == transform.gameObject.GetInstanceID ()) {
 			Debug.Log ("Game Over!");
+			map.GetComponent<MapObjectGenerator> ().NewDungeon ();
 		} else {
 			Debug.Log (transform.name+" Dead!");
 			GameObject.Find ("map").GetComponent<RoundControler>().RemoveGOFromRoundControler (transform.gameObject);

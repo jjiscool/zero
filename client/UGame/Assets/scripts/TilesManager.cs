@@ -27,15 +27,18 @@ public class TilesManager : MonoBehaviour {
 
 	private RandomDungeonCreator randomMapScript;
 	void Awake(){
+		//initMapTexture ();
+	}
 		
+	public void initMapTexture(){
 		randomMapScript = GetComponent<RandomDungeonCreator>();
 		mapHeight = randomMapScript.MapHeight;
 		mapWidth = randomMapScript.MapWidth;
 		tileSize = randomMapScript.TileSize;
 		tile_gos = new GameObject[mapHeight, mapWidth];
 		placeMap (mapWidth,mapHeight,tileSize);
+	
 	}
-		
 
 	//行列 转换到 坐标
 	public Vector2 posTransform(int i,int j){

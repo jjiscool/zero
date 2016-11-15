@@ -523,16 +523,17 @@ public class ligthmap : MonoBehaviour {
 		return r;
 	}
 	void Awake(){
+		initLight ();
+	}
+	public void initLight(){
 		lineLength = GameObject.Find ("map").GetComponent<RandomDungeonCreator> ().TileSize;
 		MapWidth = (int)GameObject.Find ("map").GetComponent<RandomDungeonCreator> ().MapWidth;
 		MapHeight= (int)GameObject.Find ("map").GetComponent<RandomDungeonCreator> ().MapHeight;
-	}
-	public void initLight(){
 		//lineLength = GameObject.Find ("map").GetComponent<RandomDungeonCreator> ().TileSize;
 		//MapWidth = (int)GameObject.Find ("map").GetComponent<RandomDungeonCreator> ().MapWidth;
 		//MapHeight= (int)GameObject.Find ("map").GetComponent<RandomDungeonCreator> ().MapHeight;
 		//lightsource.transform.position = new Vector3 (1, 1);
-		reDrawLight ();
+		//reDrawLight ();
 	}
 	void DrawShap(List<Vector2> v){
 		Debug.Log ("NUM of Vetices "+v.Count);
