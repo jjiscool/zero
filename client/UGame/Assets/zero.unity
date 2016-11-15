@@ -2687,8 +2687,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d93665652b6ba4de4ba25619b9a75d4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MapWidth: 32
-  MapHeight: 32
+  MapWidth: 33
+  MapHeight: 33
   TileSize: 1
   RoomDesity: 100
   MaxRoomWidth: 10
