@@ -33,7 +33,6 @@ public class TilesManager : MonoBehaviour {
 		mapWidth = randomMapScript.MapWidth;
 		tileSize = randomMapScript.TileSize;
 		tile_gos = new GameObject[mapHeight, mapWidth];
-//		Debug.Log (randomMapScript.TileSize);
 		placeMap (mapWidth,mapHeight,tileSize);
 	}
 		
