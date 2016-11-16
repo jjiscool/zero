@@ -32,7 +32,7 @@ public class UIStatus : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		//setUIStatus ();
+		setUIStatus ();
 
 	}
 
@@ -46,22 +46,26 @@ public class UIStatus : MonoBehaviour {
 		expBarText = transform.Find ("expBar/Text").GetComponent<Text>();
 		moneyText = transform.Find ("moneyNum/Text").GetComponent<Text>();
 
-		pStatus = GameObject.Find ("Player").GetComponent<playerStatus> ();
+		GameObject player = GameObject.Find ("map").GetComponent<RoundControler> ().player;
 
-		HP = pStatus.HP;
-		HPMAX = pStatus.HPMAX;
-		Money = pStatus.Money;
-		AP = pStatus.AP;
-		APMAX = pStatus.APMAX;
+		if (player != null) {
+			pStatus = player.GetComponent<playerStatus> ();
+			HP = pStatus.HP;
+			HPMAX = pStatus.HPMAX;
+			Money = pStatus.Money;
+			AP = pStatus.AP;
+			APMAX = pStatus.APMAX;
 
-		hpProportion = (float)HP / HPMAX;
-		//Debug.Log (hpProportion);
+			hpProportion = (float)HP / HPMAX;
+			//Debug.Log (hpProportion);
 
-		//设值
-		hpBarText.text = HP + "/" + HPMAX;
-		apBarText.text = AP + "/" + APMAX;
-		moneyText.text = Money + "";
-		hpBar.value = hpProportion;
+			//设值
+			hpBarText.text = HP + "/" + HPMAX;
+			apBarText.text = AP + "/" + APMAX;
+			moneyText.text = Money + "";
+			hpBar.value = hpProportion;
+		}
+
 	}
 
 
