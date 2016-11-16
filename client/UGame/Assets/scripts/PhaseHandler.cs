@@ -100,20 +100,20 @@ public class ThinkingPhase:Phase{
 	public override void handle(Action a){
 		//Debug.Log (a.type);
 		//回合决策阶段-》行动动画执行
-		if (a.type == ACTION_TYPE.ACTION_MOVE) {
-			//输入行为为移动
+		switch (a.type) {
+		default:
+			Debug.Log ("No this action type");
+			break;
+		case ACTION_TYPE.ACTION_MOVE:
 			PH.state = new ActionPhase (PH,a);
-
-		}
-		if (a.type == ACTION_TYPE.ACTION_NULL) {
-			//输入行为为空
+			break;
+		case ACTION_TYPE.ACTION_NULL:
 			PH.state = new ActionPhase (PH,a);
-		}
-		if (a.type == ACTION_TYPE.ACTION_ATTACK) {
-			//输入行为为空
+			break;
+		case ACTION_TYPE.ACTION_ATTACK:
 			PH.state = new ActionPhase (PH,a);
+			break;
 		}
-
 	}
 	public override void update(Transform tr){
 		//决策阶段更新，
@@ -173,7 +173,7 @@ public class ThinkingPhase:Phase{
 				
 				} else if (hasM >= 0) {
 					//Debug.Log ("click DOOR");
-					Astar astar= new Astar(tr.GetComponent<playerMove>().row,tr.GetComponent<playerMove>().column,pos[0],pos[1],GameObject.Find ("map").GetComponent<RandomDungeonCreator>().getMap(),32,32);
+					Astar astar= new Astar(tr.GetComponent<playerMove>().row,tr.GetComponent<playerMove>().column,pos[0],pos[1],GameObject.Find ("map").GetComponent<RandomDungeonCreator>().getMap(),GameObject.Find ("map").GetComponent<RandomDungeonCreator>().MapWidth,GameObject.Find ("map").GetComponent<RandomDungeonCreator>().MapHeight);
 					astar.isWalkableFunc = GameObject.Find ("map").GetComponent<RandomDungeonCreator> ().MapWalkable;
 					astar.Run ();
 					int pathid = astar.finalpath.Count-1;
@@ -187,7 +187,7 @@ public class ThinkingPhase:Phase{
 				}
 			}
 			//空地则执行移动（moveto内进行阶段切换）
-			else {Astar astar= new Astar(tr.GetComponent<playerMove>().row,tr.GetComponent<playerMove>().column,pos[0],pos[1],GameObject.Find ("map").GetComponent<RandomDungeonCreator>().getMap(),32,32);
+			else {Astar astar= new Astar(tr.GetComponent<playerMove>().row,tr.GetComponent<playerMove>().column,pos[0],pos[1],GameObject.Find ("map").GetComponent<RandomDungeonCreator>().getMap(),GameObject.Find ("map").GetComponent<RandomDungeonCreator>().MapWidth,GameObject.Find ("map").GetComponent<RandomDungeonCreator>().MapHeight);
 				astar.isWalkableFunc = GameObject.Find ("map").GetComponent<RandomDungeonCreator> ().MapWalkable;
 				astar.Run ();
 				int pathid = astar.finalpath.Count-1;
@@ -215,17 +215,38 @@ public class ActionPhase:Phase{
 	public override void handle(Action a){
 		//动画阶段-》回合结束阶段
 		PH.state = new RoundEndPhase(PH,a);
-		if(act.type==ACTION_TYPE.ACTION_MOVE) PH.state.handle (a);
-		if(act.type==ACTION_TYPE.ACTION_ATTACK) PH.state.handle (a);
-		if(act.type==ACTION_TYPE.ACTION_NULL) PH.state.handle (a);
+		switch (a.type) {
+		default:
+			Debug.Log ("No this action type");
+			break;
+		case ACTION_TYPE.ACTION_MOVE:
+			PH.state.handle (a);
+			break;
+		case ACTION_TYPE.ACTION_NULL:
+			PH.state.handle (a);
+			break;
+		case ACTION_TYPE.ACTION_ATTACK:
+			PH.state.handle (a);
+			break;
+		}
 	}
 	public override void update(Transform tr){
 		//Debug.Log ("Actioning....");
 		//动画Update
-		if(act.type==ACTION_TYPE.ACTION_NULL) tr.GetComponent<playerMove> ().NOACTION_Actioning();
-		if(act.type==ACTION_TYPE.ACTION_MOVE) tr.GetComponent<playerMove> ().Move_Actioning();
-		if(act.type==ACTION_TYPE.ACTION_ATTACK) tr.GetComponent<playerMove> ().Attack_Actioning();
-
+		switch (act.type) {
+		default:
+			Debug.Log ("No this action type");
+			break;
+		case ACTION_TYPE.ACTION_MOVE:
+			tr.GetComponent<playerMove> ().Move_Actioning();
+			break;
+		case ACTION_TYPE.ACTION_NULL:
+			tr.GetComponent<playerMove> ().NOACTION_Actioning();
+			break;
+		case ACTION_TYPE.ACTION_ATTACK:
+			tr.GetComponent<playerMove> ().Attack_Actioning();
+			break;
+		}
 	}
 	public override PHASE_TYPE getType(){
 		//Debug.Log (Player.name+"is Waiting....");
@@ -240,19 +261,32 @@ public class RoundEndPhase:Phase{
 		Debug.Log (a.SUBJECT.name+"'s "+"EndPhase");
 	}
 	public override void handle(Action a){
-		//普通攻击结算
-		if (act.type == ACTION_TYPE.ACTION_ATTACK) {
+
+		switch (a.type) {
+		default:
+			Debug.Log ("No this action type");
+			break;
+		case ACTION_TYPE.ACTION_MOVE:
+			//这里判断如果移动到出口，阻碍进入等待阶段
+			PH.state = new WaitingPhase(PH,a);
+			PH.state.handle (new Action (ACTION_TYPE.ACTION_NULL,a.SUBJECT));
+			break;
+		case ACTION_TYPE.ACTION_NULL:
+			PH.state = new WaitingPhase(PH,a);
+			PH.state.handle (new Action (ACTION_TYPE.ACTION_NULL,a.SUBJECT));
+			break;
+		case ACTION_TYPE.ACTION_ATTACK:
 			act.OBJECT.GetComponent<playerStatus> ().HP -= act.SUBJECT.GetComponent<playerStatus> ().ATK;
 			if (act.OBJECT.GetComponent<playerStatus> ().HP <= 0) {
 				act.OBJECT.GetComponent<playerMove> ().Dead();
 			}
-			//
 			if (act.SUBJECT.GetComponent<playerStatus> ().HP == 0) {
-			
+				act.SUBJECT.GetComponent<playerMove> ().Dead();
 			}
-		} 
-		PH.state = new WaitingPhase(PH,a);
-		PH.state.handle (new Action (ACTION_TYPE.ACTION_NULL,a.SUBJECT));
+			PH.state = new WaitingPhase(PH,a);
+			PH.state.handle (new Action (ACTION_TYPE.ACTION_NULL,a.SUBJECT));
+			break;
+		}
 	}
 	public override void update(Transform tr){
 		//Debug.Log ("Ending....");
