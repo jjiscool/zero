@@ -34,15 +34,25 @@ public class playerMove : MonoBehaviour {
 	public int MAXSTEP;
 	private string orientation;
 
-
+	public GameObject TanhaoPb;
+	public GameObject ZhandouPb;
+	public GameObject WenhaoPb;
+	public GameObject MovabletilePb;
+	public GameObject MovabletileClickPb;
+	private GameObject Tanhao;
+	private GameObject Wenhao;
+	private GameObject Zhandou;
+	private List<GameObject> Movabletiles;
+	private GameObject MovabletileClick;
 
 //	public Sprite weaponTileH;
 //	public Sprite weaponTileV;
-	private Astar astar;
+	public Astar astar;
 	void Awake(){
 		map = GameObject.Find ("map");
 		role = transform.Find ("man").gameObject;
 		weapon = transform.Find ("weapon").gameObject;
+		Movabletiles=new List<GameObject>();
 		//OBJTYPEList obj_list  = map.GetComponent<RandomDungeonCreator>().obj_list;//获取object列表
 		///row = obj_list.getListByType (OBJTYPE.OBJTYPE_SPAWNPOINT) [0].row;
 		//column = obj_list.getListByType (OBJTYPE.OBJTYPE_SPAWNPOINT) [0].column;
@@ -167,15 +177,18 @@ public class playerMove : MonoBehaviour {
 				if (astar.finalpath.Count > transform.gameObject.GetComponent<playerStatus> ().MOV) {
 					astar.finalpath.RemoveRange (0, pathid - transform.gameObject.GetComponent<playerStatus> ().MOV);
 					pathid = astar.finalpath.Count - 1;
+
 					//Debug.Log ("Path long = " + astar.finalpath.Count);
 				}
 			}
+			if(!transform.GetComponent<playerStatus>().isAI())DrawMoveClick (astar.finalpath [0] [0], astar.finalpath [0] [1]);
 			//Move行为触发：决策阶段-》行动动画阶段
 			Action Mov = new Action (ACTION_TYPE.ACTION_MOVE, transform.gameObject);
 			Mov.MOVEPOS [0] = x;
 			Mov.MOVEPOS [1] = y;
 			transform.GetComponent<PhaseHandler> ().state.handle (Mov);
-		} 
+		}
+
 	}
 	//决策移动的动画阶段
 	public void Move_Actioning(){
@@ -336,14 +349,115 @@ public class playerMove : MonoBehaviour {
 			GameObject.Find ("map").GetComponent<RandomDungeonCreator> ().obj_list.RemoveObjByID (MapOBJ.id);
 			Destroy (transform.gameObject);
 		}
-	
 	}
 	// Update is called once per frame
 	void Update () {
 
 
 	}
-	public void canSeeEnemy(){
-		
+	public void DrawMoveClick(int r,int c){
+		if (GameObject.Find ("map").GetComponent<RoundControler> ().player == null)
+			return;
+		if (MovabletileClick!=null) {
+			Destroy (MovabletileClick.gameObject);
+		}
+		Vector2 p = GameObject.Find ("map").GetComponent<TilesManager> ().posTransform (r, c);
+		MovabletileClick=(GameObject)Instantiate (MovabletileClickPb,p,transform.rotation);
+		MovabletileClick.layer =13;
 	}
+	public void RemoveMoveClick(){
+		if (GameObject.Find ("map").GetComponent<RoundControler> ().player == null)
+			return;
+		if (MovabletileClick!=null) {
+			Destroy (MovabletileClick.gameObject);
+		}
+	}
+	public void DrawMovabletile(){
+		if (GameObject.Find ("map").GetComponent<RoundControler> ().player == null)
+			return;
+		if (Movabletiles.Count > 0) {
+			for (int i = 0; i < Movabletiles.Count; i++) {
+				Destroy (Movabletiles[i].gameObject);
+			}
+		}
+		int r = transform.GetComponent<playerMove> ().row;
+		int c = transform.GetComponent<playerMove> ().column;
+		for (int ir = r - transform.GetComponent<playerStatus>().MOV; ir <= r + transform.GetComponent<playerStatus>().MOV; ir++) {
+			for (int ic = c - transform.GetComponent<playerStatus>().MOV; ic <= c + transform.GetComponent<playerStatus>().MOV; ic++) {
+				GameObject map=GameObject.Find ("map");
+				if (map.GetComponent<RandomDungeonCreator> ().MapWalkable (ir, ic)) {
+					Astar astar= new Astar(r,c,ir ,ic,map.GetComponent<RandomDungeonCreator>().getMap(),map.GetComponent<RandomDungeonCreator>().MapWidth,map.GetComponent<RandomDungeonCreator>().MapHeight);
+					astar.isWalkableFunc = map.GetComponent<RandomDungeonCreator> ().MapWalkable;
+					astar.Run ();
+					if (astar.finalpath.Count-1 <= 0||astar.finalpath.Count-1>transform.GetComponent<playerStatus>().MOV)
+						continue;
+					Vector2 p = GameObject.Find ("map").GetComponent<TilesManager> ().posTransform (ir, ic);
+					GameObject a = (GameObject)Instantiate (MovabletilePb,p,transform.rotation);
+					a.layer =13;
+					Movabletiles.Add (a);
+				}
+			}
+		}
+	}
+	public void RemoveMovabletile(){
+		if (GameObject.Find ("map").GetComponent<RoundControler> ().player == null)
+			return;
+		if (Movabletiles.Count > 0) {
+			for (int i = 0; i < Movabletiles.Count; i++) {
+				Destroy (Movabletiles[i].gameObject);
+			}
+		}
+	}
+	public void initHeadIcon(){
+		Vector3 newp = new Vector3(transform.position.x,transform.position.y+0.65f, 1);
+		Tanhao=(GameObject)Instantiate (TanhaoPb,newp,transform.rotation);
+		Tanhao.layer=5;
+		Tanhao.GetComponent<SpriteRenderer> ().sortingOrder = 2;
+		Tanhao.transform.SetParent (transform);
+		Tanhao.SetActive (false);
+		Tanhao.name=transform.name+" Tanhao";
+		Vector3 newp2 = new Vector3(transform.position.x,transform.position.y+0.65f, 1);
+		Zhandou=(GameObject)Instantiate (ZhandouPb,newp2,transform.rotation);
+		Zhandou.layer = 5;
+		Zhandou.GetComponent<SpriteRenderer> ().sortingOrder = 2;
+		Zhandou.transform.SetParent (transform);
+		Zhandou.SetActive (false);
+		Zhandou.name=transform.name+" Zhandou";
+		Vector3 newp3 = new Vector3(transform.position.x,transform.position.y+0.65f, 1);
+		Wenhao=(GameObject)Instantiate (WenhaoPb,newp3,transform.rotation);
+		Wenhao.layer = 5;
+		Wenhao.GetComponent<SpriteRenderer> ().sortingOrder = 2;
+		Wenhao.transform.SetParent (transform);
+		Wenhao.SetActive (false);
+		Wenhao.name=transform.name+" Wenhao";
+	}
+	public void setIconMode(int m){
+		switch (m) {
+		default:
+			Tanhao.SetActive (false);
+			Zhandou.SetActive (false);
+			Wenhao.SetActive (false);
+			break;
+		case 1:
+			Tanhao.SetActive (false);
+			Zhandou.SetActive (false);
+			Wenhao.SetActive (true);
+			break;
+		case 2:
+			Tanhao.SetActive (true);
+			Zhandou.SetActive (false);
+			Wenhao.SetActive (false);
+			break;
+		case 3:
+			Tanhao.SetActive (false);
+			Zhandou.SetActive (true);
+			Wenhao.SetActive (false);
+			break;
+
+		}
+	}
+	public void initStatus(){
+		initHeadIcon ();
+	}
+
 }

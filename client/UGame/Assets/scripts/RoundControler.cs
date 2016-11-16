@@ -18,12 +18,21 @@ public class RoundControler : MonoBehaviour {
 	}
 	//判断敌人列表里是否有有敌人看到了玩家
 	public bool CheckPlayerInSeeSight(){
+		bool Insight = false;
 		for (int i = 0; i < enemy.Count; i++) {
 			int dis = Mathf.Abs (enemy[i].GetComponent<playerMove>().row-player.GetComponent<playerMove>().row)+Mathf.Abs (enemy[i].GetComponent<playerMove>().column-player.GetComponent<playerMove>().column);
-			if (dis <= enemy[i].GetComponent<playerStatus>().MinSight&&enemy[i].GetComponent<playerStatus>().isDanger)
-				return true;
+			if (dis <= enemy [i].GetComponent<playerStatus> ().MinSight && enemy [i].GetComponent<playerStatus> ().isDanger) {
+				enemy [i].GetComponent<playerMove> ().setIconMode (3);
+				Insight = true;
+			}
+			else if(!isGOinActionedList(enemy [i])&&!isGOinWaitingList(enemy [i])&&dis <= enemy [i].GetComponent<playerStatus> ().MaxSight){
+				enemy [i].GetComponent<playerMove> ().setIconMode (2);
+			}
+			else if (dis > enemy [i].GetComponent<playerStatus> ().MaxSight) {
+				enemy [i].GetComponent<playerMove> ().setIconMode (0);
+			}
 		}
-		return false;
+		return Insight;
 	}
 	//判断当前是否进入战斗模式
 	public bool CheckPlayerInBattle(){
@@ -48,9 +57,12 @@ public class RoundControler : MonoBehaviour {
 								break;
 						}
 					}
-					newWaitingList.Insert (ii, enemy[i]);	
+					newWaitingList.Insert (ii, enemy[i]);
+					enemy [i].GetComponent<playerMove> ().setIconMode (3);	
 					//order.Insert (ii, i);	
 					//order.Add (i);
+				}else if(dis <= enemy [i].GetComponent<playerStatus> ().MaxSight){
+					//enemy [i].GetComponent<playerStatus> ().WenhaoPb.SetActive (true);	
 				}
 			} 
 			else 
@@ -91,9 +103,10 @@ public class RoundControler : MonoBehaviour {
 				continue;
 			}
 			if (dis > WaitingList [i].GetComponent<playerStatus> ().MaxSight || !WaitingList [i].GetComponent<playerStatus> ().isDanger) {
-				
+				WaitingList [i].GetComponent<playerMove> ().setIconMode (0);
 			} else {
 				newWaitingList.Add (WaitingList [i]);
+				WaitingList [i].GetComponent<playerMove> ().setIconMode (3);
 			}			
 		}
 		WaitingList = newWaitingList;

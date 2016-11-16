@@ -77,6 +77,9 @@ public class RoundBeginPhase:Phase{
 	public override void handle(Action a){
 		//回合开始阶段-》决策阶段
 		PH.state = new ThinkingPhase (PH,a);
+		if (!a.SUBJECT.GetComponent<playerStatus> ().isAI ()&&GameObject.Find("map").GetComponent<RoundControler>().playerInBattle) {
+			a.SUBJECT.GetComponent<playerMove> ().DrawMovabletile ();
+		}
 		//PH.state.handle (new Action (ACTION_TYPE.ACTION_NULL));
 
 	}
@@ -113,6 +116,10 @@ public class ThinkingPhase:Phase{
 		case ACTION_TYPE.ACTION_ATTACK:
 			PH.state = new ActionPhase (PH,a);
 			break;
+		}
+		if (!a.SUBJECT.GetComponent<playerStatus> ().isAI ()) {
+			a.SUBJECT.GetComponent<playerMove> ().RemoveMovabletile();
+			//a.SUBJECT.GetComponent<playerMove> ().RemoveMoveClick ();
 		}
 	}
 	public override void update(Transform tr){
@@ -286,6 +293,10 @@ public class RoundEndPhase:Phase{
 			PH.state = new WaitingPhase(PH,a);
 			PH.state.handle (new Action (ACTION_TYPE.ACTION_NULL,a.SUBJECT));
 			break;
+		}
+		if (!a.SUBJECT.GetComponent<playerStatus> ().isAI ()) {
+			//a.SUBJECT.GetComponent<playerMove> ().RemoveMovabletile();
+			a.SUBJECT.GetComponent<playerMove> ().RemoveMoveClick ();
 		}
 	}
 	public override void update(Transform tr){

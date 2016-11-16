@@ -186,17 +186,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ddb4b174c2de400681f3f7d12061de3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HP: 10
-  HPMAX: 0
-  Money: 1
-  AP: 0
-  APMAX: 0
-  MOV: 1
-  SPEED: 10
   MinSight: 2
   MaxSight: 4
+  Money: 1
+  HP: 10
+  HPMAX: 0
+  AP: 0
+  APMAX: 0
   ATK: 1
   ATKRange: 1
+  INT: 0
+  DEF: 0
+  RES_Metal: 0
+  RES_Wood: 0
+  RES_Water: 0
+  RES_Fire: 0
+  RES_Earth: 0
+  CritRate: 0
+  MOV: 1
+  SPEED: 10
   isPlayerTeam: 0
   AI: 0
   isDanger: 0
@@ -216,6 +224,13 @@ MonoBehaviour:
   row: 0
   column: 0
   MAXSTEP: 20
+  TanhaoPb: {fileID: 1000010884768522, guid: 274941c156a04430f81fdb98e6a5c0f6, type: 2}
+  ZhandouPb: {fileID: 1000012168502802, guid: e063e987bb7434bce9d0c7233210f2dc, type: 2}
+  WenhaoPb: {fileID: 1000012896529416, guid: 90798457c8bb74b49af6f09d317e500d, type: 2}
+  MovabletilePb: {fileID: 1000010151584756, guid: d1ea5cdba7f7f4ffe94a3c6a32b4075a,
+    type: 2}
+  MovabletileClickPb: {fileID: 1000010171245372, guid: f140f0a1abfbd4fa5bbd02e241d58d6c,
+    type: 2}
 --- !u!114 &114000013973070878
 MonoBehaviour:
   m_ObjectHideFlags: 1

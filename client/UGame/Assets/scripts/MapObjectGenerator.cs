@@ -36,6 +36,7 @@ public class MapObjectGenerator : MonoBehaviour {
 		//Vector2 pos = map.GetComponent<TilesManager> ().posTransform (row,column);
 		GameObject a=(GameObject)Instantiate (playerPrefab,transform.position,transform.rotation);
 		a.name="Player";
+		a.GetComponent<playerMove> ().initStatus ();
 		a.GetComponent<playerMove> ().set (row,column);
 		map.GetComponent<RoundControler> ().player = a;
 		a.GetComponent<playerStatus> ().AI = false;
@@ -52,6 +53,7 @@ public class MapObjectGenerator : MonoBehaviour {
 		obj_list.getListByType (OBJTYPE.OBJTYPE_PLAYER) [0].thisOBJ = a;
 		a.GetComponent<playerMove> ().MapOBJ = obj_list.getListByType (OBJTYPE.OBJTYPE_PLAYER) [0];
 		Debug.Log ("Create player" + a.name);
+	
 		return a;
 	}
 	void placeEnemy(){
@@ -66,11 +68,11 @@ public class MapObjectGenerator : MonoBehaviour {
 		for (int i = 0; i < ems.Count; i++) {
 			GameObject a=(GameObject)Instantiate (enemyPrefab[((ObjectEnemy)ems[i]).Enemy_type],transform.position,transform.rotation);
 			a.name="Enemy"+i;
+			a.GetComponent<playerMove> ().initStatus ();
 			a.GetComponent<playerMove> ().set (ems[i].row,ems[i].column);
 			map.GetComponent<RoundControler> ().enemy.Add(a);
 			a.GetComponent<playerStatus> ().AI = true;
 			a.GetComponent<playerStatus> ().HP = Random.Range (1, 100);
-
 			a.GetComponent<playerStatus> ().ATK = Random.Range (1, 20);
 			a.GetComponent<playerStatus> ().ATKRange=Random.Range (1, 2);
 			a.GetComponent<playerStatus> ().SPEED = Random.Range (1, 20);

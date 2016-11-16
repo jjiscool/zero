@@ -457,6 +457,10 @@ public class RandomDungeonCreator : MonoBehaviour {
 	private List<RoomData> rooms;
 	public OBJTYPEList obj_list;
 	public bool MapWalkable(int i,int j){
+		if (i < 0 || i >= MapWidth)
+			return false;
+		if (j < 0 || j >= MapHeight)
+			return false;
 		if (map [i, j] != -1) {
 			if (obj_list.hasObjInRowColumn (i, j)) {
 				List<OBJTYPEData> o = obj_list.getObjByRowColumn (i, j);
