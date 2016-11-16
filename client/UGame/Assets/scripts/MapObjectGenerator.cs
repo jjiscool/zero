@@ -8,15 +8,14 @@ public class MapObjectGenerator : MonoBehaviour {
 	private GameObject map;
 	void Awake(){
 		NewDungeon ();
-
 	}
 	public void NewDungeon(){
 		map = GameObject.Find ("map");
 		map.GetComponent<RandomDungeonCreator> ().ReBuildDungeon ();
 		map.GetComponent<TilesManager> ().initMapTexture ();
+		map.GetComponent<RoundControler> ().initRound ();
 		GameObject player=PlacePlayer ();
 		placeEnemy ();
-		map.GetComponent<RoundControler> ().initRound ();
 		map.GetComponent<RoundControler> ().reset (player);
 		placeDownStair ();
 		
@@ -30,7 +29,7 @@ public class MapObjectGenerator : MonoBehaviour {
 
 	}
 	GameObject PlacePlayer(){
-		Destroy (map.GetComponent<RoundControler> ().player.gameObject);
+		if(map.GetComponent<RoundControler> ().player!=null) Destroy (map.GetComponent<RoundControler> ().player.gameObject);
 		OBJTYPEList obj_list  = map.GetComponent<RandomDungeonCreator>().obj_list;//获取object列表
 		int row = obj_list.getListByType (OBJTYPE.OBJTYPE_PLAYER) [0].row;
 		int column = obj_list.getListByType (OBJTYPE.OBJTYPE_PLAYER) [0].column;
@@ -52,6 +51,7 @@ public class MapObjectGenerator : MonoBehaviour {
 		GameObject.Find ("lightCover").GetComponent<followCenter>().player=a;
 		obj_list.getListByType (OBJTYPE.OBJTYPE_PLAYER) [0].thisOBJ = a;
 		a.GetComponent<playerMove> ().MapOBJ = obj_list.getListByType (OBJTYPE.OBJTYPE_PLAYER) [0];
+		Debug.Log ("Create player" + a.name);
 		return a;
 	}
 	void placeEnemy(){

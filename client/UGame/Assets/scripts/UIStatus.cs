@@ -26,13 +26,13 @@ public class UIStatus : MonoBehaviour {
 	private playerStatus pStatus;
 
 	void Start () {
-		setUIStatus ();
+		//setUIStatus ();
 
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		setUIStatus ();
+		//setUIStatus ();
 
 	}
 

@@ -148,6 +148,12 @@ public class RoundControler : MonoBehaviour {
 	}
 	// Update is called once per frame
 	void Update () {
+		if (player == null) {
+			Debug.Log ("No player yet!");
+			return;
+			
+		}
+			
 		if (!playerInBattle) { 
 			//当前为非战斗模式，如果玩家的状态为等待
 			if (player.GetComponent<PhaseHandler> ().getType () == PHASE_TYPE.PHASE_WAITING) {
