@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\BattleStatusControl.cs" />
+     <Compile Include="Assets\deleteDamageText.cs" />
      <Compile Include="Assets\scripts\IMESH.cs" />
      <Compile Include="Assets\scripts\MapObjectGenerator.cs" />
      <Compile Include="Assets\scripts\MovingObject.cs" />

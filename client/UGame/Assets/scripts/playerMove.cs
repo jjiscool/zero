@@ -41,6 +41,7 @@ public class playerMove : MonoBehaviour {
 	public GameObject MovabletileClickPb;
 	public GameObject AttackabletilePb;
 	public GameObject AttackableClickePb;
+	public GameObject DamageTextPb;
 	private GameObject Tanhao;
 	private GameObject Wenhao;
 	private GameObject Zhandou;
@@ -54,8 +55,9 @@ public class playerMove : MonoBehaviour {
 	public Astar astar;
 	void Awake(){
 		map = GameObject.Find ("map");
-		role = transform.Find ("man").gameObject;
-		weapon = transform.Find ("weapon").gameObject;
+		role = transform.Find ("main").Find ("man").gameObject;
+		weapon = transform.Find ("main").Find ("weapon").gameObject;
+		//Debug.Log (weapon.name);
 		Movabletiles=new List<GameObject>();
 		Attackabletiles=new List<GameObject>();
 		//OBJTYPEList obj_list  = map.GetComponent<RandomDungeonCreator>().obj_list;//获取object列表
@@ -81,6 +83,7 @@ public class playerMove : MonoBehaviour {
 		endxy = transform.position;
 		animator = role.GetComponent<Animator>();
 		weaponAnimator = weapon.GetComponent<Animator>();
+
 	}
 	void Start () {
 		
@@ -295,6 +298,15 @@ public class playerMove : MonoBehaviour {
 			transform.GetComponent<PhaseHandler>().state.handle (caction);
 		}
 
+	}
+	public void CastDamage(int dg){
+		GameObject Da = (GameObject)Instantiate (DamageTextPb,new Vector2(0,0),transform.rotation);
+		Da.GetComponent<TextMesh> ().text = "-" + dg;
+		Da.GetComponent<MeshRenderer> ().sortingOrder = 3;
+		Da.transform.SetParent (transform);
+		//Debug.Log (transform.position);
+		Animator damageAnimator=Da.GetComponent<Animator> ();
+		damageAnimator.SetTrigger ("isDamage");
 	}
 	//AI决策
 	public void AI(){

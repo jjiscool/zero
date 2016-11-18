@@ -268,7 +268,6 @@ public class RoundEndPhase:Phase{
 		Debug.Log (a.SUBJECT.name+"'s "+"EndPhase");
 	}
 	public override void handle(Action a){
-
 		switch (a.type) {
 		default:
 			Debug.Log ("No this action type");
@@ -284,6 +283,7 @@ public class RoundEndPhase:Phase{
 			break;
 		case ACTION_TYPE.ACTION_ATTACK:
 			act.OBJECT.GetComponent<playerStatus> ().HP -= act.SUBJECT.GetComponent<playerStatus> ().ATK;
+			act.OBJECT.GetComponent<playerMove>().CastDamage(act.SUBJECT.GetComponent<playerStatus> ().ATK);
 			if (act.OBJECT.GetComponent<playerStatus> ().HP <= 0) {
 				act.OBJECT.GetComponent<playerMove> ().Dead();
 			}
@@ -301,6 +301,21 @@ public class RoundEndPhase:Phase{
 	}
 	public override void update(Transform tr){
 		//Debug.Log ("Ending....");
+		//动画Update
+		switch (act.type) {
+		default:
+			Debug.Log ("No this action type");
+			break;
+		case ACTION_TYPE.ACTION_MOVE:
+			//tr.GetComponent<playerMove> ().Move_Actioning();
+			break;
+		case ACTION_TYPE.ACTION_NULL:
+			//tr.GetComponent<playerMove> ().NOACTION_Actioning();
+			break;
+		case ACTION_TYPE.ACTION_ATTACK:
+			//tr.GetComponent<playerMove> ().Attack_Actioning ();
+			break;
+		}
 
 	}
 	public override PHASE_TYPE getType(){
