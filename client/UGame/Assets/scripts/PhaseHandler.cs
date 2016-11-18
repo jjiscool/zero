@@ -251,7 +251,7 @@ public class ActionPhase:Phase{
 			tr.GetComponent<playerMove> ().NOACTION_Actioning();
 			break;
 		case ACTION_TYPE.ACTION_ATTACK:
-			tr.GetComponent<playerMove> ().Attack_Actioning();
+			tr.GetComponent<playerMove> ().Attack_Actioning ();
 			break;
 		}
 	}

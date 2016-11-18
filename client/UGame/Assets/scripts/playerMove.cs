@@ -39,12 +39,16 @@ public class playerMove : MonoBehaviour {
 	public GameObject WenhaoPb;
 	public GameObject MovabletilePb;
 	public GameObject MovabletileClickPb;
+	public GameObject AttackabletilePb;
+	public GameObject AttackableClickePb;
 	private GameObject Tanhao;
 	private GameObject Wenhao;
 	private GameObject Zhandou;
 	private List<GameObject> Movabletiles;
 	private GameObject MovabletileClick;
-
+	private List<GameObject> Attackabletiles;
+	private GameObject AttackableClick;
+	public float action_anime_time;
 //	public Sprite weaponTileH;
 //	public Sprite weaponTileV;
 	public Astar astar;
@@ -53,6 +57,7 @@ public class playerMove : MonoBehaviour {
 		role = transform.Find ("man").gameObject;
 		weapon = transform.Find ("weapon").gameObject;
 		Movabletiles=new List<GameObject>();
+		Attackabletiles=new List<GameObject>();
 		//OBJTYPEList obj_list  = map.GetComponent<RandomDungeonCreator>().obj_list;//获取object列表
 		///row = obj_list.getListByType (OBJTYPE.OBJTYPE_SPAWNPOINT) [0].row;
 		//column = obj_list.getListByType (OBJTYPE.OBJTYPE_SPAWNPOINT) [0].column;
@@ -280,8 +285,16 @@ public class playerMove : MonoBehaviour {
 	}
 	//决策攻击的动画阶段
 	public void Attack_Actioning(){
-		Action caction = transform.GetComponent<PhaseHandler> ().state.act;
-		transform.GetComponent<PhaseHandler>().state.handle (caction);
+		action_anime_time -= Time.deltaTime;
+		Vector2 op=GameObject.Find("map").GetComponent<TilesManager>().posTransform(row,column);
+		transform.position = new Vector2 (Mathf.Sin(action_anime_time*100)*0.1f+op.x,op.y);
+		if (action_anime_time <= 0) {
+			action_anime_time = 0.2f;
+			transform.position=GameObject.Find("map").GetComponent<TilesManager>().posTransform(row,column);
+			Action caction = transform.GetComponent<PhaseHandler> ().state.act;
+			transform.GetComponent<PhaseHandler>().state.handle (caction);
+		}
+
 	}
 	//AI决策
 	public void AI(){
@@ -398,6 +411,7 @@ public class playerMove : MonoBehaviour {
 				}
 			}
 		}
+		DrawAttackable ();
 	}
 	public void RemoveMovabletile(){
 		if (GameObject.Find ("map").GetComponent<RoundControler> ().player == null)
@@ -405,6 +419,41 @@ public class playerMove : MonoBehaviour {
 		if (Movabletiles.Count > 0) {
 			for (int i = 0; i < Movabletiles.Count; i++) {
 				Destroy (Movabletiles[i].gameObject);
+			}
+		}
+		Removettackabletile ();
+	}
+	public void DrawAttackable(){
+		List<GameObject> enemy = GameObject.Find ("map").GetComponent<RoundControler> ().enemy;
+		if (enemy.Count<=0)
+			return;
+		if (Attackabletiles.Count > 0) {
+			for (int i = 0; i < Attackabletiles.Count; i++) {
+				Destroy (Attackabletiles[i].gameObject);
+			}
+		}
+		for (int i = 0; i < enemy.Count; i++) {
+			int er = enemy [i].GetComponent<playerMove> ().row;
+			int ec = enemy [i].GetComponent<playerMove> ().column;
+			int dis = Mathf.Abs (er - row) + Mathf.Abs (ec - column);
+			if (dis <= transform.GetComponent<playerStatus> ().ATKRange) {
+				Vector2 p = GameObject.Find ("map").GetComponent<TilesManager> ().posTransform (er, ec);
+				GameObject a = (GameObject)Instantiate (AttackabletilePb,p,transform.rotation);
+				a.layer =13;
+				Attackabletiles.Add (a);
+			}
+		
+		}
+	
+	
+	}
+	public void Removettackabletile(){
+		List<GameObject> enemy = GameObject.Find ("map").GetComponent<RoundControler> ().enemy;
+		if (enemy.Count<=0)
+			return;
+		if (Attackabletiles.Count > 0) {
+			for (int i = 0; i < Attackabletiles.Count; i++) {
+				Destroy (Attackabletiles[i].gameObject);
 			}
 		}
 	}

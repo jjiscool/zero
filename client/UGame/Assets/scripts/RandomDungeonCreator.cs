@@ -29,11 +29,14 @@ public class Astar{
 	public List<int> close;
 	public List<AstarNode> final;
 	public List<int[]> finalpath;
+	public int FromX;
+	public int FromY;
 	public int ToX;
 	public int ToY;
 	public int[,] map;
 	public int MaxX;
 	public int MaxY;
+	public int MAXLength;
 	public delegate bool isWalkable(int r,int c);  
 	public isWalkable isWalkableFunc;  
 	public Astar(){//int x,int y,int tox,int toy
@@ -56,6 +59,8 @@ public class Astar{
 		finalpath = new List<int[]> ();
 		ToX = tox;
 		ToY = toy;
+		FromX = x;
+		FromY = y;
 		AstarNode bg = new AstarNode (x,y);
 		bg.parentID = -1;
 		bg.G = 0;
@@ -66,8 +71,15 @@ public class Astar{
 		map = M;
 		MaxX = MX;
 		MaxY = MY;
+		MAXLength = 20;
 		//Debug.Log (map[ToX,ToY]);
 		//Run ();
+	}
+	public bool isOutRange(int r,int c){
+		int dis = Mathf.Abs (r - FromX) + Mathf.Abs (c - FromY);
+		if (dis > MAXLength)
+			return false;
+		return true;
 	}
 	public void Run(){
 		while (open.Count > 0) {
@@ -86,7 +98,7 @@ public class Astar{
 			if(final[fid].pos[0]>0){
 				int newx = final[fid].pos [0] - 1;
 				int newy = final[fid].pos [1];
-				if (isWalkableFunc(newx,newy)&&CheckInFinal (newx, newy) == -1) {
+				if (isOutRange(newx,newy)&&isWalkableFunc(newx,newy)&&CheckInFinal (newx, newy) == -1) {
 					AstarNode tup = new AstarNode (newx,newy);
 					tup.parentID = fid;
 					tup.H = CalH (newx,newy);
@@ -96,7 +108,7 @@ public class Astar{
 					//Debug.Log ("Add to Final");
 				}
 				int fupid = CheckInFinal (newx, newy);
-				if (isWalkableFunc(newx,newy)&&CheckInClose(newx, newy)==-1) {
+				if (isOutRange(newx,newy)&&isWalkableFunc(newx,newy)&&CheckInClose(newx, newy)==-1) {
 					int upopid = CheckInOpen (newx, newy);
 					if (upopid == -1) {
 						addToOpen (fupid);
@@ -114,7 +126,7 @@ public class Astar{
 			if(final[fid].pos[0]<MaxX-1){
 				int newx = final[fid].pos [0] + 1;
 				int newy = final[fid].pos [1];
-				if (isWalkableFunc(newx,newy)&&CheckInFinal (newx, newy) == -1) {
+				if (isOutRange(newx,newy)&&isWalkableFunc(newx,newy)&&CheckInFinal (newx, newy) == -1) {
 					AstarNode tup = new AstarNode (newx,newy);
 					tup.parentID = fid;
 					tup.H = CalH (newx,newy);
@@ -125,7 +137,7 @@ public class Astar{
 				}
 				//Debug.Log ("Add to Final");
 				int fupid = CheckInFinal (newx, newy);
-				if (isWalkableFunc(newx,newy)&&CheckInClose(newx, newy)==-1) {
+				if (isOutRange(newx,newy)&&isWalkableFunc(newx,newy)&&CheckInClose(newx, newy)==-1) {
 					int upopid = CheckInOpen (newx, newy);
 					if (upopid == -1) {
 						addToOpen (fupid);
@@ -143,7 +155,7 @@ public class Astar{
 			if(final[fid].pos[1]>0){
 				int newx = final[fid].pos [0] ;
 				int newy = final[fid].pos [1]-1;
-				if (isWalkableFunc(newx,newy)&&CheckInFinal (newx, newy) == -1) {
+				if (isOutRange(newx,newy)&&isWalkableFunc(newx,newy)&&CheckInFinal (newx, newy) == -1) {
 					AstarNode tup = new AstarNode (newx,newy);
 					tup.parentID = fid;
 					tup.H = CalH (newx,newy);
@@ -153,7 +165,7 @@ public class Astar{
 					//Debug.Log ("Add to Final");
 				}
 				int fupid = CheckInFinal (newx, newy);
-				if (isWalkableFunc(newx,newy)&&CheckInClose(newx, newy)==-1) {
+				if (isOutRange(newx,newy)&&isWalkableFunc(newx,newy)&&CheckInClose(newx, newy)==-1) {
 					int upopid = CheckInOpen (newx, newy);
 					if (upopid == -1) {
 						addToOpen (fupid);
@@ -171,7 +183,7 @@ public class Astar{
 			if(final[fid].pos[1]<MaxY-1){
 				int newx = final[fid].pos [0] ;
 				int newy = final[fid].pos [1]+1;
-				if (isWalkableFunc(newx,newy)&&CheckInFinal (newx, newy) == -1) {
+				if (isOutRange(newx,newy)&&isWalkableFunc(newx,newy)&&CheckInFinal (newx, newy) == -1) {
 					AstarNode tup = new AstarNode (newx,newy);
 					tup.parentID = fid;
 					tup.H = CalH (newx,newy);
@@ -181,7 +193,7 @@ public class Astar{
 					//Debug.Log ("Add to Final");
 				}
 				int fupid = CheckInFinal (newx, newy);
-				if (isWalkableFunc(newx,newy)&&CheckInClose(newx, newy)==-1) {
+				if (isOutRange(newx,newy)&&isWalkableFunc(newx,newy)&&CheckInClose(newx, newy)==-1) {
 					int upopid = CheckInOpen (newx, newy);
 					if (upopid == -1) {
 						addToOpen (fupid);
