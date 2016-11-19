@@ -56,7 +56,6 @@ GameObject:
   - 114: {fileID: 114000012145135888}
   - 114: {fileID: 114000014109563294}
   - 114: {fileID: 114000010190866318}
-  - 95: {fileID: 95000013064044538}
   m_Layer: 16
   m_Name: player
   m_TagString: Player
@@ -260,23 +259,6 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!95 &95000013064044538
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000010979427918}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!95 &95000013475881018
 Animator:
   serializedVersion: 3
@@ -355,7 +337,7 @@ MonoBehaviour:
   AttackableClickePb: {fileID: 0}
   DamageTextPb: {fileID: 1000013004653222, guid: 35ca95f90f98f427e9c2164acf25c0fe,
     type: 2}
-  action_anime_time: 0.2
+  DamageText: {fileID: 0}
 --- !u!114 &114000014109563294
 MonoBehaviour:
   m_ObjectHideFlags: 1

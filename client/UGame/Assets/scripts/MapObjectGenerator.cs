@@ -6,8 +6,12 @@ public class MapObjectGenerator : MonoBehaviour {
 	public GameObject[] enemyPrefab;
 	public GameObject downStairPrefab;
 	private GameObject map;
+	public string LevelTitle;
+	public string LevelInfo;
 	void Awake(){
 		NewDungeon ();
+		LevelTitle="～ 影之遗迹 ～";
+		LevelInfo="Lv.01";
 	}
 	public void NewDungeon(){
 		map = GameObject.Find ("map");

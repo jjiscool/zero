@@ -42,6 +42,7 @@ public class playerMove : MonoBehaviour {
 	public GameObject AttackabletilePb;
 	public GameObject AttackableClickePb;
 	public GameObject DamageTextPb;
+	public GameObject DamageText;
 	private GameObject Tanhao;
 	private GameObject Wenhao;
 	private GameObject Zhandou;
@@ -49,7 +50,6 @@ public class playerMove : MonoBehaviour {
 	private GameObject MovabletileClick;
 	private List<GameObject> Attackabletiles;
 	private GameObject AttackableClick;
-	public float action_anime_time;
 //	public Sprite weaponTileH;
 //	public Sprite weaponTileV;
 	public Astar astar;
@@ -288,25 +288,20 @@ public class playerMove : MonoBehaviour {
 	}
 	//决策攻击的动画阶段
 	public void Attack_Actioning(){
-		action_anime_time -= Time.deltaTime;
-		Vector2 op=GameObject.Find("map").GetComponent<TilesManager>().posTransform(row,column);
-		transform.position = new Vector2 (Mathf.Sin(action_anime_time*100)*0.1f+op.x,op.y);
-		if (action_anime_time <= 0) {
-			action_anime_time = 0.2f;
-			transform.position=GameObject.Find("map").GetComponent<TilesManager>().posTransform(row,column);
-			Action caction = transform.GetComponent<PhaseHandler> ().state.act;
-			transform.GetComponent<PhaseHandler>().state.handle (caction);
-		}
-
+		Action caction = transform.GetComponent<PhaseHandler> ().state.act;
+		transform.GetComponent<PhaseHandler>().state.handle (caction);
 	}
 	public void CastDamage(int dg){
-		GameObject Da = (GameObject)Instantiate (DamageTextPb,new Vector2(0,0),transform.rotation);
-		Da.GetComponent<TextMesh> ().text = "-" + dg;
-		Da.GetComponent<MeshRenderer> ().sortingOrder = 3;
-		Da.transform.SetParent (transform);
+		DamageText= (GameObject)Instantiate (DamageTextPb,new Vector2(0,0),transform.rotation);
+		DamageText.GetComponent<TextMesh> ().text = "-" + dg;
+		DamageText.GetComponent<MeshRenderer> ().sortingOrder = 3;
+		DamageText.transform.SetParent (transform);
 		//Debug.Log (transform.position);
-		Animator damageAnimator=Da.GetComponent<Animator> ();
+		Animator damageAnimator=DamageText.GetComponent<Animator> ();
 		damageAnimator.SetTrigger ("isDamage");
+
+		Animator manAnimator=transform.Find("main").GetComponent<Animator> ();
+		manAnimator.SetTrigger ("shake");
 	}
 	//AI决策
 	public void AI(){

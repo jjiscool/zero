@@ -69,6 +69,7 @@ public class WaitingPhase:Phase{
 }
 //回合开始阶段
 public class RoundBeginPhase:Phase{
+	private bool doneFirstFrame;
 	public RoundBeginPhase(PhaseHandler ph,Action a){
 		PH=ph;
 		act = a;
@@ -76,15 +77,49 @@ public class RoundBeginPhase:Phase{
 	}
 	public override void handle(Action a){
 		//回合开始阶段-》决策阶段
-		PH.state = new ThinkingPhase (PH,a);
-		if (!a.SUBJECT.GetComponent<playerStatus> ().isAI ()&&GameObject.Find("map").GetComponent<RoundControler>().playerInBattle) {
-			a.SUBJECT.GetComponent<playerMove> ().DrawMovabletile ();
-		}
 		//PH.state.handle (new Action (ACTION_TYPE.ACTION_NULL));
 
 	}
 	public override void update(Transform tr){
-		
+		//以下为首帧时触发
+		if (!doneFirstFrame) {
+			doneFirstFrame = true;
+			switch (act.type) {
+			default:
+				Debug.Log ("No this action type");
+				break;
+			case ACTION_TYPE.ACTION_MOVE:
+				
+				break;
+			case ACTION_TYPE.ACTION_NULL:
+				PH.state = new ThinkingPhase (PH,act);
+				if (!act.SUBJECT.GetComponent<playerStatus> ().isAI ()&&GameObject.Find("map").GetComponent<RoundControler>().playerInBattle) {
+					act.SUBJECT.GetComponent<playerMove> ().DrawMovabletile ();
+				}
+				break;
+			case ACTION_TYPE.ACTION_ATTACK:
+				
+				break;
+			}
+			if (!act.SUBJECT.GetComponent<playerStatus> ().isAI ()) {
+				act.SUBJECT.GetComponent<playerMove> ().RemoveMoveClick ();
+			}
+		}
+		//以下为每帧更新
+		switch (act.type) {
+		default:
+			Debug.Log ("No this action type");
+			break;
+		case ACTION_TYPE.ACTION_MOVE:
+			//tr.GetComponent<playerMove> ().Move_Actioning();
+			break;
+		case ACTION_TYPE.ACTION_NULL:
+			//tr.GetComponent<playerMove> ().NOACTION_Actioning();
+			break;
+		case ACTION_TYPE.ACTION_ATTACK:
+			//tr.GetComponent<playerMove> ().Attack_Actioning ();
+			break;
+		}
 		//Debug.Log ("RoundBegin....");
 
 	}
@@ -119,11 +154,10 @@ public class ThinkingPhase:Phase{
 		}
 		if (!a.SUBJECT.GetComponent<playerStatus> ().isAI ()) {
 			a.SUBJECT.GetComponent<playerMove> ().RemoveMovabletile();
-			//a.SUBJECT.GetComponent<playerMove> ().RemoveMoveClick ();
 		}
 	}
 	public override void update(Transform tr){
-		//决策阶段更新，
+		//决策阶段每帧更新
 		//Debug.Log (tr.name+"is Thinking...."+tr.gameObject.GetComponent<playerStatus>().isAI());
 		if (tr.gameObject.GetComponent<playerStatus> ().isAI()) {
 			//如果为AI决策，执行AI
@@ -222,20 +256,6 @@ public class ActionPhase:Phase{
 	public override void handle(Action a){
 		//动画阶段-》回合结束阶段
 		PH.state = new RoundEndPhase(PH,a);
-		switch (a.type) {
-		default:
-			Debug.Log ("No this action type");
-			break;
-		case ACTION_TYPE.ACTION_MOVE:
-			PH.state.handle (a);
-			break;
-		case ACTION_TYPE.ACTION_NULL:
-			PH.state.handle (a);
-			break;
-		case ACTION_TYPE.ACTION_ATTACK:
-			PH.state.handle (a);
-			break;
-		}
 	}
 	public override void update(Transform tr){
 		//Debug.Log ("Actioning....");
@@ -262,46 +282,44 @@ public class ActionPhase:Phase{
 }
 //回合结束阶段（结算阶段）
 public class RoundEndPhase:Phase{
+	private bool doneFirstFrame;
 	public RoundEndPhase(PhaseHandler ph,Action a){
 		PH=ph;
 		act = a;
 		Debug.Log (a.SUBJECT.name+"'s "+"EndPhase");
+		doneFirstFrame = false;
 	}
 	public override void handle(Action a){
-		switch (a.type) {
-		default:
-			Debug.Log ("No this action type");
-			break;
-		case ACTION_TYPE.ACTION_MOVE:
-			//这里判断如果移动到出口，阻碍进入等待阶段
-			PH.state = new WaitingPhase(PH,a);
-			PH.state.handle (new Action (ACTION_TYPE.ACTION_NULL,a.SUBJECT));
-			break;
-		case ACTION_TYPE.ACTION_NULL:
-			PH.state = new WaitingPhase(PH,a);
-			PH.state.handle (new Action (ACTION_TYPE.ACTION_NULL,a.SUBJECT));
-			break;
-		case ACTION_TYPE.ACTION_ATTACK:
-			act.OBJECT.GetComponent<playerStatus> ().HP -= act.SUBJECT.GetComponent<playerStatus> ().ATK;
-			act.OBJECT.GetComponent<playerMove>().CastDamage(act.SUBJECT.GetComponent<playerStatus> ().ATK);
-			if (act.OBJECT.GetComponent<playerStatus> ().HP <= 0) {
-				act.OBJECT.GetComponent<playerMove> ().Dead();
-			}
-			if (act.SUBJECT.GetComponent<playerStatus> ().HP == 0) {
-				act.SUBJECT.GetComponent<playerMove> ().Dead();
-			}
-			PH.state = new WaitingPhase(PH,a);
-			PH.state.handle (new Action (ACTION_TYPE.ACTION_NULL,a.SUBJECT));
-			break;
-		}
-		if (!a.SUBJECT.GetComponent<playerStatus> ().isAI ()) {
-			//a.SUBJECT.GetComponent<playerMove> ().RemoveMovabletile();
-			a.SUBJECT.GetComponent<playerMove> ().RemoveMoveClick ();
-		}
+
 	}
 	public override void update(Transform tr){
-		//Debug.Log ("Ending....");
-		//动画Update
+		//以下为首帧时触发
+		if (!doneFirstFrame) {
+			doneFirstFrame = true;
+			switch (act.type) {
+			default:
+				Debug.Log ("No this action type");
+				break;
+			case ACTION_TYPE.ACTION_MOVE:
+				//这里判断如果移动到出口、或触发其他结算，可阻碍进入等待阶段
+				PH.state = new WaitingPhase(PH,act);
+				PH.state.handle (new Action (ACTION_TYPE.ACTION_NULL,act.SUBJECT));
+				break;
+			case ACTION_TYPE.ACTION_NULL:
+				PH.state = new WaitingPhase(PH,act);
+				PH.state.handle (new Action (ACTION_TYPE.ACTION_NULL,act.SUBJECT));
+				break;
+			case ACTION_TYPE.ACTION_ATTACK:
+				//攻击后不立刻切换回合
+				act.OBJECT.GetComponent<playerStatus> ().HP -= act.SUBJECT.GetComponent<playerStatus> ().ATK;
+				act.OBJECT.GetComponent<playerMove>().CastDamage(act.SUBJECT.GetComponent<playerStatus> ().ATK);
+				break;
+			}
+			if (!act.SUBJECT.GetComponent<playerStatus> ().isAI ()) {
+				act.SUBJECT.GetComponent<playerMove> ().RemoveMoveClick ();
+			}
+		}
+		//以下为每帧更新
 		switch (act.type) {
 		default:
 			Debug.Log ("No this action type");
@@ -314,6 +332,16 @@ public class RoundEndPhase:Phase{
 			break;
 		case ACTION_TYPE.ACTION_ATTACK:
 			//tr.GetComponent<playerMove> ().Attack_Actioning ();
+			if(act.OBJECT.GetComponent<playerMove>().DamageText.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).normalizedTime>=1.0f){
+				if (act.OBJECT.GetComponent<playerStatus> ().HP <= 0) {
+					act.OBJECT.GetComponent<playerMove> ().Dead();
+				}
+				if (act.SUBJECT.GetComponent<playerStatus> ().HP == 0) {
+					act.SUBJECT.GetComponent<playerMove> ().Dead();
+				}
+				PH.state = new WaitingPhase(PH,act);
+				PH.state.handle (new Action (ACTION_TYPE.ACTION_NULL,act.SUBJECT));
+			}
 			break;
 		}
 
@@ -338,7 +366,7 @@ public class PhaseHandler : MonoBehaviour {
 	public void PhaseBegin(){
 		//触发回合开始
 		state = new RoundBeginPhase (this,new Action (ACTION_TYPE.ACTION_NULL,transform.gameObject));
-		state.handle (new Action (ACTION_TYPE.ACTION_NULL,transform.gameObject));
+		//state.handle (new Action (ACTION_TYPE.ACTION_NULL,transform.gameObject));
 	}
 	public  PHASE_TYPE getType(){
 		//返回当前阶段状态
