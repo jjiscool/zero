@@ -5,15 +5,20 @@ public class MapObjectGenerator : MonoBehaviour {
 	public GameObject playerPrefab;
 	public GameObject[] enemyPrefab;
 	public GameObject downStairPrefab;
+	public GameObject LevelTitlePrefab;
 	private GameObject map;
 	public string LevelTitle;
 	public string LevelInfo;
+	public int level;
 	void Awake(){
 		NewDungeon ();
-		LevelTitle="～ 影之遗迹 ～";
-		LevelInfo="Lv.01";
+
+
 	}
 	public void NewDungeon(){
+		level++;
+		LevelTitle="～ 影之遗迹 ～";
+		LevelInfo="Lv."+level;
 		map = GameObject.Find ("map");
 		map.GetComponent<RandomDungeonCreator> ().ReBuildDungeon ();
 		map.GetComponent<TilesManager> ().initMapTexture ();
@@ -22,6 +27,10 @@ public class MapObjectGenerator : MonoBehaviour {
 		placeEnemy ();
 		map.GetComponent<RoundControler> ().reset (player);
 		placeDownStair ();
+		GameObject nt=(GameObject)Instantiate (LevelTitlePrefab,transform.position,transform.rotation);
+		nt.transform.SetParent (GameObject.Find ("UI").transform);
+		nt.transform.localPosition = new Vector3 (0, 0, 0);
+		nt.transform.localScale = new Vector3 (40, 40, 1);
 		
 	}
 	void placeDownStair(){
