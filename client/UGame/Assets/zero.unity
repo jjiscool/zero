@@ -2859,6 +2859,7 @@ MonoBehaviour:
     type: 2}
   LevelTitle: A
   LevelInfo: B
+  level: 0
 --- !u!1 &1938176956
 GameObject:
   m_ObjectHideFlags: 0
