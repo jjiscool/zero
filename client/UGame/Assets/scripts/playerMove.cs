@@ -445,7 +445,7 @@ public class playerMove : MonoBehaviour {
 			int dis = Mathf.Abs (er - row) + Mathf.Abs (ec - column);
 			if (dis <= transform.GetComponent<playerStatus> ().ATKRange) {
 				Vector2 p = GameObject.Find ("map").GetComponent<TilesManager> ().posTransform (er, ec);
-				GameObject a = (GameObject)Instantiate (AttackabletilePb,p,transform.rotation);
+				GameObject a = (GameObject)Instantiate (AttackabletilePb,new Vector3(p.x,p.y,-1),transform.rotation);
 				a.layer =13;
 				Attackabletiles.Add (a);
 			}
