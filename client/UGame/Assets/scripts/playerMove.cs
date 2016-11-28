@@ -309,7 +309,8 @@ public class playerMove : MonoBehaviour {
 		int er = p.GetComponent<playerMove> ().row;
 		int ec = p.GetComponent<playerMove> ().column;
 		int dis = Mathf.Abs (transform.GetComponent<playerMove> ().row - er) + Mathf.Abs (transform.GetComponent<playerMove> ().column - ec);
-		if (dis <= transform.GetComponent<playerStatus> ().ATKRange) {
+		bool isShortest = GameObject.Find ("map").GetComponent<RandomDungeonCreator> ().isWalkShortest (er, ec,row,column);
+		if (dis <= transform.GetComponent<playerStatus> ().ATKRange&&isShortest) {
 			//在攻击范围优先攻击
 			Debug.Log (transform.name + " decide to ATK!");
 			Attack (p);
@@ -444,6 +445,9 @@ public class playerMove : MonoBehaviour {
 			int ec = enemy [i].GetComponent<playerMove> ().column;
 			int dis = Mathf.Abs (er - row) + Mathf.Abs (ec - column);
 			if (dis <= transform.GetComponent<playerStatus> ().ATKRange) {
+				bool isShortest = GameObject.Find ("map").GetComponent<RandomDungeonCreator> ().isWalkShortest (er, ec, row,column);
+				if (!isShortest)
+					continue;
 				Vector2 p = GameObject.Find ("map").GetComponent<TilesManager> ().posTransform (er, ec);
 				GameObject a = (GameObject)Instantiate (AttackabletilePb,new Vector3(p.x,p.y,-1),transform.rotation);
 				a.layer =13;

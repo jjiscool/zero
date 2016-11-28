@@ -295,7 +295,7 @@ MonoBehaviour:
   AP: 0
   APMAX: 0
   ATK: 14
-  ATKRange: 1
+  ATKRange: 5
   INT: 0
   DEF: 0
   RES_Metal: 0
@@ -304,7 +304,7 @@ MonoBehaviour:
   RES_Fire: 0
   RES_Earth: 0
   CritRate: 0
-  MOV: 1
+  MOV: 10
   SPEED: 6
   isPlayerTeam: 1
   AI: 0

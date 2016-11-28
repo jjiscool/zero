@@ -186,7 +186,6 @@ public class ThinkingPhase:Phase{
 			int[] pos=GameObject.Find ("map").GetComponent<TilesManager>().posTransform2(mousePositionInWorld.x,mousePositionInWorld.y);
 			//点击的位置是否有地图对象
 			if (GameObject.Find ("map").GetComponent<RandomDungeonCreator> ().obj_list.hasObjInRowColumn (pos [0], pos [1])) {
-				
 				List<OBJTYPEData> objl = GameObject.Find ("map").GetComponent<RandomDungeonCreator> ().obj_list.getObjByRowColumn (pos [0], pos [1]);
 				int hasE = -1;
 				int hasM = -1;
@@ -197,7 +196,11 @@ public class ThinkingPhase:Phase{
 						int ec = objl[ii].thisOBJ.GetComponent<playerMove> ().column;
 						int dis = Mathf.Abs (tr.GetComponent<playerMove> ().row - er) + Mathf.Abs (tr.GetComponent<playerMove> ().column - ec);
 						if (dis <= tr.GetComponent<playerStatus> ().ATKRange) {
-							hasE = ii;
+							bool isShortest = GameObject.Find ("map").GetComponent<RandomDungeonCreator> ().isWalkShortest (pos [0], pos [1], tr.GetComponent<playerMove> ().row, tr.GetComponent<playerMove> ().column);
+							if(isShortest)
+								hasE = ii;
+							else
+								Debug.Log ("Fail,Some Objet on the Way!");
 						} else {
 							Debug.Log ("Out OF Range");
 						}
@@ -228,7 +231,8 @@ public class ThinkingPhase:Phase{
 				}
 			}
 			//空地则执行移动（moveto内进行阶段切换）
-			else {Astar astar= new Astar(tr.GetComponent<playerMove>().row,tr.GetComponent<playerMove>().column,pos[0],pos[1],GameObject.Find ("map").GetComponent<RandomDungeonCreator>().getMap(),GameObject.Find ("map").GetComponent<RandomDungeonCreator>().MapWidth,GameObject.Find ("map").GetComponent<RandomDungeonCreator>().MapHeight);
+			else {
+				Astar astar= new Astar(tr.GetComponent<playerMove>().row,tr.GetComponent<playerMove>().column,pos[0],pos[1],GameObject.Find ("map").GetComponent<RandomDungeonCreator>().getMap(),GameObject.Find ("map").GetComponent<RandomDungeonCreator>().MapWidth,GameObject.Find ("map").GetComponent<RandomDungeonCreator>().MapHeight);
 				astar.isWalkableFunc = GameObject.Find ("map").GetComponent<RandomDungeonCreator> ().MapWalkable;
 				astar.Run ();
 				int pathid = astar.finalpath.Count-1;

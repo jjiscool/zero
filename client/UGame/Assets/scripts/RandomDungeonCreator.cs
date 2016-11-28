@@ -71,7 +71,8 @@ public class Astar{
 		map = M;
 		MaxX = MX;
 		MaxY = MY;
-		MAXLength = 20;
+		MAXLength = 10;
+		isWalkableFunc = isWalkabeFuncDefault;
 		//Debug.Log (map[ToX,ToY]);
 		//Run ();
 	}
@@ -484,6 +485,15 @@ public class RandomDungeonCreator : MonoBehaviour {
 			}
 			else return true;
 		}
+		return false;
+	}
+	public bool isWalkShortest(int r1,int c1,int r2,int c2){
+		Astar astar= new Astar(r1,c1,r2,c2,getMap(),MapWidth,MapHeight);
+		astar.Run ();
+		int dis = Mathf.Abs (r1 - r2) + Mathf.Abs (c1 - c2);
+		//Debug.Log ("Dis=" + dis + " ,Way=" + astar.finalpath.Count);
+		if (astar.finalpath.Count - 1 == dis)
+			return true;
 		return false;
 	}
 	public void ReBuildDungeon(){
