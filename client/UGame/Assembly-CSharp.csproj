@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\dailogbg.cs" />
+     <Compile Include="Assets\popClickTest.cs" />
      <Compile Include="Assets\scripts\BattleStatusControl.cs" />
      <Compile Include="Assets\scripts\IMESH.cs" />
      <Compile Include="Assets\scripts\MapObjectGenerator.cs" />
@@ -66,6 +67,7 @@
      <Compile Include="Assets\scripts\moveBtn.cs" />
      <Compile Include="Assets\scripts\playerMove.cs" />
      <Compile Include="Assets\scripts\playerStatus.cs" />
+     <Compile Include="Assets\scripts\popController.cs" />
      <None Include="Assets\mask.shader" />
      <None Include="Assets\lightCover.shader" />
  <Reference Include="UnityEngine.UI">
