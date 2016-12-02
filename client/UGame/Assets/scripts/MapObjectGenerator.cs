@@ -16,9 +16,15 @@ public class MapObjectGenerator : MonoBehaviour {
 
 	}
 	public void NewDungeon(){
+		if (PlayerPrefs.HasKey ("level")) {
+			level = PlayerPrefs.GetInt ("level", 0);
+		} else {
+			level = 0;
+		}
 		level++;
+		PlayerPrefs.SetInt("level",level);
 		LevelTitle="～ 影之遗迹 ～";
-		LevelInfo="Lv."+level;
+		LevelInfo = "Lv." + level;
 		map = GameObject.Find ("map");
 		map.GetComponent<RandomDungeonCreator> ().ReBuildDungeon ();
 		map.GetComponent<TilesManager> ().initMapTexture ();
@@ -53,7 +59,7 @@ public class MapObjectGenerator : MonoBehaviour {
 		a.GetComponent<playerMove> ().set (row,column);
 		map.GetComponent<RoundControler> ().player = a;
 		a.GetComponent<playerStatus> ().AI = false;
-		a.GetComponent<playerStatus> ().HP = Random.Range (100, 200);
+		a.GetComponent<playerStatus> ().HP = Random.Range (0, 100);
 		a.GetComponent<playerStatus> ().HPMAX = a.GetComponent<playerStatus> ().HP;//测试血槽 by kola
 		a.GetComponent<playerStatus> ().ATK = Random.Range (1, 20);
 		a.GetComponent<playerStatus> ().ATKRange=Random.Range (1, 4);
