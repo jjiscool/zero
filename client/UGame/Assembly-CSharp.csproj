@@ -68,13 +68,29 @@
      <Compile Include="Assets\scripts\playerMove.cs" />
      <Compile Include="Assets\scripts\playerStatus.cs" />
      <Compile Include="Assets\scripts\popController.cs" />
+     <None Include="Assets\DOTween\DOTween43.xml" />
+     <None Include="Assets\DOTween\DOTween46.xml" />
      <None Include="Assets\mask.shader" />
+     <None Include="Assets\DOTween\readme.txt" />
      <None Include="Assets\lightCover.shader" />
+     <None Include="Assets\DOTween\DOTween50.xml" />
  <Reference Include="UnityEngine.UI">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.Networking">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
+ </Reference>
+ <Reference Include="DOTween">
+ <HintPath>/Users/kola/Documents/Unity/Zero/zero/client/UGame/Assets/DOTween/DOTween.dll</HintPath>
+ </Reference>
+ <Reference Include="DOTween46">
+ <HintPath>/Users/kola/Documents/Unity/Zero/zero/client/UGame/Assets/DOTween/DOTween46.dll</HintPath>
+ </Reference>
+ <Reference Include="DOTween43">
+ <HintPath>/Users/kola/Documents/Unity/Zero/zero/client/UGame/Assets/DOTween/DOTween43.dll</HintPath>
+ </Reference>
+ <Reference Include="DOTween50">
+ <HintPath>/Users/kola/Documents/Unity/Zero/zero/client/UGame/Assets/DOTween/DOTween50.dll</HintPath>
  </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
