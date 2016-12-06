@@ -3,14 +3,8 @@ using System.Collections;
 
 public class popController : MonoBehaviour {
 
-	//枚举弹框类型
-	public enum PopType
-	{
-		Exit,//出口
-		Poison
-	}
-
-	public PopType type;
+	//弹框类型
+	//Exit 下一层
 
 	public GameObject popObj;
 
@@ -25,19 +19,17 @@ public class popController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 	
+	}
 
-		switch (type) {
-		case PopType.Exit:
+	public void fadeIn(string popType){
+		switch (popType) {
+		case "Exit":
 			popObj = GameObject.Find ("UI/popContainer/popPannelExit");
 			break;
 		default:
 			Debug.Log (22222);
 			break;
 		}
-	}
-
-	public void fadeIn(){
-
 
 		if (popObj != null) {
 			popObj.GetComponent<RectTransform> ().localScale = new Vector3 (1, 1, 1);

@@ -18,7 +18,7 @@ public class popClickTest : MonoBehaviour {
 	}
 
 	public void TestClick(){
-		GameObject.Find ("popContainer").GetComponent<popController> ().type = popController.PopType.Exit;
-		GameObject.Find ("popContainer").GetComponent<popController> ().fadeIn();
+//		GameObject.Find ("popContainer").GetComponent<popController> ().type = popController.PopType.Exit;
+		GameObject.Find ("popContainer").GetComponent<popController> ().fadeIn("Exit");
 	}
 }
