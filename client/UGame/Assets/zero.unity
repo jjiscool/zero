@@ -397,6 +397,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
+  - {fileID: 948141024}
   - {fileID: 419732283}
   - {fileID: 2065300595}
   m_Father: {fileID: 0}
@@ -568,7 +569,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 325362374}
-  m_RootOrder: 0
+  m_RootOrder: 1
 --- !u!1 &429047021
 GameObject:
   m_ObjectHideFlags: 0
@@ -926,6 +927,93 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 942012187}
+--- !u!1 &948141023
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 948141024}
+  - 20: {fileID: 948141028}
+  - 92: {fileID: 948141027}
+  - 124: {fileID: 948141026}
+  - 81: {fileID: 948141025}
+  m_Layer: 0
+  m_Name: iconCam
+  m_TagString: MainCamera
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &948141024
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 948141023}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -23.54}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Children: []
+  m_Father: {fileID: 325362374}
+  m_RootOrder: 0
+--- !u!81 &948141025
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 948141023}
+  m_Enabled: 0
+--- !u!124 &948141026
+Behaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 948141023}
+  m_Enabled: 1
+--- !u!92 &948141027
+Behaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 948141023}
+  m_Enabled: 1
+--- !u!20 &948141028
+Camera:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 948141023}
+  m_Enabled: 1
+  serializedVersion: 2
+  m_ClearFlags: 3
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
+  m_NormalizedViewPortRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
+  near clip plane: -3
+  far clip plane: 1000
+  field of view: 60
+  orthographic: 1
+  orthographic size: 4
+  m_Depth: 5
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294836424
+  m_RenderingPath: -1
+  m_TargetTexture: {fileID: 0}
+  m_TargetDisplay: 0
+  m_TargetEye: 3
+  m_HDR: 0
+  m_OcclusionCulling: 1
+  m_StereoConvergence: 10
+  m_StereoSeparation: 0.022
+  m_StereoMirrorMode: 0
 --- !u!1 &969733878
 GameObject:
   m_ObjectHideFlags: 0
@@ -2211,7 +2299,7 @@ MonoBehaviour:
   playerPrefab: {fileID: 1000010979427918, guid: ed8af03184d2b4a9d8646090a62bc181,
     type: 2}
   enemyPrefab:
-  - {fileID: 1000011675286708, guid: a5c05b2c9dcaa44009fe3a34bd713560, type: 2}
+  - {fileID: 1000010979427918, guid: ed8af03184d2b4a9d8646090a62bc181, type: 2}
   downStairPrefab: {fileID: 1000013825434464, guid: 166a40119fce74730a03355129b6f5bb,
     type: 2}
   LevelTitlePrefab: {fileID: 1000013393431564, guid: 6c2e97074bdc5442d998f01aa61b43f1,
@@ -2707,7 +2795,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 325362374}
-  m_RootOrder: 1
+  m_RootOrder: 2
 --- !u!1 &2087287993
 GameObject:
   m_ObjectHideFlags: 0

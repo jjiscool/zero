@@ -20,7 +20,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 4000011742902024}
   - 212: {fileID: 212000013253704018}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: markTanhao
   m_TagString: Untagged
   m_Icon: {fileID: 0}

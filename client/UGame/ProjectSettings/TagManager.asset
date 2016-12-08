@@ -22,7 +22,7 @@ TagManager:
   - DOOR
   - ROOM
   - Blocking
-  - 
+  - icon
   - 
   - 
   - 
@@ -40,6 +40,9 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: icon
+    uniqueID: 1321938651
     locked: 0
   - name: UI
     uniqueID: 2746267427
