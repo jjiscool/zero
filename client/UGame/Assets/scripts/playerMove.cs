@@ -144,7 +144,7 @@ public class playerMove : MonoBehaviour {
 		orientation = "UP";
 //		Debug.Log ("UP");
 		PlaceRoleBehindWeapon();
-		animator.SetTrigger ("PlayerMoveUp");
+		animator.SetTrigger ("MoveUp");
 		weaponAnimator.SetTrigger ("WeaponOnMoveUp");
 		AttemptMove (orientation,row - 1, column);
 	
@@ -153,7 +153,7 @@ public class playerMove : MonoBehaviour {
 		orientation = "DOWN";
 		//Debug.Log ("Down");
 		PlaceRoleBeforeWeapon();
-		animator.SetTrigger ("PlayerMoveDown");
+		animator.SetTrigger ("MoveDown");
 		weaponAnimator.SetTrigger ("WeaponOnMoveDown");
 		AttemptMove (orientation,row+1, column);
 
@@ -161,7 +161,7 @@ public class playerMove : MonoBehaviour {
 	public void moveLeft(){
 		orientation = "LEFT";
 		PlaceRoleBeforeWeapon();
-		animator.SetTrigger ("PlayerMoveLeft");
+		animator.SetTrigger ("MoveLeft");
 		weaponAnimator.SetTrigger ("WeaponOnMoveLeft");
 		AttemptMove (orientation,row, column-1);
 
@@ -169,7 +169,7 @@ public class playerMove : MonoBehaviour {
 	public void moveRight(){
 		orientation = "RIGHT";
 		PlaceRoleBeforeWeapon();
-		animator.SetTrigger ("PlayerMoveRight");
+		animator.SetTrigger ("MoveRight");
 		weaponAnimator.SetTrigger ("WeaponOnMoveRight");
 		AttemptMove (orientation,row, column+1);
 	}
@@ -229,23 +229,23 @@ public class playerMove : MonoBehaviour {
 				//根据朝向设置 player的动画
 				switch (orientation) {
 				case "UP": 
-					animator.SetTrigger ("PlayerIdleUp");
+					animator.SetTrigger ("IdleUp");
 					weaponAnimator.SetTrigger ("WeaponOnIdleUp");
 					break;
 				case "DOWN": 
-					animator.SetTrigger ("PlayerIdleDown");
+					animator.SetTrigger ("IdleDown");
 					weaponAnimator.SetTrigger ("WeaponOnIdleDown");
 					break;
 				case "LEFT": 
-					animator.SetTrigger ("PlayerIdleLeft");
+					animator.SetTrigger ("IdleLeft");
 					weaponAnimator.SetTrigger ("WeaponOnIdleLeft");
 					break;
 				case "RIGHT": 
-					animator.SetTrigger ("PlayerIdleRight");
+					animator.SetTrigger ("IdleRight");
 					weaponAnimator.SetTrigger ("WeaponOnIdleRight");
 					break;
 				default:
-					animator.SetTrigger ("PlayerIdleDown");
+					animator.SetTrigger ("IdleDown");
 					weaponAnimator.SetTrigger ("WeaponOnIdleDown");
 					break;
 				}

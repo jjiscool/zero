@@ -81,16 +81,16 @@
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
  </Reference>
  <Reference Include="DOTween">
- <HintPath>/Users/jiaojian/Documents/Source/zero/client/UGame/Assets/DOTween/DOTween.dll</HintPath>
+ <HintPath>/Users/kola/Documents/Unity/Zero/zero/client/UGame/Assets/DOTween/DOTween.dll</HintPath>
  </Reference>
  <Reference Include="DOTween43">
- <HintPath>/Users/jiaojian/Documents/Source/zero/client/UGame/Assets/DOTween/DOTween43.dll</HintPath>
+ <HintPath>/Users/kola/Documents/Unity/Zero/zero/client/UGame/Assets/DOTween/DOTween43.dll</HintPath>
  </Reference>
  <Reference Include="DOTween46">
- <HintPath>/Users/jiaojian/Documents/Source/zero/client/UGame/Assets/DOTween/DOTween46.dll</HintPath>
+ <HintPath>/Users/kola/Documents/Unity/Zero/zero/client/UGame/Assets/DOTween/DOTween46.dll</HintPath>
  </Reference>
  <Reference Include="DOTween50">
- <HintPath>/Users/jiaojian/Documents/Source/zero/client/UGame/Assets/DOTween/DOTween50.dll</HintPath>
+ <HintPath>/Users/kola/Documents/Unity/Zero/zero/client/UGame/Assets/DOTween/DOTween50.dll</HintPath>
  </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
