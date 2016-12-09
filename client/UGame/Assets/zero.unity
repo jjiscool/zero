@@ -1001,7 +1001,7 @@ Camera:
   field of view: 60
   orthographic: 1
   orthographic size: 4
-  m_Depth: 5
+  m_Depth: 1
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294836424
@@ -2299,11 +2299,8 @@ MonoBehaviour:
   playerPrefab: {fileID: 1000010979427918, guid: ed8af03184d2b4a9d8646090a62bc181,
     type: 2}
   enemyPrefab:
-
-  - {fileID: 1000013395067358, guid: 286bfd55a8ff048d8bfda6d977a85eb8, type: 2}
-
   - {fileID: 1000010285814586, guid: afc4041cb2dad4445868c70d58a72d4c, type: 2}
-
+  - {fileID: 0}
   downStairPrefab: {fileID: 1000013825434464, guid: 166a40119fce74730a03355129b6f5bb,
     type: 2}
   LevelTitlePrefab: {fileID: 1000013393431564, guid: 6c2e97074bdc5442d998f01aa61b43f1,
