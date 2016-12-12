@@ -513,7 +513,7 @@ public class RandomDungeonCreator : MonoBehaviour {
 	public void creatEnemies(){
 		for (int i = 0; i < EnemyNum; i++) {
 			int[] tp = pickAplace ();
-			ObjectEnemy oe = new ObjectEnemy (tp [0], tp [1], 0);
+			ObjectEnemy oe = new ObjectEnemy (tp [0], tp [1], Random.Range (0, 2));//生成敌人的类型
 			obj_list.addObj (oe);
 		}
 	}
