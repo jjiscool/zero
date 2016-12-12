@@ -7,29 +7,189 @@ Font:
   m_PrefabInternal: {fileID: 0}
   m_Name: DnumFont
   serializedVersion: 5
-  m_AsciiStartOffset: 48
+  m_AsciiStartOffset: 0
   m_Tracking: 1
   m_LineSpacing: 8
   m_CharacterSpacing: 0
-  m_CharacterPadding: 1
+  m_CharacterPadding: 0
   m_ConvertCase: 0
   m_DefaultMaterial: {fileID: 2100000, guid: 606c848d9a68246619d49434e355e246, type: 2}
   m_CharacterRects:
   - serializedVersion: 2
-    index: 0
+    index: 45
     uv:
       serializedVersion: 2
       x: 0
       y: 0
-      width: 0
-      height: 0
+      width: 0.08
+      height: 1
     vert:
       serializedVersion: 2
       x: 0
       y: 0
-      width: 0
-      height: 0
-    advance: 0
+      width: 7
+      height: 7
+    advance: 7
+    flipped: 0
+  - serializedVersion: 2
+    index: 48
+    uv:
+      serializedVersion: 2
+      x: 0.09
+      y: 0
+      width: 0.08
+      height: 1
+    vert:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 7
+      height: 7
+    advance: 7
+    flipped: 0
+  - serializedVersion: 2
+    index: 49
+    uv:
+      serializedVersion: 2
+      x: 0.9
+      y: 0
+      width: 0.058
+      height: 1
+    vert:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 5
+      height: 7
+    advance: 7
+    flipped: 0
+  - serializedVersion: 2
+    index: 50
+    uv:
+      serializedVersion: 2
+      x: 0.19
+      y: 0
+      width: 0.08
+      height: 1
+    vert:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 7
+      height: 7
+    advance: 7
+    flipped: 0
+  - serializedVersion: 2
+    index: 51
+    uv:
+      serializedVersion: 2
+      x: 0.28
+      y: 0
+      width: 0.08
+      height: 1
+    vert:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 7
+      height: 7
+    advance: 7
+    flipped: 0
+  - serializedVersion: 2
+    index: 52
+    uv:
+      serializedVersion: 2
+      x: 0.37
+      y: 0
+      width: 0.08
+      height: 1
+    vert:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 7
+      height: 7
+    advance: 7
+    flipped: 0
+  - serializedVersion: 2
+    index: 53
+    uv:
+      serializedVersion: 2
+      x: 0.465
+      y: 0
+      width: 0.08
+      height: 1
+    vert:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 7
+      height: 7
+    advance: 7
+    flipped: 0
+  - serializedVersion: 2
+    index: 54
+    uv:
+      serializedVersion: 2
+      x: 0.558
+      y: 0
+      width: 0.08
+      height: 1
+    vert:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 7
+      height: 7
+    advance: 7
+    flipped: 0
+  - serializedVersion: 2
+    index: 55
+    uv:
+      serializedVersion: 2
+      x: 0.651
+      y: 0
+      width: 0.08
+      height: 1
+    vert:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 7
+      height: 7
+    advance: 7
+    flipped: 0
+  - serializedVersion: 2
+    index: 56
+    uv:
+      serializedVersion: 2
+      x: 0.744
+      y: 0
+      width: 0.08
+      height: 1
+    vert:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 7
+      height: 7
+    advance: 7
+    flipped: 0
+  - serializedVersion: 2
+    index: 57
+    uv:
+      serializedVersion: 2
+      x: 0.837
+      y: 0
+      width: 0.08
+      height: 1
+    vert:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 7
+      height: 7
+    advance: 7
     flipped: 0
   m_Texture: {fileID: 0}
   m_KerningValues: []
