@@ -22,6 +22,7 @@ GameObject:
   - 23: {fileID: 23000013733425514}
   - 102: {fileID: 102000012449069322}
   - 95: {fileID: 95000010690958582}
+  - 222: {fileID: 222000013064803982}
   m_Layer: 17
   m_Name: damage_text
   m_TagString: Untagged
@@ -93,11 +94,17 @@ TextMesh:
   m_TabSize: 4
   m_FontSize: 8
   m_FontStyle: 0
-  m_RichText: 0
+  m_RichText: 1
   m_Font: {fileID: 12800000, guid: 419474b9b4be2438ab2d57cfbb2e1de7, type: 2}
   m_Color:
     serializedVersion: 2
     rgba: 4294967295
+--- !u!222 &222000013064803982
+CanvasRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013004653222}
 --- !u!224 &224000012974101804
 RectTransform:
   m_ObjectHideFlags: 1

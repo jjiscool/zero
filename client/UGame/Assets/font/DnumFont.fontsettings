@@ -36,9 +36,9 @@ Font:
     uv:
       serializedVersion: 2
       x: 0.09
-      y: 0
+      y: 1
       width: 0.08
-      height: 1
+      height: -1
     vert:
       serializedVersion: 2
       x: 0
@@ -51,26 +51,26 @@ Font:
     index: 49
     uv:
       serializedVersion: 2
-      x: 0.9
-      y: 0
+      x: 0.93
+      y: 1
       width: 0.058
-      height: 1
+      height: -1
     vert:
       serializedVersion: 2
       x: 0
       y: 0
       width: 5
       height: 7
-    advance: 7
+    advance: 5
     flipped: 0
   - serializedVersion: 2
     index: 50
     uv:
       serializedVersion: 2
       x: 0.19
-      y: 0
+      y: 1
       width: 0.08
-      height: 1
+      height: -1
     vert:
       serializedVersion: 2
       x: 0
@@ -84,9 +84,9 @@ Font:
     uv:
       serializedVersion: 2
       x: 0.28
-      y: 0
+      y: 1
       width: 0.08
-      height: 1
+      height: -1
     vert:
       serializedVersion: 2
       x: 0
@@ -100,9 +100,9 @@ Font:
     uv:
       serializedVersion: 2
       x: 0.37
-      y: 0
+      y: 1
       width: 0.08
-      height: 1
+      height: -1
     vert:
       serializedVersion: 2
       x: 0
@@ -116,9 +116,9 @@ Font:
     uv:
       serializedVersion: 2
       x: 0.465
-      y: 0
+      y: 1
       width: 0.08
-      height: 1
+      height: -1
     vert:
       serializedVersion: 2
       x: 0
@@ -132,9 +132,9 @@ Font:
     uv:
       serializedVersion: 2
       x: 0.558
-      y: 0
+      y: 1
       width: 0.08
-      height: 1
+      height: -1
     vert:
       serializedVersion: 2
       x: 0
@@ -148,9 +148,9 @@ Font:
     uv:
       serializedVersion: 2
       x: 0.651
-      y: 0
+      y: 1
       width: 0.08
-      height: 1
+      height: -1
     vert:
       serializedVersion: 2
       x: 0
@@ -164,9 +164,9 @@ Font:
     uv:
       serializedVersion: 2
       x: 0.744
-      y: 0
+      y: 1
       width: 0.08
-      height: 1
+      height: -1
     vert:
       serializedVersion: 2
       x: 0
@@ -180,9 +180,9 @@ Font:
     uv:
       serializedVersion: 2
       x: 0.837
-      y: 0
+      y: 1
       width: 0.08
-      height: 1
+      height: -1
     vert:
       serializedVersion: 2
       x: 0
