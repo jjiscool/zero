@@ -301,6 +301,7 @@ public class playerMove : MonoBehaviour {
 		damageAnimator.SetTrigger ("isDamage");
 
 		Animator manAnimator=transform.Find("main").GetComponent<Animator> ();
+		//攻击的处理
 		manAnimator.SetTrigger ("shake");
 	}
 	//AI决策

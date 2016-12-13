@@ -275,6 +275,7 @@ public class ActionPhase:Phase{
 			tr.GetComponent<playerMove> ().NOACTION_Actioning();
 			break;
 		case ACTION_TYPE.ACTION_ATTACK:
+			//攻击的动画处理
 			tr.GetComponent<playerMove> ().Attack_Actioning ();
 			break;
 		}
