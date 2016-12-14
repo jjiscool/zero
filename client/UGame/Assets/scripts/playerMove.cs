@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
+
 public class playerMove : MonoBehaviour {
 	private bool isMoving;
 	//private Vector3 beginxy;
@@ -14,6 +16,7 @@ public class playerMove : MonoBehaviour {
 
 	private GameObject role;
 	private GameObject weapon;
+	private GameObject death;
 
 	//player初始位置
 	private int[] iniCell;
@@ -55,8 +58,9 @@ public class playerMove : MonoBehaviour {
 	public Astar astar;
 	void Awake(){
 		map = GameObject.Find ("map");
-		role = transform.Find ("main").Find ("man").gameObject;
-		weapon = transform.Find ("main").Find ("weapon").gameObject;
+		role = transform.Find ("main/man").gameObject;
+		weapon = transform.Find ("main/weapon").gameObject;
+
 		//Debug.Log (weapon.name);
 		Movabletiles=new List<GameObject>();
 		Attackabletiles=new List<GameObject>();
@@ -86,7 +90,9 @@ public class playerMove : MonoBehaviour {
 
 	}
 	void Start () {
-		
+
+//		Debug.Log (death);
+//		Debug.Log ("sssssssssssssss");
 
 	}
 
@@ -302,7 +308,21 @@ public class playerMove : MonoBehaviour {
 
 		Animator manAnimator=transform.Find("main").GetComponent<Animator> ();
 		//攻击的处理
-		manAnimator.SetTrigger ("shake");
+//		manAnimator.SetTrigger ("shake");
+		//震动
+		transform.DOShakePosition(1,0.1f,10,90,false,true);
+//		transform.Find("main/man").DOLocalJump(new Vector3(0.1f,0,0),2,3,1,false);
+		SpriteRenderer roleSprite = role.GetComponent<SpriteRenderer> ();
+		Color defaultColor = new Color (1, 1, 1, 1);
+		Color flashColor = new Color (0.95f, 0.64f, 0.64f, 1);
+		roleSprite.DOColor(flashColor,0.3f).SetLoops(3).OnComplete(()=>roleSprite.DOColor(defaultColor,0f));
+
+		//碎片
+
+			
+
+
+
 	}
 	//AI决策
 	public void AI(){
@@ -369,7 +389,29 @@ public class playerMove : MonoBehaviour {
 			Debug.Log (transform.name+" Dead!");
 			GameObject.Find ("map").GetComponent<RoundControler>().RemoveGOFromRoundControler (transform.gameObject);
 			GameObject.Find ("map").GetComponent<RandomDungeonCreator> ().obj_list.RemoveObjByID (MapOBJ.id);
-			Destroy (transform.gameObject);
+			if (transform.Find ("death") != null) {
+				Destroy (role);
+				death = transform.Find ("death").gameObject;
+				Sequence debrisSequence = DOTween.Sequence ();
+				Transform debris0 = death.transform.Find ("debris0");
+				Transform debris1 = death.transform.Find ("debris1");
+				Transform debris2 = death.transform.Find ("debris2");
+				debrisSequence.Append (debris0.DOLocalJump (new Vector3 (1f, -0.3f, 0), 1, 3, 1, false));
+				debrisSequence.Join (debris1.DOLocalJump (new Vector3 (-1f, -0.1f, 0), 1, 3, 0.9f, false));
+				debrisSequence.Join (debris2.DOLocalJump (new Vector3 (0.5f, -0.4f, 0), 1, 3, 0.9f, false));
+				debrisSequence.Join (debris0.GetComponent<SpriteRenderer>().DOFade(0,0.9f));
+				debrisSequence.Join (debris1.GetComponent<SpriteRenderer>().DOFade(0,0.9f));
+				debrisSequence.Join (debris2.GetComponent<SpriteRenderer>().DOFade(0,0.9f));
+				debrisSequence.AppendCallback (() => Destroy (transform.gameObject));
+
+//				death.transform.Find ("debris2").DOLocalJump (new Vector3 (0.5f, 0.4f, 0), 1, 3, 0.9f, false);
+//				death.transform.Find ("debris1").DOLocalJump (new Vector3 (-1f, 0.1f, 0), 1, 3, 0.9f, false);
+//				death.transform.Find ("debris0").DOLocalJump (new Vector3 (1f, -0.3f, 0), 1, 3, 1, false).OnComplete(()=>Destroy (transform.gameObject));
+
+			} else {
+				Destroy (transform.gameObject);
+			}
+
 		}
 	}
 	// Update is called once per frame
