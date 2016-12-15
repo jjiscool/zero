@@ -512,21 +512,21 @@ public class playerMove : MonoBehaviour {
 		}
 	}
 	public void initHeadIcon(){
-		Vector3 newp = new Vector3(transform.position.x,transform.position.y+0.65f, 1);
+		Vector3 newp = new Vector3(transform.position.x+0.2f,transform.position.y+0.6f, 1);
 		Tanhao=(GameObject)Instantiate (TanhaoPb,newp,transform.rotation);
 		//Tanhao.layer=10;
 		Tanhao.GetComponent<SpriteRenderer> ().sortingOrder = 2;
 		Tanhao.transform.SetParent (transform);
 		Tanhao.SetActive (false);
 		Tanhao.name=transform.name+" Tanhao";
-		Vector3 newp2 = new Vector3(transform.position.x,transform.position.y+0.65f, 1);
+		Vector3 newp2 = new Vector3(transform.position.x+0.2f,transform.position.y+0.6f, 1);
 		Zhandou=(GameObject)Instantiate (ZhandouPb,newp2,transform.rotation);
 		//Zhandou.layer = 10;
 		Zhandou.GetComponent<SpriteRenderer> ().sortingOrder = 2;
 		Zhandou.transform.SetParent (transform);
 		Zhandou.SetActive (false);
 		Zhandou.name=transform.name+" Zhandou";
-		Vector3 newp3 = new Vector3(transform.position.x,transform.position.y+0.65f, 1);
+		Vector3 newp3 = new Vector3(transform.position.x+0.2f,transform.position.y+0.6f, 1);
 		Wenhao=(GameObject)Instantiate (WenhaoPb,newp3,transform.rotation);
 		//Wenhao.layer = 10;
 		Wenhao.GetComponent<SpriteRenderer> ().sortingOrder = 2;
