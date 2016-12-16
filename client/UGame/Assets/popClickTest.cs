@@ -21,7 +21,6 @@ public class popClickTest : MonoBehaviour {
 		popController.btnConfirmEvent += doConfirm;
 		popController.btnCancelEvent += doCancel;
 		popController.popTitText = "测试title";
-
 		GameObject.Find ("popContainer").GetComponent<popController> ().fadeIn("ConfirmPop");
 	}
 

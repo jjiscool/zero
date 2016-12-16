@@ -214,7 +214,7 @@ public class Astar{
 				return;
 			}
 		}
-		Debug.Log ("Cant find");
+		//Debug.Log ("Cant find");
 		//printFinal ();
 	}
 	public void addToOpen(int p){

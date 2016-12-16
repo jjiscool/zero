@@ -84,7 +84,7 @@ Material:
       second: 1
     - first:
         name: _ColorMask
-      second: 15
+      second: 25
     - first:
         name: _Cutoff
       second: 0.5

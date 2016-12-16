@@ -5,6 +5,7 @@ public class playerStatus : MonoBehaviour {
 	public int MinSight;
 	public int MaxSight;
 	public int Money;
+	public int LV;
 	public int HP;
 	public int HPMAX;
 	public int AP;

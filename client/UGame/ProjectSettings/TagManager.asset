@@ -24,7 +24,7 @@ TagManager:
   - ROOM
   - Blocking
   - icon
-  - 
+  - damagetext
   - 
   - 
   - 
@@ -62,4 +62,10 @@ TagManager:
     locked: 0
   - name: Light
     uniqueID: 990582713
+    locked: 0
+  - name: damagetext
+    uniqueID: 3696084767
+    locked: 0
+  - name: icon
+    uniqueID: 527302545
     locked: 0

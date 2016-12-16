@@ -306,9 +306,42 @@ public class RoundEndPhase:Phase{
 				Debug.Log ("No this action type");
 				break;
 			case ACTION_TYPE.ACTION_MOVE:
+				Debug.Log ("MOVE END?"+act.SUBJECT.GetComponent<playerStatus> ().AI);
 				//这里判断如果移动到出口、或触发其他结算，可阻碍进入等待阶段
-				PH.state = new WaitingPhase(PH,act);
-				PH.state.handle (new Action (ACTION_TYPE.ACTION_NULL,act.SUBJECT));
+				if (!act.SUBJECT.GetComponent<playerStatus> ().AI) {
+					int r = act.SUBJECT.gameObject.GetComponent<playerMove> ().MapOBJ.row;
+					int c = act.SUBJECT.gameObject.GetComponent<playerMove> ().MapOBJ.column;
+					List<OBJTYPEData> objs = GameObject.Find ("map").GetComponent<RandomDungeonCreator> ().obj_list.getObjByRowColumn (r, c);
+					bool isblock = false;
+					for (int i = 0; i < objs.Count; i++) {
+						if (objs [i].type == OBJTYPE.OBJTYPE_DOWNSTAIRS)
+							isblock = true;
+					}
+					Debug.Log ("block?"+isblock);
+					if (isblock) {
+						popController.btnConfirmEvent += () => {  
+							Debug.Log ("OK");  
+							GameObject.Find("map").GetComponent<MapObjectGenerator> ().NewDungeon ();
+							GameObject.Find ("popContainer").GetComponent<popController> ().fadeOut ();
+						}; 
+						popController.btnCancelEvent += () => {  
+							Debug.Log ("Not OK");  
+							GameObject.Find ("popContainer").GetComponent<popController> ().fadeOut ();
+							PH.state = new WaitingPhase (PH, act);
+							PH.state.handle (new Action (ACTION_TYPE.ACTION_NULL, act.SUBJECT));
+						};
+						popController.popTitText = "是否进入下层？";
+						GameObject.Find ("popContainer").GetComponent<popController> ().fadeIn ("ConfirmPop");
+
+					} else {
+						PH.state = new WaitingPhase (PH, act);
+						PH.state.handle (new Action (ACTION_TYPE.ACTION_MOVE, act.SUBJECT));
+					}
+
+				} else {
+					PH.state = new WaitingPhase (PH, act);
+					PH.state.handle (new Action (ACTION_TYPE.ACTION_MOVE, act.SUBJECT));
+				}
 				break;
 			case ACTION_TYPE.ACTION_NULL:
 				PH.state = new WaitingPhase(PH,act);

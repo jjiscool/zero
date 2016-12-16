@@ -229,7 +229,7 @@ public class playerMove : MonoBehaviour {
 			else pathid--;
 			//如果所有移动都结束，结束回合
 			if (pathid < 0 && isMoving) {
-				transform.gameObject.GetComponent<PhaseHandler> ().state.handle (new Action (ACTION_TYPE.ACTION_NULL, transform.gameObject));
+				transform.gameObject.GetComponent<PhaseHandler> ().state.handle (new Action (ACTION_TYPE.ACTION_MOVE, transform.gameObject));
 				isMoving = false;
 				//根据朝向设置 player的动画
 				switch (orientation) {
@@ -334,15 +334,12 @@ public class playerMove : MonoBehaviour {
 	}
 	public void CastDamage(int dg){
 		DamageText= (GameObject)Instantiate (DamageTextPb,new Vector2(0,0),transform.rotation);
-		DamageText.transform.SetParent (GameObject.Find("TextArea").transform);
-		DamageText.GetComponent<Text> ().rectTransform.localScale = new Vector3 (1.5f, 2f, 1);
-		DamageText.GetComponent<Text> ().rectTransform.localPosition = new Vector3 (0, 0, 0);
-		DamageText.GetComponent<Text> ().text = "-" + dg;
-		float newx = map.GetComponent<TilesManager>().posTransform(MapOBJ.row,MapOBJ.column).x -GameObject.Find("Cameras").transform.position.x  ;
-		float newy = map.GetComponent<TilesManager>().posTransform(MapOBJ.row,MapOBJ.column).y-GameObject.Find("Cameras").transform.position.y  ;
-		Debug.Log ( map.GetComponent<TilesManager>().posTransform(MapOBJ.row,MapOBJ.column).x+","+map.GetComponent<TilesManager>().posTransform(MapOBJ.row,MapOBJ.column).y+" =>" + GameObject.Find("Cameras").transform.position.x + "," + GameObject.Find("Cameras").transform.position.y);
-		//Debug.Log (newx*32.0f+","+newy*32.0f);
-		DamageText.GetComponent<deleteDamageText> ().Cast (newx*40.0f,newy*40.0f);
+		DamageText.transform.SetParent (transform);
+		DamageText.GetComponent<MeshRenderer> ().sortingOrder = 2;
+		//DamageText.transform.localScale = new Vector3 (1.0f, 1.0f, 1);
+		DamageText.transform.localPosition = new Vector3 (0, 0, 0);
+		DamageText.GetComponent<TextMesh> ().text = "-" + dg;
+		DamageText.GetComponent<deleteDamageText> ().Cast (0,0);
 		//DamageText.GetComponent<TextMesh> ().text = "-" + dg;
 		//DamageText.GetComponent<MeshRenderer> ().sortingOrder = 3;
 		//DamageText.transform.SetParent (transform);
@@ -588,21 +585,25 @@ public class playerMove : MonoBehaviour {
 			Tanhao.SetActive (false);
 			Zhandou.SetActive (false);
 			Wenhao.SetActive (false);
+			transform.Find ("HpLvInfo").gameObject.SetActive (false);
 			break;
 		case 1:
 			Tanhao.SetActive (false);
 			Zhandou.SetActive (false);
 			Wenhao.SetActive (true);
+			transform.Find ("HpLvInfo").gameObject.SetActive (false);
 			break;
 		case 2:
 			Tanhao.SetActive (true);
 			Zhandou.SetActive (false);
 			Wenhao.SetActive (false);
+			transform.Find ("HpLvInfo").gameObject.SetActive (false);
 			break;
 		case 3:
 			Tanhao.SetActive (false);
 			Zhandou.SetActive (true);
 			Wenhao.SetActive (false);
+			transform.Find ("HpLvInfo").gameObject.SetActive (true);
 			break;
 
 		}

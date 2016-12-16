@@ -75,6 +75,7 @@
      <None Include="Assets\DOTween\DOTween46.xml" />
      <None Include="Assets\mask.shader" />
      <None Include="Assets\font\Dnum.fnt" />
+     <None Include="Assets\text.shader" />
      <None Include="Assets\DOTween\readme.txt" />
      <None Include="Assets\lightCover.shader" />
      <None Include="Assets\DOTween\DOTween50.xml" />

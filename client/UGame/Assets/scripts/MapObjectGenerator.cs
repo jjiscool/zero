@@ -60,6 +60,7 @@ public class MapObjectGenerator : MonoBehaviour {
 		map.GetComponent<RoundControler> ().player = a;
 		a.GetComponent<playerStatus> ().AI = false;
 		a.GetComponent<playerStatus> ().HP = Random.Range (0, 100);
+		a.GetComponent<playerStatus> ().LV = Random.Range (1, 100);
 		a.GetComponent<playerStatus> ().HPMAX = a.GetComponent<playerStatus> ().HP;//测试血槽 by kola
 		a.GetComponent<playerStatus> ().ATK = Random.Range (1, 10);
 		a.GetComponent<playerStatus> ().ATKRange=Random.Range (1, 4);
@@ -91,6 +92,7 @@ public class MapObjectGenerator : MonoBehaviour {
 			a.GetComponent<playerMove> ().set (ems[i].row,ems[i].column);
 			map.GetComponent<RoundControler> ().enemy.Add(a);
 			a.GetComponent<playerStatus> ().AI = true;
+			a.GetComponent<playerStatus> ().LV = Random.Range (1, 100);
 			a.GetComponent<playerStatus> ().HP = Random.Range (1, 100);
 			a.GetComponent<playerStatus> ().HPMAX = a.GetComponent<playerStatus> ().HP;
 			a.GetComponent<playerStatus> ().ATK = Random.Range (1, 20);
