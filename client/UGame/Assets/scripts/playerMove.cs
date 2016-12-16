@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
-
+using UnityEngine.UI;
 public class playerMove : MonoBehaviour {
 	private bool isMoving;
 	//private Vector3 beginxy;
@@ -11,7 +11,6 @@ public class playerMove : MonoBehaviour {
 	public float step;
 	public OBJTYPEData MapOBJ;
 	// Use this for initialization
-
 	private GameObject map;
 
 	private GameObject role;
@@ -335,14 +334,23 @@ public class playerMove : MonoBehaviour {
 	}
 	public void CastDamage(int dg){
 		DamageText= (GameObject)Instantiate (DamageTextPb,new Vector2(0,0),transform.rotation);
-		DamageText.GetComponent<TextMesh> ().text = "-" + dg;
-		DamageText.GetComponent<MeshRenderer> ().sortingOrder = 3;
-		DamageText.transform.SetParent (transform);
+		DamageText.transform.SetParent (GameObject.Find("TextArea").transform);
+		DamageText.GetComponent<Text> ().rectTransform.localScale = new Vector3 (1.5f, 2f, 1);
+		DamageText.GetComponent<Text> ().rectTransform.localPosition = new Vector3 (0, 0, 0);
+		DamageText.GetComponent<Text> ().text = "-" + dg;
+		float newx = map.GetComponent<TilesManager>().posTransform(MapOBJ.row,MapOBJ.column).x -GameObject.Find("Cameras").transform.position.x  ;
+		float newy = map.GetComponent<TilesManager>().posTransform(MapOBJ.row,MapOBJ.column).y-GameObject.Find("Cameras").transform.position.y  ;
+		Debug.Log ( map.GetComponent<TilesManager>().posTransform(MapOBJ.row,MapOBJ.column).x+","+map.GetComponent<TilesManager>().posTransform(MapOBJ.row,MapOBJ.column).y+" =>" + GameObject.Find("Cameras").transform.position.x + "," + GameObject.Find("Cameras").transform.position.y);
+		//Debug.Log (newx*32.0f+","+newy*32.0f);
+		DamageText.GetComponent<deleteDamageText> ().Cast (newx*40.0f,newy*40.0f);
+		//DamageText.GetComponent<TextMesh> ().text = "-" + dg;
+		//DamageText.GetComponent<MeshRenderer> ().sortingOrder = 3;
+		//DamageText.transform.SetParent (transform);
 		//Debug.Log (transform.position);
-		Animator damageAnimator=DamageText.GetComponent<Animator> ();
-		damageAnimator.SetTrigger ("isDamage");
+		//Animator damageAnimator=DamageText.GetComponent<Animator> ();
+		//damageAnimator.SetTrigger ("isDamage");
 
-		Animator manAnimator=transform.Find("main").GetComponent<Animator> ();
+//		Animator manAnimator=transform.Find("main").GetComponent<Animator> ();
 		//攻击的处理
 //		manAnimator.SetTrigger ("shake");
 		//震动

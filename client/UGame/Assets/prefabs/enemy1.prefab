@@ -484,7 +484,7 @@ MonoBehaviour:
   AttackabletilePb: {fileID: 1000013590549552, guid: 68ce51875a2ac4da1a278ba4be82150b,
     type: 2}
   AttackableClickePb: {fileID: 0}
-  DamageTextPb: {fileID: 1000013004653222, guid: 35ca95f90f98f427e9c2164acf25c0fe,
+  DamageTextPb: {fileID: 1554311742420426, guid: 35ca95f90f98f427e9c2164acf25c0fe,
     type: 2}
   DamageText: {fileID: 0}
 --- !u!114 &114000014066654586

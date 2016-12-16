@@ -337,7 +337,7 @@ public class RoundEndPhase:Phase{
 			break;
 		case ACTION_TYPE.ACTION_ATTACK:
 			//tr.GetComponent<playerMove> ().Attack_Actioning ();
-			if(act.OBJECT.GetComponent<playerMove>().DamageText.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).normalizedTime>=1.0f){
+			if(act.OBJECT.GetComponent<playerMove>().DamageText==null){
 				if (act.OBJECT.GetComponent<playerStatus> ().HP <= 0) {
 					act.OBJECT.GetComponent<playerMove> ().Dead();
 				}
@@ -380,6 +380,6 @@ public class PhaseHandler : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		//执行对应阶段的更新
-		state.update (transform);
+		if(transform!=null)state.update (transform);
 	}
 }
