@@ -291,6 +291,42 @@ public class playerMove : MonoBehaviour {
 		Action Atk = new Action (ACTION_TYPE.ACTION_ATTACK,transform.gameObject);
 		Atk.OBJECT = obj;
 		transform.GetComponent<PhaseHandler>().state.handle (Atk);
+		//被攻击对象 行，列
+		int[] aimsCellPos = map.GetComponent<TilesManager> ().posTransform2 (obj.transform.position.x, obj.transform.position.y);
+		int aimsCellPosRow = aimsCellPos [0];
+		int aimsCellPosCol = aimsCellPos [1];
+		//当前对象 行，列
+		int[] curCellPos = map.GetComponent<TilesManager> ().posTransform2 (transform.position.x, transform.position.y);
+		int curCellPosRow = curCellPos [0];
+		int curCellPosCol = curCellPos [1];
+
+		if (aimsCellPosRow < curCellPosRow) {
+			//攻击上方
+			PlaceRoleBehindWeapon ();
+			animator.SetTrigger ("IdleUp");
+			weaponAnimator.SetTrigger ("WeaponOnIdleUp");
+			transform.DOPunchPosition (new Vector3 (0, 0.3f, 0), 0.3f, 2, 0.5f, false);
+		} else if (aimsCellPosRow > curCellPosRow) {
+			//攻击下方
+			PlaceRoleBeforeWeapon ();
+			animator.SetTrigger ("IdleDown");
+			weaponAnimator.SetTrigger ("WeaponOnIdleDown");
+			transform.DOPunchPosition (new Vector3 (0, -0.3f, 0), 0.3f, 2, 0.5f, false);
+		} else if (aimsCellPosCol < curCellPosCol) {
+			//攻击左方
+			PlaceRoleBeforeWeapon ();
+			animator.SetTrigger ("IdleLeft");
+			weaponAnimator.SetTrigger ("WeaponOnIdleLeft");
+			transform.DOPunchPosition (new Vector3 (-0.3f, 0, 0), 0.3f, 2, 0.5f, false);
+		}else if (aimsCellPosCol > curCellPosCol) {
+			//攻击左方
+			PlaceRoleBeforeWeapon ();
+			animator.SetTrigger ("IdleRight");
+			weaponAnimator.SetTrigger ("WeaponOnIdleRight");
+			transform.DOPunchPosition (new Vector3 (0.3f, 0, 0), 0.3f, 2, 0.5f, false);
+		}
+
+
 	}
 	//决策攻击的动画阶段
 	public void Attack_Actioning(){
@@ -317,7 +353,7 @@ public class playerMove : MonoBehaviour {
 		Color flashColor = new Color (0.95f, 0.64f, 0.64f, 1);
 		roleSprite.DOColor(flashColor,0.3f).SetLoops(3).OnComplete(()=>roleSprite.DOColor(defaultColor,0f));
 
-		//碎片
+
 
 			
 
@@ -393,15 +429,19 @@ public class playerMove : MonoBehaviour {
 				Destroy (role);
 				death = transform.Find ("death").gameObject;
 				Sequence debrisSequence = DOTween.Sequence ();
+				//碎片
 				Transform debris0 = death.transform.Find ("debris0");
 				Transform debris1 = death.transform.Find ("debris1");
 				Transform debris2 = death.transform.Find ("debris2");
-				debrisSequence.Append (debris0.DOLocalJump (new Vector3 (1f, -0.3f, 0), 1, 3, 1, false));
-				debrisSequence.Join (debris1.DOLocalJump (new Vector3 (-1f, -0.1f, 0), 1, 3, 0.9f, false));
-				debrisSequence.Join (debris2.DOLocalJump (new Vector3 (0.5f, -0.4f, 0), 1, 3, 0.9f, false));
+				Transform debris3 = death.transform.Find ("debris3");
+				debrisSequence.Append (debris0.DOLocalJump (new Vector3 (0.5f, -0.3f, 0), 1, 2, 1, false));
+				debrisSequence.Join (debris1.DOLocalJump (new Vector3 (-0.6f, -0.1f, 0), 1, 2, 1, false));
+				debrisSequence.Join (debris2.DOLocalJump (new Vector3 (1f, -0.4f, 0), 1, 3, 0.6f, false));
+				debrisSequence.Join (debris3.DOLocalJump (new Vector3 (-1f, 0f, 0), 1, 3, 0.6f, false));
 				debrisSequence.Join (debris0.GetComponent<SpriteRenderer>().DOFade(0,0.9f));
 				debrisSequence.Join (debris1.GetComponent<SpriteRenderer>().DOFade(0,0.9f));
-				debrisSequence.Join (debris2.GetComponent<SpriteRenderer>().DOFade(0,0.9f));
+				debrisSequence.Join (debris2.GetComponent<SpriteRenderer>().DOFade(0,0.5f));
+				debrisSequence.Join (debris3.GetComponent<SpriteRenderer>().DOFade(0,0.5f));
 				debrisSequence.AppendCallback (() => Destroy (transform.gameObject));
 
 //				death.transform.Find ("debris2").DOLocalJump (new Vector3 (0.5f, 0.4f, 0), 1, 3, 0.9f, false);
