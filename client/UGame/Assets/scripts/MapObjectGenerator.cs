@@ -92,6 +92,7 @@ public class MapObjectGenerator : MonoBehaviour {
 			map.GetComponent<RoundControler> ().enemy.Add(a);
 			a.GetComponent<playerStatus> ().AI = true;
 			a.GetComponent<playerStatus> ().HP = Random.Range (1, 100);
+			a.GetComponent<playerStatus> ().HPMAX = a.GetComponent<playerStatus> ().HP;
 			a.GetComponent<playerStatus> ().ATK = Random.Range (1, 20);
 			a.GetComponent<playerStatus> ().ATKRange=Random.Range (1, 2);
 			a.GetComponent<playerStatus> ().SPEED = Random.Range (1, 20);

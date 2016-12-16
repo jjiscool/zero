@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\dailogbg.cs" />
+     <Compile Include="Assets\infofollow.cs" />
      <Compile Include="Assets\popClickTest.cs" />
      <Compile Include="Assets\scripts\BattleStatusControl.cs" />
      <Compile Include="Assets\scripts\IMESH.cs" />
