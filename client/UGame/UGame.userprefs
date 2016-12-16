@@ -2,17 +2,19 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets/scripts/playerMove.cs">
     <Files>
-      <File FileName="Assets/scripts/PhaseHandler.cs" Line="55" Column="1" />
-      <File FileName="Assets/scripts/playerStatus.cs" Line="21" Column="22" />
-      <File FileName="Assets/scripts/TilesManager.cs" Line="34" Column="33" />
-      <File FileName="Assets/scripts/RandomDungeonCreator.cs" Line="793" Column="1" />
-      <File FileName="Assets/scripts/IMESH.cs" Line="5" Column="2" />
-      <File FileName="Assets/scripts/lightCover.cs" Line="15" Column="23" />
+
+      <File FileName="Assets/scripts/PhaseHandler.cs" Line="215" Column="43" />
+      <File FileName="Assets/scripts/playerMove.cs" Line="293" Column="61" />
+      <File FileName="Assets/scripts/playerStatus.cs" Line="1" Column="1" />
+      <File FileName="Assets/scripts/TilesManager.cs" Line="1" Column="1" />
+      <File FileName="Assets/scripts/RandomDungeonCreator.cs" Line="1" Column="1" />
+      <File FileName="Assets/scripts/IMESH.cs" Line="1" Column="1" />
+      <File FileName="Assets/scripts/lightCover.cs" Line="1" Column="1" />
       <File FileName="Assets/lightCover.shader" Line="1" Column="1" />
       <File FileName="Assets/scripts/UIStatus.cs" Line="1" Column="1" />
-      <File FileName="Assets/scripts/RoundControler.cs" Line="25" Column="54" />
-      <File FileName="Assets/scripts/MapObjectGenerator.cs" Line="64" Column="62" />
-      <File FileName="Assets/scripts/popController.cs" Line="67" Column="58" />
+      <File FileName="Assets/scripts/RoundControler.cs" Line="1" Column="1" />
+      <File FileName="Assets/scripts/MapObjectGenerator.cs" Line="1" Column="1" />
+      <File FileName="Assets/scripts/popController.cs" Line="1" Column="1" />
       <File FileName="Assets/popClickTest.cs" Line="12" Column="1" />
       <File FileName="Assets/scripts/weaponAnim.cs" Line="1" Column="1" />
       <File FileName="Assets/scripts/Wall.cs" Line="6" Column="1" />
