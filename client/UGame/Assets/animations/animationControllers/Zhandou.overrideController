@@ -5,6 +5,6 @@ AnimatorOverrideController:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: New Animator Override Controller
+  m_Name: Zhandou
   m_Controller: {fileID: 0}
   m_Clips: []
